@@ -2,7 +2,7 @@ import 'pages/general _knowledge.dart';
 import 'package:flutter/material.dart';
 
 void main(){
-  
+  //test
   runApp(const Myapp());
 }
 
