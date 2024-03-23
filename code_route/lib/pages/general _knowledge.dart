@@ -27,6 +27,7 @@ class generalknowledge extends StatelessWidget {
               child: Text('title number ${index+1}')
             ),
           ),
+          /*
           trailing:Hero(
             tag: "tag${index+1}", 
             child:GestureDetector(
@@ -35,7 +36,8 @@ class generalknowledge extends StatelessWidget {
               },
               
             )
-          ) ,
+          ),
+          */
         )
       )
     );
