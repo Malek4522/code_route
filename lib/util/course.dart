@@ -22,6 +22,7 @@ class _courseState extends State<course> {
       
       body: Container(
         decoration: BoxDecoration(
+          
           image: DecorationImage(
             image: AssetImage("assets/backround.jpg"),          
             fit: BoxFit.fill,
@@ -29,9 +30,7 @@ class _courseState extends State<course> {
         ),
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            
-            
+            mainAxisAlignment: MainAxisAlignment.start,                       
             children: [ 
               
               Container(
@@ -89,7 +88,7 @@ class _courseState extends State<course> {
           },
           ),
               
-            ),
+      ),
     );
   }
 }
