@@ -1,5 +1,5 @@
-import 'package:code_route/classes/question.dart';
-import 'package:code_route/util/option.dart';
+import '../classes/question.dart';
+import '../util/option.dart';
 import 'package:flutter/material.dart';
 import 'package:quickalert/quickalert.dart';
 

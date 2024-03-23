@@ -1,4 +1,4 @@
-import 'package:code_route/util/course.dart';
+import '../util/course.dart';
 import 'package:flutter/material.dart';
 
 

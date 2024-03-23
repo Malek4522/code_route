@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import 'package:code_route/classes/question.dart';
+import 'question.dart';
 import 'dart:convert';
 
 class connect{
