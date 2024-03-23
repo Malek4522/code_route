@@ -1,15 +1,10 @@
-import 'package:code_route/pages/general%20_knowledge.dart';
 import 'package:flutter/material.dart';
-// chiraz
-
-
-
+import 'package:code_route/pages/form_screen.dart';
 
 void main(){
   
   runApp(const Myapp());
 }
-//chiraaz
 
 class Myapp extends StatelessWidget {
   const Myapp({super.key});
@@ -18,7 +13,7 @@ class Myapp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: generalknowledge(),
+      home: FormScreen(),
     );
   }
 }
