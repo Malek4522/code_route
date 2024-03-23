@@ -96,7 +96,7 @@ class _quizState extends State<quiz> {
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(15),
-                  child: Image.asset('assets/(${i+1}).png',fit: BoxFit.fill,)
+                  child: Image.asset('assets/${i+1}.png',fit: BoxFit.fill,)
                 ),
               ),             
               for(String key in mylist[i].option.keys)

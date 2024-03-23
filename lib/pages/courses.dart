@@ -53,7 +53,8 @@ class _coursesState extends State<courses> {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      image: DecorationImage(image: AssetImage('assets/ (${index+1}).png')),
+                      
+                      image: DecorationImage(image: AssetImage("assets/${index+1}.png")),
                       borderRadius: BorderRadius.circular(50)
                     ),
                     child: GestureDetector(
