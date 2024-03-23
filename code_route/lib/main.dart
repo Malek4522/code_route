@@ -1,7 +1,10 @@
-import 'package:code_route/pages/quiz.dart';
+import 'package:code_route/pages/general%20_knowledge.dart';
 import 'package:flutter/material.dart';
 
+
+
 void main(){
+  
   runApp(const Myapp());
 }
 
@@ -12,7 +15,10 @@ class Myapp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: quiz(),
+      home: generalknowledge(),
     );
   }
 }
+
+
+
