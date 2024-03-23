@@ -29,11 +29,16 @@ class _optionState extends State<option> {
      padding: EdgeInsets.all(8),
       child: GestureDetector(
         child: Container(
+          margin: EdgeInsets.all(15),
           width: double.infinity,
-          height: 25,
-          child: Text(widget.title,textAlign: TextAlign.center,),
+          height: 35,
+          child: Text(
+            widget.title,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 25),
+          ),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
             color: widget.check?
             (widget.valid)? Colors.green:color:
             (color!= Colors.white)? color =Colors.white:color,
