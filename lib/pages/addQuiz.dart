@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class addQuiz extends StatefulWidget {
@@ -11,16 +9,14 @@ class addQuiz extends StatefulWidget {
 class addQuizState extends State<addQuiz> {
   final _textController = TextEditingController();
   List<Object> controllers = [
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
+    for(int i=0;i<5;i++)
+      TextEditingController()  
   ];
 
-  int valeurbn = -1;
+  String? _selectedItem;
   int n = 3;
-  List<int> typeList = [1, 2];
+  List<String> items = ['1', '2', '3', '4'];
+
 
   String valueChoose = 'plaques';
   @override
@@ -110,8 +106,7 @@ class addQuizState extends State<addQuiz> {
                     onPressed: () {
                       if (n < 5) {
                         setState(() {
-                          n++;
-                          typeList.add(n);
+                          n++;                          
                           setState(() {});
                         });
                       }
@@ -128,7 +123,6 @@ class addQuizState extends State<addQuiz> {
                       if (n > 2) {
                         setState(() {
                           n--;
-                          typeList.removeLast();
                           setState(() {});
                         });
                       }
@@ -145,39 +139,22 @@ class addQuizState extends State<addQuiz> {
               ),
 
               //bonne reponse
-              Padding(
-                padding:
-                    const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black12, width: 1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: DropdownButton(
-                    hint: Text('bonne reponse'),
-                    dropdownColor: const Color.fromARGB(255, 216, 214, 214),
-                    icon: Icon(Icons.arrow_drop_down),
-                    isExpanded: true,
-                    underline: SizedBox(),
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22,
-                    ),
-                    value: valeurbn,
-                    onChanged: (newVal) {
-                      setState(() {
-                        valeurbn = newVal!;
-                      });
-                    },
-                    items: typeList.map((valueItem) {
-                      return DropdownMenuItem(
-                        value: valueItem,
-                        child: Text('valueItem'),
-                      );
-                    }).toList(),
-                  ),
-                ),
+              DropdownButton(
+                
+                value: _selectedItem,
+                items: items.map((String item) {
+                  return DropdownMenuItem(
+                    value: item,
+                    child: Text(item,style: TextStyle(color: Colors.red),),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedItem = value ;
+                  });
+                },
               ),
+
               SizedBox(
                 height: 10,
               ),
