@@ -13,9 +13,9 @@ class addQuizState extends State<addQuiz> {
       TextEditingController()  
   ];
 
-  String? _selectedItem;
+  int _selectedItem = 1;
   int n = 3;
-  List<String> items = ['1', '2', '3', '4'];
+  List<int> items = [1,2,3];
 
 
   String valueChoose = 'plaques';
@@ -105,9 +105,11 @@ class addQuizState extends State<addQuiz> {
                     foregroundColor: Colors.black,
                     onPressed: () {
                       if (n < 5) {
+                        items.add(n+1);
                         setState(() {
+                          
                           n++;                          
-                          setState(() {});
+                          
                         });
                       }
                     },
@@ -120,11 +122,13 @@ class addQuizState extends State<addQuiz> {
                     backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                     foregroundColor: Colors.black,
                     onPressed: () {
-                      if (n > 2) {
-                        setState(() {
-                          n--;
-                          setState(() {});
-                        });
+                      if (n > 2) {                        
+                          setState(() {
+                            if(n <= _selectedItem)_selectedItem--;
+                            n--;
+                            items.removeLast();
+                          });
+                                                                                                
                       }
                     },
                     child: Icon(
@@ -142,15 +146,15 @@ class addQuizState extends State<addQuiz> {
               DropdownButton(
                 
                 value: _selectedItem,
-                items: items.map((String item) {
+                items: items.map((int item) {
                   return DropdownMenuItem(
                     value: item,
-                    child: Text(item,style: TextStyle(color: Colors.red),),
+                    child: Text(item.toString(),style: TextStyle(color: Colors.red),),
                   );
                 }).toList(),
                 onChanged: (value) {
                   setState(() {
-                    _selectedItem = value ;
+                    _selectedItem = value as int ;
                   });
                 },
               ),
