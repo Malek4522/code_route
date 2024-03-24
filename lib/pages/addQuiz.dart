@@ -1,18 +1,13 @@
-import 'dart:js_interop';
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
-class ForgotPasword extends StatefulWidget {
-  const ForgotPasword({super.key});
+
+class addQuiz extends StatefulWidget {
+  const addQuiz({super.key});
   @override
-  State<ForgotPasword> createState() => ForgotPaswordState();
+  State<addQuiz> createState() => addQuizState();
 }
 
-class ForgotPaswordState extends State<ForgotPasword> {
+class addQuizState extends State<addQuiz> {
   final _textController = TextEditingController();
   final _choix1Controller = TextEditingController();
   final _choix2Controller = TextEditingController();
@@ -38,7 +33,7 @@ class ForgotPaswordState extends State<ForgotPasword> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage("/lib/images/picprjct.jpg")),
+          image: DecorationImage(image: AssetImage("assets/backround.jpg"),fit: BoxFit.fill),
         ),
         child: Center(
           child: Column(
