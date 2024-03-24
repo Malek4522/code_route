@@ -20,7 +20,7 @@ class addQuizState extends State<addQuiz> {
   final _typedQuizController = TextEditingController();
   int n = 3;
   List<String> typeList = ['plaques', 'priorite', 'gene'];
-  late String valueChoose;
+  String valueChoose = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
