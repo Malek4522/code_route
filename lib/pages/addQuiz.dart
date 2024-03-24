@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 class addQuiz extends StatefulWidget {
   const addQuiz({super.key});
   @override
@@ -21,6 +19,8 @@ class addQuizState extends State<addQuiz> {
   final _bonnereponseController = TextEditingController();
   final _typedQuizController = TextEditingController();
   int n = 3;
+  List<String> typeList = ['plaques', 'priorite', 'gene'];
+  late String valueChoose;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +40,8 @@ class addQuizState extends State<addQuiz> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage("assets/backround.jpg"),fit: BoxFit.fill),
+          image: DecorationImage(
+              image: AssetImage("assets/backround.jpg"), fit: BoxFit.fill),
         ),
         child: Center(
           child: Column(
@@ -73,33 +74,31 @@ class addQuizState extends State<addQuiz> {
               Expanded(
                 child: ListView.builder(
                   itemCount: n,
-                  itemBuilder: (context,index)=> Padding(
-                    padding:
-                        const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
-                    child: TextField(
-                      controller: controllers[index] as TextEditingController,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 255, 255, 255)),
-                          borderRadius: BorderRadius.circular(12),
+                  itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsetsDirectional.symmetric(
+                          horizontal: 25.0),
+                      child: TextField(
+                        controller: controllers[index] as TextEditingController,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color:
+                                    const Color.fromARGB(255, 255, 255, 255)),
+                          ),
+                          hintText: 'choix${index + 1}',
+                          fillColor: Color.fromARGB(255, 216, 214, 214),
+                          filled: true,
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: const Color.fromARGB(255, 255, 255, 255)),
-                        ),
-                        hintText: 'choix${index+1}',
-                        fillColor: Color.fromARGB(255, 216, 214, 214),
-                        filled: true,
-                      ),
-                    )),
-                
-                  
+                      )),
                 ),
               ),
 
               Row(
-                
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -107,28 +106,31 @@ class addQuizState extends State<addQuiz> {
                     backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                     foregroundColor: Colors.black,
                     onPressed: () {
-                      if(n<5){
+                      if (n < 5) {
                         setState(() {
                           n++;
-                          
                         });
                       }
                     },
                     child: Icon(Icons.add),
                   ),
-                  SizedBox(width: 30,),
+                  SizedBox(
+                    width: 30,
+                  ),
                   FloatingActionButton(
                     backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                     foregroundColor: Colors.black,
                     onPressed: () {
-                      if(n>2){
+                      if (n > 2) {
                         setState(() {
                           n--;
-                          
                         });
                       }
                     },
-                    child: Icon(Icons.remove,color: Colors.black,),
+                    child: Icon(
+                      Icons.remove,
+                      color: Colors.black,
+                    ),
                   ),
                 ],
               ),
@@ -164,26 +166,38 @@ class addQuizState extends State<addQuiz> {
               ),
               //type de Quiz
               Padding(
-                  padding:
-                      const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
-                  child: TextField(
-                    controller: _typedQuizController,
-                    decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.arrow_drop_down),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 255, 255, 255)),
-                      ),
-                      hintText: 'typt de QUIZ',
-                      fillColor: Color.fromARGB(255, 216, 214, 214),
-                      filled: true,
+                padding:
+                    const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black12, width: 1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: DropdownButton(
+                    hint: Text('typedeQuiz'),
+                    dropdownColor: const Color.fromARGB(255, 216, 214, 214),
+                    icon: Icon(Icons.arrow_drop_down),
+                    isExpanded: true,
+                    underline: SizedBox(),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 22,
                     ),
-                  )),
+                    value: valueChoose,
+                    onChanged: (newValue) {
+                      setState(() {
+                        valueChoose = newValue!;
+                      });
+                    },
+                    items: typeList.map((valueItem) {
+                      return DropdownMenuItem(
+                        value: valueItem,
+                        child: Text(valueItem),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
 
               // envoyer un message
               Padding(
