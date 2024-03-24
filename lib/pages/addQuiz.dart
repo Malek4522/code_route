@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 
+
 class addQuiz extends StatefulWidget {
   const addQuiz({super.key});
   @override
@@ -9,11 +10,17 @@ class addQuiz extends StatefulWidget {
 
 class addQuizState extends State<addQuiz> {
   final _textController = TextEditingController();
-  final _choix1Controller = TextEditingController();
-  final _choix2Controller = TextEditingController();
+  List<Object> controllers = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+  ];
+
   final _bonnereponseController = TextEditingController();
   final _typedQuizController = TextEditingController();
-
+  int n = 3;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,62 +70,67 @@ class addQuizState extends State<addQuiz> {
               SizedBox(
                 height: 20,
               ),
-
-              // choix1
-              Padding(
-                  padding:
-                      const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
-                  child: TextField(
-                    controller: _choix1Controller,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.circular(12),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: n,
+                  itemBuilder: (context,index)=> Padding(
+                    padding:
+                        const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
+                    child: TextField(
+                      controller: controllers[index] as TextEditingController,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 255, 255, 255)),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: const Color.fromARGB(255, 255, 255, 255)),
+                        ),
+                        hintText: 'choix${index+1}',
+                        fillColor: Color.fromARGB(255, 216, 214, 214),
+                        filled: true,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 255, 255, 255)),
-                      ),
-                      hintText: 'choix1',
-                      fillColor: Color.fromARGB(255, 216, 214, 214),
-                      filled: true,
-                    ),
-                  )),
-              SizedBox(
-                height: 10,
+                    )),
+                
+                  
+                ),
               ),
 
-              // choix2
-              Padding(
-                  padding:
-                      const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
-                  child: TextField(
-                    controller: _choix2Controller,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 255, 255, 255)),
-                      ),
-                      hintText: 'choix2',
-                      fillColor: Color.fromARGB(255, 216, 214, 214),
-                      filled: true,
-                    ),
-                  )),
-              SizedBox(
-                height: 10,
-              ),
-
-              FloatingActionButton(
-                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                foregroundColor: Colors.black,
-                onPressed: () {},
-                child: Icon(Icons.add),
+              Row(
+                
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FloatingActionButton(
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    foregroundColor: Colors.black,
+                    onPressed: () {
+                      if(n<5){
+                        setState(() {
+                          n++;
+                          
+                        });
+                      }
+                    },
+                    child: Icon(Icons.add),
+                  ),
+                  SizedBox(width: 30,),
+                  FloatingActionButton(
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    foregroundColor: Colors.black,
+                    onPressed: () {
+                      if(n>2){
+                        setState(() {
+                          n--;
+                          
+                        });
+                      }
+                    },
+                    child: Icon(Icons.remove,color: Colors.black,),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 10,
