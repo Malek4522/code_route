@@ -1,4 +1,36 @@
-2024/03/23-21:44:22.405 4ddc Reusing MANIFEST C:\Users\abdma\AppData\Local\Temp\flutter_tools.d9875bf6\flutter_tools_chrome_device.d48ef1e4\Default\Site Characteristics Database/MANIFEST-000001
-2024/03/23-21:44:22.406 4ddc Recovering log #6
-2024/03/23-21:44:22.406 4ddc Reusing old log C:\Users\abdma\AppData\Local\Temp\flutter_tools.d9875bf6\flutter_tools_chrome_device.d48ef1e4\Default\Site Characteristics Database/000006.log 
-2024/03/23-21:44:22.407 4ddc Delete type=0 #3
+2024/03/24-20:32:30.062 1208 Log #3: 2 ops saved to Table #66 OK
+2024/03/24-20:32:30.081 1208 Archiving C:\Users\abdma\AppData\Local\Temp\flutter_tools.50e8caaa\flutter_tools_chrome_device.260c3c5\Default\Site Characteristics Database/000003.log: OK
+2024/03/24-20:32:30.099 1208 Log #6: 6 ops saved to Table #67 OK
+2024/03/24-20:32:30.104 1208 Archiving C:\Users\abdma\AppData\Local\Temp\flutter_tools.50e8caaa\flutter_tools_chrome_device.260c3c5\Default\Site Characteristics Database/000006.log: OK
+2024/03/24-20:32:30.117 1208 Log #10: 1 ops saved to Table #68 OK
+2024/03/24-20:32:30.118 1208 Archiving C:\Users\abdma\AppData\Local\Temp\flutter_tools.50e8caaa\flutter_tools_chrome_device.260c3c5\Default\Site Characteristics Database/000010.log: OK
+2024/03/24-20:32:30.128 1208 Log #16: 1 ops saved to Table #69 OK
+2024/03/24-20:32:30.129 1208 Archiving C:\Users\abdma\AppData\Local\Temp\flutter_tools.50e8caaa\flutter_tools_chrome_device.260c3c5\Default\Site Characteristics Database/000016.log: OK
+2024/03/24-20:32:30.138 1208 Log #23: 1 ops saved to Table #70 OK
+2024/03/24-20:32:30.140 1208 Archiving C:\Users\abdma\AppData\Local\Temp\flutter_tools.50e8caaa\flutter_tools_chrome_device.260c3c5\Default\Site Characteristics Database/000023.log: OK
+2024/03/24-20:32:30.150 1208 Log #37: 1 ops saved to Table #71 OK
+2024/03/24-20:32:30.152 1208 Archiving C:\Users\abdma\AppData\Local\Temp\flutter_tools.50e8caaa\flutter_tools_chrome_device.260c3c5\Default\Site Characteristics Database/000037.log: OK
+2024/03/24-20:32:30.161 1208 Log #46: 2 ops saved to Table #72 OK
+2024/03/24-20:32:30.163 1208 Archiving C:\Users\abdma\AppData\Local\Temp\flutter_tools.50e8caaa\flutter_tools_chrome_device.260c3c5\Default\Site Characteristics Database/000046.log: OK
+2024/03/24-20:32:30.163 1208 Log #64: 0 ops saved to Table #73 OK
+2024/03/24-20:32:30.163 1208 Archiving C:\Users\abdma\AppData\Local\Temp\flutter_tools.50e8caaa\flutter_tools_chrome_device.260c3c5\Default\Site Characteristics Database/000064.log: OK
+2024/03/24-20:32:30.163 1208 Table #3: 2 entries OK
+2024/03/24-20:32:30.164 1208 Table #4: 12 entries OK
+2024/03/24-20:32:30.164 1208 Table #6: 12 entries OK
+2024/03/24-20:32:30.164 1208 Table #11: 3 entries OK
+2024/03/24-20:32:30.164 1208 Table #17: 3 entries OK
+2024/03/24-20:32:30.164 1208 Table #24: 3 entries OK
+2024/03/24-20:32:30.164 1208 Table #30: 3 entries OK
+2024/03/24-20:32:30.164 1208 Table #38: 3 entries OK
+2024/03/24-20:32:30.164 1208 Table #47: 3 entries OK
+2024/03/24-20:32:30.164 1208 Table #55: 3 entries OK
+2024/03/24-20:32:30.165 1208 Table #65: 3 entries OK
+2024/03/24-20:32:30.165 1208 Table #66: 2 entries OK
+2024/03/24-20:32:30.165 1208 Table #67: 6 entries OK
+2024/03/24-20:32:30.165 1208 Table #68: 1 entries OK
+2024/03/24-20:32:30.165 1208 Table #69: 1 entries OK
+2024/03/24-20:32:30.165 1208 Table #70: 1 entries OK
+2024/03/24-20:32:30.166 1208 Table #71: 1 entries OK
+2024/03/24-20:32:30.166 1208 Table #72: 2 entries OK
+2024/03/24-20:32:30.168 1208 Archiving C:\Users\abdma\AppData\Local\Temp\flutter_tools.50e8caaa\flutter_tools_chrome_device.260c3c5\Default\Site Characteristics Database/MANIFEST-000001: OK
+2024/03/24-20:32:30.179 1208 **** Repaired leveldb C:\Users\abdma\AppData\Local\Temp\flutter_tools.50e8caaa\flutter_tools_chrome_device.260c3c5\Default\Site Characteristics Database; recovered 18 files; 4564 bytes. Some data may have been lost. ****

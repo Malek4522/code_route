@@ -1,2 +1,51 @@
-2024/03/23-21:57:16.477 1bac Creating DB C:\Users\abdma\AppData\Local\Temp\flutter_tools.738410de\flutter_tools_chrome_device.a9fabda9\Default\Site Characteristics Database since it was missing.
-2024/03/23-21:57:16.574 1bac Reusing MANIFEST C:\Users\abdma\AppData\Local\Temp\flutter_tools.738410de\flutter_tools_chrome_device.a9fabda9\Default\Site Characteristics Database/MANIFEST-000001
+2024/03/24-21:34:45.868 514c Creating DB C:\Users\abdma\AppData\Local\Temp\flutter_tools.af4fa45c\flutter_tools_chrome_device.ab6c93d3\Default\Site Characteristics Database since it was missing.
+2024/03/24-21:34:45.901 514c Reusing MANIFEST C:\Users\abdma\AppData\Local\Temp\flutter_tools.af4fa45c\flutter_tools_chrome_device.ab6c93d3\Default\Site Characteristics Database/MANIFEST-000001
+2024/03/24-21:34:45.901 514c Recovering log #3
+2024/03/24-21:34:45.901 514c Level-0 table #3: started
+2024/03/24-21:34:45.919 514c Level-0 table #3: 194 bytes OK
+2024/03/24-21:34:45.919 514c Recovering log #6
+2024/03/24-21:34:45.919 514c Level-0 table #4: started
+2024/03/24-21:34:45.928 514c Level-0 table #4: 276 bytes OK
+2024/03/24-21:34:45.928 514c Recovering log #10
+2024/03/24-21:34:45.929 514c Level-0 table #7: started
+2024/03/24-21:34:45.938 514c Level-0 table #7: 168 bytes OK
+2024/03/24-21:34:45.938 514c Recovering log #16
+2024/03/24-21:34:45.938 514c Level-0 table #11: started
+2024/03/24-21:34:45.947 514c Level-0 table #11: 168 bytes OK
+2024/03/24-21:34:45.947 514c Recovering log #23
+2024/03/24-21:34:45.947 514c Level-0 table #17: started
+2024/03/24-21:34:45.956 514c Level-0 table #17: 168 bytes OK
+2024/03/24-21:34:45.956 514c Recovering log #37
+2024/03/24-21:34:45.956 514c Level-0 table #24: started
+2024/03/24-21:34:45.965 514c Level-0 table #24: 168 bytes OK
+2024/03/24-21:34:45.965 514c Recovering log #46
+2024/03/24-21:34:45.965 514c Level-0 table #38: started
+2024/03/24-21:34:45.975 514c Level-0 table #38: 202 bytes OK
+2024/03/24-21:34:45.975 514c Recovering log #64
+2024/03/24-21:34:45.975 514c Recovering log #75
+2024/03/24-21:34:45.975 514c Reusing old log C:\Users\abdma\AppData\Local\Temp\flutter_tools.af4fa45c\flutter_tools_chrome_device.ab6c93d3\Default\Site Characteristics Database/000075.log 
+2024/03/24-21:34:45.980 514c Delete type=0 #3
+2024/03/24-21:34:45.980 514c Delete type=2 #6
+2024/03/24-21:34:45.980 514c Delete type=0 #6
+2024/03/24-21:34:45.980 514c Delete type=0 #10
+2024/03/24-21:34:45.980 514c Delete type=0 #16
+2024/03/24-21:34:45.980 514c Delete type=0 #23
+2024/03/24-21:34:45.980 514c Delete type=2 #30
+2024/03/24-21:34:45.980 514c Delete type=0 #37
+2024/03/24-21:34:45.980 514c Delete type=0 #46
+2024/03/24-21:34:45.980 514c Delete type=2 #47
+2024/03/24-21:34:45.980 514c Delete type=2 #55
+2024/03/24-21:34:45.980 514c Delete type=0 #64
+2024/03/24-21:34:45.980 514c Delete type=2 #65
+2024/03/24-21:34:45.980 514c Delete type=2 #76
+2024/03/24-21:34:45.982 1794 Compacting 7@0 + 0@1 files
+2024/03/24-21:34:45.992 1794 Generated table #76@0: 2 keys, 197 bytes
+2024/03/24-21:34:45.992 1794 Compacted 7@0 + 0@1 files => 197 bytes
+2024/03/24-21:34:45.996 1794 compacted to: files[ 0 1 0 0 0 0 0 ]
+2024/03/24-21:34:45.997 1794 Delete type=2 #3
+2024/03/24-21:34:45.997 1794 Delete type=2 #4
+2024/03/24-21:34:45.997 1794 Delete type=2 #7
+2024/03/24-21:34:45.997 1794 Delete type=2 #11
+2024/03/24-21:34:45.997 1794 Delete type=2 #17
+2024/03/24-21:34:45.997 1794 Delete type=2 #24
+2024/03/24-21:34:45.997 1794 Delete type=2 #38

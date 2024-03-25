@@ -65,7 +65,7 @@ class addQuizState extends State<addQuiz> {
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 10,
               ),
               Expanded(
                 child: ListView.builder(
@@ -138,6 +138,7 @@ class addQuizState extends State<addQuiz> {
               ),
 
               //bonne reponse
+
               Padding(
                   padding:
                       const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
@@ -147,9 +148,11 @@ class addQuizState extends State<addQuiz> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: DropdownButton(
-                      hint: Text('bonne reponse'),
+                      hint: Text('typedeQuiz'),
                       dropdownColor: const Color.fromARGB(255, 216, 214, 214),
                       icon: Icon(Icons.arrow_drop_down),
+                      isExpanded: true,
+                      underline: SizedBox(),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 22,
@@ -216,6 +219,9 @@ class addQuizState extends State<addQuiz> {
                     ],
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 30,
               ),
 
               // envoyer un message
