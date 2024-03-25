@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class addQuiz extends StatefulWidget {
@@ -16,9 +18,10 @@ class addQuizState extends State<addQuiz> {
     TextEditingController(),
   ];
 
-  final _bonnereponseController = TextEditingController();
+  int valeurbn = -1;
   int n = 3;
-  List<String> typeList = ['plaques', 'priorite', 'gene'];
+  List<int> typeList = [1, 2];
+
   String valueChoose = 'plaques';
   @override
   Widget build(BuildContext context) {
@@ -108,6 +111,8 @@ class addQuizState extends State<addQuiz> {
                       if (n < 5) {
                         setState(() {
                           n++;
+                          typeList.add(n);
+                          setState(() {});
                         });
                       }
                     },
@@ -123,6 +128,8 @@ class addQuizState extends State<addQuiz> {
                       if (n > 2) {
                         setState(() {
                           n--;
+                          typeList.removeLast();
+                          setState(() {});
                         });
                       }
                     },
@@ -139,27 +146,38 @@ class addQuizState extends State<addQuiz> {
 
               //bonne reponse
               Padding(
-                  padding:
-                      const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
-                  child: TextField(
-                    controller: _bonnereponseController,
-                    decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.arrow_drop_down),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color.fromARGB(255, 255, 255, 255),
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 255, 255, 255)),
-                      ),
-                      hintText: 'BONNE REPONSE',
-                      fillColor: Color.fromARGB(255, 216, 214, 214),
-                      filled: true,
+                padding:
+                    const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black12, width: 1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: DropdownButton(
+                    hint: Text('bonne reponse'),
+                    dropdownColor: const Color.fromARGB(255, 216, 214, 214),
+                    icon: Icon(Icons.arrow_drop_down),
+                    isExpanded: true,
+                    underline: SizedBox(),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 22,
                     ),
-                  )),
+                    value: valeurbn,
+                    onChanged: (newVal) {
+                      setState(() {
+                        valeurbn = newVal!;
+                      });
+                    },
+                    items: typeList.map((valueItem) {
+                      return DropdownMenuItem(
+                        value: valueItem,
+                        child: Text('valueItem'),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
               SizedBox(
                 height: 10,
               ),
