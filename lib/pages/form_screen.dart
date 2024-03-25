@@ -191,6 +191,7 @@ class _FormScreenState extends State<FormScreen> {
                 
               ),
               child:  DropdownButton  (
+                borderRadius: BorderRadius.circular(16),
                 hint: const Text("Je suis un  "),
                 dropdownColor: Colors.white,
                 icon: const Icon(Icons.arrow_drop_down),
