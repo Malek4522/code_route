@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class addQuiz extends StatefulWidget {
@@ -11,16 +9,12 @@ class addQuiz extends StatefulWidget {
 class addQuizState extends State<addQuiz> {
   final _textController = TextEditingController();
   List<Object> controllers = [
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
+    for (int i = 0; i < 5; i++) TextEditingController()
   ];
 
-  int valeurbn = -1;
+  int _selectedItem = 1;
   int n = 3;
-  List<int> typeList = [1, 2];
+  List<int> items = [1, 2, 3];
 
   String valueChoose = 'plaques';
   @override
@@ -71,7 +65,7 @@ class addQuizState extends State<addQuiz> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               Expanded(
                 child: ListView.builder(
@@ -109,10 +103,9 @@ class addQuizState extends State<addQuiz> {
                     foregroundColor: Colors.black,
                     onPressed: () {
                       if (n < 5) {
+                        items.add(n + 1);
                         setState(() {
                           n++;
-                          typeList.add(n);
-                          setState(() {});
                         });
                       }
                     },
@@ -127,9 +120,9 @@ class addQuizState extends State<addQuiz> {
                     onPressed: () {
                       if (n > 2) {
                         setState(() {
+                          if (n <= _selectedItem) _selectedItem--;
                           n--;
-                          typeList.removeLast();
-                          setState(() {});
+                          items.removeLast();
                         });
                       }
                     },
@@ -141,43 +134,44 @@ class addQuizState extends State<addQuiz> {
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
 
               //bonne reponse
               Padding(
-                padding:
-                    const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black12, width: 1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: DropdownButton(
-                    hint: Text('bonne reponse'),
-                    dropdownColor: const Color.fromARGB(255, 216, 214, 214),
-                    icon: Icon(Icons.arrow_drop_down),
-                    isExpanded: true,
-                    underline: SizedBox(),
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22,
+                  padding:
+                      const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black12, width: 1),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    value: valeurbn,
-                    onChanged: (newVal) {
-                      setState(() {
-                        valeurbn = newVal!;
-                      });
-                    },
-                    items: typeList.map((valueItem) {
-                      return DropdownMenuItem(
-                        value: valueItem,
-                        child: Text('valueItem'),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ),
+                    child: DropdownButton(
+                      hint: Text('bonne reponse'),
+                      dropdownColor: const Color.fromARGB(255, 216, 214, 214),
+                      icon: Icon(Icons.arrow_drop_down),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                      ),
+                      value: _selectedItem,
+                      items: items.map((int item) {
+                        return DropdownMenuItem(
+                          value: item,
+                          child: Text(
+                            item.toString(),
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedItem = value as int;
+                        });
+                      },
+                    ),
+                  )),
+
               SizedBox(
                 height: 10,
               ),
