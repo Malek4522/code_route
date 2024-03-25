@@ -17,7 +17,6 @@ class addQuizState extends State<addQuiz> {
   ];
 
   final _bonnereponseController = TextEditingController();
-  final _typedQuizController = TextEditingController();
   int n = 3;
   List<String> typeList = ['plaques', 'priorite', 'gene'];
   String valueChoose = "";
@@ -186,7 +185,7 @@ class addQuizState extends State<addQuiz> {
                     value: valueChoose,
                     onChanged: (newValue) {
                       setState(() {
-                        valueChoose = newValue!;
+                        valueChoose = (newValue)!;
                       });
                     },
                     items: typeList.map((valueItem) {
