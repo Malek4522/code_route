@@ -19,7 +19,7 @@ class addQuizState extends State<addQuiz> {
   final _bonnereponseController = TextEditingController();
   int n = 3;
   List<String> typeList = ['plaques', 'priorite', 'gene'];
-  String valueChoose = "";
+  String valueChoose = 'plaques';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -185,15 +185,23 @@ class addQuizState extends State<addQuiz> {
                     value: valueChoose,
                     onChanged: (newValue) {
                       setState(() {
-                        valueChoose = (newValue)!;
+                        valueChoose = newValue!;
                       });
                     },
-                    items: typeList.map((valueItem) {
-                      return DropdownMenuItem(
-                        value: valueItem,
-                        child: Text(valueItem),
-                      );
-                    }).toList(),
+                    items: const [
+                      DropdownMenuItem<String>(
+                        value: 'plaques',
+                        child: Text('plaques'),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'priorite',
+                        child: Text('priorite'),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'gene',
+                        child: Text('gene'),
+                      ),
+                    ],
                   ),
                 ),
               ),
