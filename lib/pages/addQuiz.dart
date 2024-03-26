@@ -21,8 +21,8 @@ class addQuizState extends State<addQuiz> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: OptionsBar(),
       appBar: AppBar(
-        leading: Icon(Icons.arrow_back_ios),
         title: Text(
           'AJOUTER UN QUIZ',
           style: TextStyle(
@@ -33,9 +33,7 @@ class addQuizState extends State<addQuiz> {
         ),
         backgroundColor: Color.fromARGB(255, 233, 169, 51),
         elevation: 0,
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.menu))],
       ),
-      endDrawer: OptionsBar(),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
