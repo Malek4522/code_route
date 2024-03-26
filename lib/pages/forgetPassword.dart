@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:code_route/util/options.dart';
 
 class ForgotPasword extends StatefulWidget {
   const ForgotPasword({super.key});
@@ -21,6 +22,7 @@ class ForgotPaswordState extends State<ForgotPasword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: OptionsBar(),
       appBar: AppBar(
         title: Text(
           'mot de passe oublie?',
@@ -35,7 +37,8 @@ class ForgotPaswordState extends State<ForgotPasword> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage("assets/background.jpg"),fit: BoxFit.fill),
+          image: DecorationImage(
+              image: AssetImage("assets/background.jpg"), fit: BoxFit.fill),
         ),
         child: Center(
           child: Column(
@@ -57,7 +60,7 @@ class ForgotPaswordState extends State<ForgotPasword> {
                 child: Text(
                   'ENTRER VOTRE EMAIL',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18,color: Colors.white),
+                  style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),
               SizedBox(
@@ -94,7 +97,7 @@ class ForgotPaswordState extends State<ForgotPasword> {
                 child: Text(
                   'ou ENTRER VOTRE NUMERO',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18,color: Colors.white),
+                  style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),
 

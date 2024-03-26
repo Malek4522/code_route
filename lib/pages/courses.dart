@@ -1,4 +1,5 @@
 import 'package:code_route/util/course.dart';
+import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
 
 
@@ -14,6 +15,7 @@ class _coursesState extends State<courses> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
+      drawer: OptionsBar(),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

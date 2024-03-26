@@ -1,11 +1,10 @@
 import 'package:code_route/classes/auth.dart';
 import 'package:code_route/classes/myuser.dart';
-import 'package:code_route/pages/addQuiz.dart';
-import 'package:code_route/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
+import 'package:code_route/util/wraper.dart';
 
 
 
@@ -28,7 +27,7 @@ class Myapp extends StatelessWidget {
       value: authservice().user,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: addQuiz(),
+        home: wraper(),
       ),
     );
   }
