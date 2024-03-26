@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:code_route/pages/options.dart';
 
 class addQuiz extends StatefulWidget {
   const addQuiz({super.key});
@@ -34,6 +35,7 @@ class addQuizState extends State<addQuiz> {
         elevation: 0,
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.menu))],
       ),
+      endDrawer: OptionsBar(),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
