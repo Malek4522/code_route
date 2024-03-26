@@ -1,3 +1,4 @@
+import 'package:code_route/pages/courses.dart';
 import 'package:flutter/material.dart';
 import 'package:code_route/classes/auth.dart';
 
@@ -5,7 +6,7 @@ class login extends StatelessWidget {
   login({super.key});
   final email_controller = TextEditingController();
   final password_controller = TextEditingController();
-  
+  final auth = authservice();
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +118,7 @@ class login extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: GestureDetector(
                   onTap: (){
-
+                    
                   },
                                       
                   child: Container(
@@ -154,9 +155,15 @@ class login extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: GestureDetector(
                   onTap: ()async{                    
-                    dynamic result = await authservice().sign_anonym();                   
+                    dynamic result = await auth.sign_anonym();                   
                     if(result == null)print("NUll");
                     else print(result);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context)=>courses()
+                      )
+                    );
                   },
                                       
                   child: Container(

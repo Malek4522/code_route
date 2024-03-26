@@ -13,7 +13,7 @@ class _coursesState extends State<courses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      appBar: AppBar(),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

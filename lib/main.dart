@@ -1,7 +1,10 @@
+import 'package:code_route/classes/auth.dart';
+import 'package:code_route/classes/myuser.dart';
 import 'package:code_route/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -19,9 +22,13 @@ class Myapp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: login(),
+    return StreamProvider<myUser?>.value(
+      initialData: null,
+      value: authservice().user,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: login(),
+      ),
     );
   }
 }
