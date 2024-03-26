@@ -119,7 +119,7 @@ class _FormScreenState extends State<FormScreen> {
                   controller: _numdetelcontroller,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10),
-border: InputBorder.none,
+                      border: InputBorder.none,
                       hintText: 'Numéro de teléphone...',
                       prefixIcon: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -225,7 +225,7 @@ border: InputBorder.none,
                 ),
               ),
               const SizedBox(
-height: 50,
+                height: 50,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
