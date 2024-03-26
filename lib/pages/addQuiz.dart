@@ -165,7 +165,7 @@ class addQuizState extends State<addQuiz> {
                           value: item,
                           child: Text(
                             item.toString(),
-                            style: TextStyle(color: Colors.red),
+                            style: TextStyle(color: Colors.black),
                           ),
                         );
                       }).toList(),

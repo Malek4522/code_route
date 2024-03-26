@@ -10,6 +10,7 @@ class OptionsBarState extends State<OptionsBar> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Color.fromARGB(255, 233, 169, 51),
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
