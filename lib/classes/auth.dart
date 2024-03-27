@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:code_route/classes/myuser.dart';
 
 class authservice{
-  final FirebaseAuth auth = FirebaseAuth.instance;
+   final FirebaseAuth auth = FirebaseAuth.instance;
   
   myUser? userfromfirebase(User? user){
     return user != null? myUser(uid: user.uid):null  ;
@@ -32,6 +32,36 @@ class authservice{
     }
     catch(e){
       print("error signing out $e");
+      return null;
+    }
+  }
+
+  Future registerWithEmailPass({required  String email,required String password})async{
+    try{
+      UserCredential result =  await auth.createUserWithEmailAndPassword(
+        email: email, 
+        password: password
+      );
+      User? user = result.user  ;
+      return userfromfirebase(user);
+
+    }catch(e){
+      print("error registring in with email&pass $e");
+      return null;
+    }
+  }
+
+  Future loginWithEmailPass({required String email, required String password})async{
+    try{
+       UserCredential result =  await auth.signInWithEmailAndPassword(
+        email: email, 
+        password: password
+      );
+      User? user = result.user  ;
+      return userfromfirebase(user);
+
+    }catch(e){
+      print("error siging in $e");
       return null;
     }
   }

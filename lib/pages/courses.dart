@@ -1,3 +1,4 @@
+import 'package:code_route/classes/auth.dart';
 import 'package:code_route/util/course.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class courses extends StatefulWidget {
 }
 
 class _coursesState extends State<courses> {
+  final auth = authservice();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

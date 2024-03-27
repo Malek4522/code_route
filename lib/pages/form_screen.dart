@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:code_route/classes/auth.dart';
 import 'package:flutter/material.dart';
 
 class FormScreen extends StatefulWidget {
@@ -10,67 +11,56 @@ class FormScreen extends StatefulWidget {
 }
 
 class _FormScreenState extends State<FormScreen> {
-  final _confirmationcontroller = TextEditingController();
-  final _nomController = TextEditingController();
-  final _motdepassecontroller = TextEditingController();
-  final _numdetelcontroller = TextEditingController();
-  final _mailcontroller = TextEditingController();
-  String msg = "";
-  void envoyermsg() {
-    setState(() {
-      msg = "Merci " + _nomController.text + "votre compte a ete cree";
-    });
-  }
-
+  String nom = "";
+  String email = "";
+  String num = "";
+  String pass1 = "";
+  String pass2 = ""; 
+   
   String ValueChoose = 'Condidat';
-  String s = "envoyer un message";
+  String error = "";
   bool passToggle = true;
+  final _formkey = GlobalKey<FormState>();
 
+  final auth = authservice();
+  
+  
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.amber,
-          title: const Text("Creer Un Neauveau Compte"),
-          leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.arrow_back),
-            color: Colors.white,
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.menu),
-              color: Colors.white,
-            )
-          ],
-        ),
-        body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 3),
-          width: double.infinity,
-          height: 750,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-            image: AssetImage("assets/backround.jpg"),
-            fit: BoxFit.fill,
-          )),
+    return Scaffold(
+      
+      appBar: AppBar(
+        backgroundColor: Colors.amber,
+        title: const Text("Creer Un Neauveau Compte"),
+               
+      ),
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 40),
+        width: double.infinity,
+        
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/backround.jpg"),
+          fit: BoxFit.fill,
+        )),
+        child: Form(
+          key: _formkey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,            
             children: [
-              const SizedBox(
-                height: 70,
-              ),
-              Text(msg),
-              SizedBox(
-                height: 20,
-              ),
+              
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: TextField(
-                  controller: _nomController,
+                child: TextFormField(     
+                  //validator: (value) => value!.isEmpty? 'enter name': null,
+                  onChanged: (val){
+                    setState(() {
+                      nom = val;
+                    });
+                  },
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10),
                       border: InputBorder.none,
@@ -92,8 +82,13 @@ class _FormScreenState extends State<FormScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: TextField(
-                  controller: _mailcontroller,
+                child: TextFormField(
+                  validator: (value) => value!.isEmpty? 'enter email':  null,
+                  onChanged: (val) {
+                    setState(() {
+                      email = val;
+                    });
+                  },
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10),
                       border: InputBorder.none,
@@ -115,8 +110,13 @@ class _FormScreenState extends State<FormScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: TextField(
-                  controller: _numdetelcontroller,
+                child: TextFormField(
+                  //validator: (value) => value!.length !=10? 'invalid num': null,                 
+                  onChanged: (val) {
+                    setState(() {
+                      num = val;
+                    });
+                  },
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10),
                       border: InputBorder.none,
@@ -138,8 +138,13 @@ class _FormScreenState extends State<FormScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: TextField(
-                    controller: _motdepassecontroller,
+                child: TextFormField(
+                    validator: (value) => value!.length<6? 'short pass': null,
+                    onChanged: (val) {
+                    setState(() {
+                      pass1 = val;
+                    });
+                  },
                     obscureText: passToggle,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10),
@@ -172,8 +177,13 @@ class _FormScreenState extends State<FormScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: TextField(
-                  controller: _confirmationcontroller,
+                child: TextFormField(               
+                  //validator: (value) => value! !=pass1? 'diff pass': null,   
+                  onChanged: (val) {
+                    setState(() {
+                      pass2 = val;
+                    });
+                  },
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10),
                       border: InputBorder.none,
@@ -230,9 +240,21 @@ class _FormScreenState extends State<FormScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: GestureDetector(
-                  onTap: envoyermsg,
-                    
-                  
+                  onTap: () async{  
+                                     
+                    if(_formkey.currentState!.validate()){
+                      dynamic result = await auth.registerWithEmailPass(
+                        email: email, 
+                        password: pass1
+                      );
+                      if(result == null){
+                        setState(() {
+                          error = 'please enter a valid email';
+                          print(error);
+                        });
+                      }
+                    }                                                                                                 
+                  },
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 80, vertical: 5),

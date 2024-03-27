@@ -8,6 +8,7 @@ class OptionsBar extends StatefulWidget {
 }
 
 class OptionsBarState extends State<OptionsBar> {
+  final auth = authservice();
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -50,8 +51,8 @@ class OptionsBarState extends State<OptionsBar> {
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('DECONNECCTER'),
-            onTap: () {
-              authservice().signOut();
+            onTap: () async{
+              await auth.signOut();
             },
           ),
         ],

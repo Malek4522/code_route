@@ -19,7 +19,7 @@ class _courseState extends State<course> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      appBar: AppBar(),
       body: Container(
         decoration: BoxDecoration(
           
@@ -47,7 +47,7 @@ class _courseState extends State<course> {
               SizedBox(height: 20,),
               Hero(
                 tag: "tag${widget.index+1}", 
-                child: Image.asset("assets/ (${widget.index+1}).png",scale: 10,)
+                child: Image.asset("assets/${widget.index+1}.png",scale: 10,)
               ),
               SizedBox(height: 20,),
               Container(
