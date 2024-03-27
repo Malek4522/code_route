@@ -253,6 +253,10 @@ class _FormScreenState extends State<FormScreen> {
                           print(error);
                         });
                       }
+                      else{
+                        Navigator.pop(context);
+                      }
+                      
                     }                                                                                                 
                   },
                   child: Container(
