@@ -1,3 +1,4 @@
+import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
 
 class CPlaques extends StatefulWidget {
@@ -12,6 +13,7 @@ class _CPlaquesState extends State<CPlaques> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        endDrawer: OptionsBar(),
         appBar: AppBar(
           backgroundColor: Colors.orange[700],
           title: const Text(
