@@ -67,6 +67,22 @@ class addQuizState extends State<addQuiz> {
               SizedBox(
                 height: 10,
               ),
+              MaterialButton(
+                color: const Color.fromARGB(255, 233, 169, 51),
+                child: Text(
+                  "choisir une photo de gallery",
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                onPressed: () {},
+              ),
+
+              SizedBox(
+                height: 10,
+              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: n,
