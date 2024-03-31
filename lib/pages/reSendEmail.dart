@@ -48,7 +48,7 @@ class reSendState extends State<reSend> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(),
               child: Text('renvoyer' + time.toString()),
-              onPressed: time >= 0 ? null : _countDown,
+              onPressed: time > 0 ? null : _countDown,
             )
           ],
         ))));
