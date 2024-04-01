@@ -1,69 +1,122 @@
-import 'dart:async';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:code_route/classes/myuser.dart';
 
+
 class authservice{
-   final FirebaseAuth auth = FirebaseAuth.instance;
-  
-  myUser? userfromfirebase(User? user){
-    return user != null? myUser(uid: user.uid):null  ;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<myUser?> getUserDetail()async{
+    User currentuser = _auth.currentUser!;
+    DocumentSnapshot snap = await _firestore.collection('users').doc(currentuser.uid).get();
+    return  myUser.fromsnap(snap);
   }
   
-  Stream<myUser?> get user{
-    return auth.authStateChanges().map((User? user) => userfromfirebase(user));
-  }
-  
+
   Future sign_anonym()async{
+    String state = 'error';
     try{
-      UserCredential result =  await auth.signInAnonymously();
-      User? user = result.user  ;
-      return userfromfirebase(user);
+      await _auth.signInAnonymously();
+      state = 'done';
     }
     catch(e){
-      print("error in sign_anonym $e");
-      return null;
+      state = e.toString();
+      
     }
+    return state;
+    
   }
 
   Future signOut()async{
+    String state = 'error';
     try{
-      return await auth.signOut();
+      if(_auth.currentUser!.isAnonymous){
+        await _auth.currentUser!.delete();
+      }
+      await _auth.signOut();
+      state = 'done';
     }
     catch(e){
-      print("error signing out $e");
-      return null;
+     state = e.toString();
+     
     }
+    return state;
   }
 
-  Future registerWithEmailPass({required  String email,required String password})async{
+  Future registerWithEmailPass({
+    required String email,
+    required String password,
+    required String phoneNum,
+    required String name,
+    required String usertype,
+
+    })async{
+      String state = "error";
     try{
-      UserCredential result =  await auth.createUserWithEmailAndPassword(
+      UserCredential result =  await _auth.createUserWithEmailAndPassword(
         email: email, 
         password: password
       );
-      User? user = result.user  ;
-      return userfromfirebase(user);
+
+      myUser user = myUser(
+        uid: result.user!.uid, 
+        name: name, 
+        email: email, 
+        phoneNum: phoneNum, 
+        userType: usertype,
+      );
+
+      await _firestore.collection('users').doc(result.user!.uid).set(user.toJson());
+      state = "done";
+     
 
     }catch(e){
-      print("error registring in with email&pass $e");
-      return null;
+      state = e.toString();
+    }
+    return state;
+  }
+  
+  Future sendVirificationEmail()async{
+    
+    try{
+      await _auth.currentUser!.sendEmailVerification();
+    }catch(e){
+      print('error virificating $e');
     }
   }
-
-  Future loginWithEmailPass({required String email, required String password})async{
+  
+  Future loginWithEmailPass({
+    required String email, required String password})async{
+      String state ="error";
     try{
-       UserCredential result =  await auth.signInWithEmailAndPassword(
+      UserCredential result = await _auth.signInWithEmailAndPassword(
         email: email, 
         password: password
       );
-      User? user = result.user  ;
-      return userfromfirebase(user);
 
+      state ="done";     
     }catch(e){
-      print("error siging in $e");
-      return null;
+      state = e.toString();
+      
     }
+    return state;
   }
+  
+  Future resetpassword({
+    required String email
+  })async{
+    String state = 'error';
+    try{
+      _auth.sendPasswordResetEmail(email: email);
+      
+      state = 'done';
+    }catch(e){
+      state = e.toString();
+      
+    }
+    return state;
+  }
+
 
 }

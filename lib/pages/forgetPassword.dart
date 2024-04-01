@@ -1,5 +1,8 @@
+import 'package:code_route/classes/auth.dart';
+import 'package:code_route/util/timed_button.dart';
 import 'package:flutter/material.dart';
-import 'package:code_route/util/options.dart';
+import 'package:email_validator/email_validator.dart';
+
 
 class ForgotPasword extends StatefulWidget {
   const ForgotPasword({super.key});
@@ -9,21 +12,31 @@ class ForgotPasword extends StatefulWidget {
 
 class ForgotPaswordState extends State<ForgotPasword> {
   final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
-  String greetingmsg = "";
+  final auth = authservice();
+  final _formkey = GlobalKey<FormState>();
+  String email = "";
+  bool _returning = true;
+  bool validate = false;
 
-  void sndmsg() {
+  void returning(){
     setState(() {
-      greetingmsg =
-          "email de confermation a ete envoyer a " + _emailController.text;
+      _returning =!_returning ;
     });
+  }
+  
+  
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: OptionsBar(),
       appBar: AppBar(
+        leading: _returning? null:Text(""),
         title: Text(
           'mot de passe oublie?',
           style: TextStyle(
@@ -31,6 +44,7 @@ class ForgotPaswordState extends State<ForgotPasword> {
             fontWeight: FontWeight.bold,
             fontSize: 38,
           ),
+          
         ),
         backgroundColor: Color.fromARGB(255, 233, 169, 51),
         elevation: 0,
@@ -41,120 +55,104 @@ class ForgotPaswordState extends State<ForgotPasword> {
               image: AssetImage("assets/background.jpg"), fit: BoxFit.fill),
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                greetingmsg,
-                style: TextStyle(
-                  color: Colors.black12,
+          child: Form(
+            key: _formkey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                
+                SizedBox(
+                  height: 30,
                 ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-
-              Padding(
-                padding:
-                    const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
-                child: Text(
-                  'ENTRER VOTRE EMAIL',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              //confermation par email
-              Padding(
-                padding:
-                    const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
-                child: TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    hintText: 'Entrer votre EMAIL',
-                    fillColor: Color.fromARGB(255, 216, 214, 214),
-                    filled: true,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-
-              Padding(
-                padding:
-                    const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
-                child: Text(
-                  'ou ENTRER VOTRE NUMERO',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
-              ),
-
-              SizedBox(
-                height: 10,
-              ),
-
-              // confermation par num de tel
-              Padding(
+            
+                Padding(
                   padding:
                       const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
-                  child: TextField(
-                    controller: _phoneController,
+                  child: Text(
+                    'ENTRER VOTRE EMAIL',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                //confermation par email
+                Container(
+                  margin: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: TextFormField(
+                    validator: (value) {
+                      if(value!.isEmpty){                   
+                        return '   *enter email';                        
+                      }else{
+                        if(EmailValidator.validate(value.trim())){                         
+                          return null;
+                        }
+                        else{
+                          return "   *invalide email";
+                        }
+                      }
+                    },
+                                          
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged: (value){
+                      setState(() {
+                        email = value;
+                      });
+                    },
                     decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.circular(12),
+                        
+                      contentPadding: EdgeInsets.symmetric(vertical: 10),
+                      border: InputBorder.none,
+                      hintText: 'E-MAIL',
+                      prefixIcon: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Icon(
+                        Icons.person,
+                          color: Colors.black,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 255, 255, 255)),
-                      ),
-                      hintText: 'Entrer votre numero',
-                      fillColor: Color.fromARGB(255, 216, 214, 214),
-                      filled: true,
-                    ),
-                  )),
-              SizedBox(
-                height: 100,
-              ),
-
-              // envoyer un message
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: GestureDetector(
-                  onTap: sndmsg,
-                  child: Container(
-                    padding: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 233, 169, 51),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'ENVOYER UN MESSAGE',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 0, 0, 0),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
+                    )
                     ),
                   ),
                 ),
-              ),
-            ],
+            
+                SizedBox(height: 100,),
+            
+                // envoyer un message
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      _formkey.currentState!.validate();
+                    },
+                    child: timedbutton(
+                      started: false,
+                      validate:  !email.trim().isEmpty && 
+                        EmailValidator.validate(_emailController.text.trim()),
+                      returning: returning,
+                      ontap: (){
+                        if(_formkey.currentState!.validate()){
+                          showDialog(
+                          context: context, 
+                          builder: (context)=>Center(child: CircularProgressIndicator(),)
+                          );
+                                
+                          auth.resetpassword(email: _emailController.text.trim());
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("an email sent")));
+                          
+                        } 
+                      },
+                      
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

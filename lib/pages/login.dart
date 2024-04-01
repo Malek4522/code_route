@@ -1,6 +1,10 @@
-import 'package:code_route/pages/form_screen.dart';
+import 'package:code_route/pages/forgetPassword.dart';
 import 'package:flutter/material.dart';
 import 'package:code_route/classes/auth.dart';
+import 'package:code_route/pages/form_screen.dart';
+import 'package:async/async.dart';
+import 'package:quickalert/quickalert.dart';
+import 'package:email_validator/email_validator.dart';
 
 class login extends StatefulWidget {
   login({super.key});
@@ -12,10 +16,14 @@ class login extends StatefulWidget {
 class _loginState extends State<login> {
   String email = "";
   String password = "";
+  
+
 
   final auth = authservice();
+  final _formkey = GlobalKey<FormState>(); 
 
-  final _formkey = GlobalKey<FormState>();
+  RestartableTimer? timer;
+  bool enable = true;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +41,7 @@ class _loginState extends State<login> {
           key: _formkey,
           child: Column(
             children: [
+              
               SizedBox(height: 100,),
               Container(
                   margin: EdgeInsets.all(20),
@@ -41,23 +50,38 @@ class _loginState extends State<login> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: TextFormField(
-                    validator: (value) => value!.isEmpty? 'enter email':  null,
+                    validator: (value) {
+                      if(value!.isEmpty){
+                        return '   *enter email';
+                      }else{
+                        if(EmailValidator.validate(value.trim())){
+                          return null;
+                        }
+                        else{
+                          return "   *invalide email";
+                        }
+                      }
+                      
+                    },
+                    keyboardType: TextInputType.emailAddress,
                     onChanged: (value) {
                       setState(() {
                         email=value;
                       });
                     },
                     decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(vertical: 10),
-                        border: InputBorder.none,
-                        hintText: 'E-MAIL',
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Icon(
-                            Icons.person,
-                            color: Colors.black,
-                          ),
-                        )),
+                        
+                      contentPadding: EdgeInsets.symmetric(vertical: 10),
+                      border: InputBorder.none,
+                      hintText: 'E-MAIL',
+                      prefixIcon: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Icon(
+                        Icons.person,
+                          color: Colors.black,
+                      ),
+                    )
+                    ),
                   ),
                 ),
                 SizedBox(height: 30),
@@ -68,7 +92,7 @@ class _loginState extends State<login> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: TextFormField(
-                    validator: (value) => value!.length<6? 'short pass': null,
+                    validator: (value) => value!.length<6? '   *short pass': null,
                     onChanged: (value) {
                       setState(() {
                         password = value;
@@ -87,28 +111,42 @@ class _loginState extends State<login> {
                         )),
                   ),
                 ),
-                Text(
-                  "Mot de pass oublier?",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,                 
-                    fontWeight: FontWeight.bold
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context)=>ForgotPasword()
+                        )
+                    );
+                  },
+                  child: Text(
+                    "Mot de pass oublier?",
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      decorationColor: Colors.white,
+                      color: Colors.white,
+                      fontSize: 15,                 
+                      fontWeight: FontWeight.bold
+                    ),
+                    textAlign: TextAlign.left,
                   ),
-                  textAlign: TextAlign.left,
                 ),
                 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  
                   child: GestureDetector(
-                    onTap: ()async{
+                    onTap:()async{                      
                       if(_formkey.currentState!.validate()){
-                        dynamic result = await auth.loginWithEmailPass(email: email, password: password);
-                        if(result ==null){
-                          print("wrong email or password");
-                        }
-                        
+                        setState(() {
+                          enable = false;
+                        });
+                        dynamic reslut = await auth.loginWithEmailPass(email: email, password: password);
+                        handelerror(reslut);
+                                                                                       
+                      }                      
                       
-                      }
                     },
                                        
                     child: Container(
@@ -145,13 +183,14 @@ class _loginState extends State<login> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: GestureDetector(
-                    onTap: (){
+                    onTap: (){                     
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context)=>FormScreen()
                         )
                       );
+                      
                     },
                                         
                     child: Container(
@@ -188,7 +227,7 @@ class _loginState extends State<login> {
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: GestureDetector(
                     onTap: ()async{                    
-                      dynamic result = await auth.sign_anonym();                                                            
+                      await auth.sign_anonym();                                                            
                     },
                                         
                     child: Container(
@@ -216,5 +255,38 @@ class _loginState extends State<login> {
         ),
       ),
     );
+  }
+
+  handelerror(e){
+    if(e != 'done') print("my error: "+e);
+
+    switch(e){
+      case 'done': 
+        break;
+      case '[firebase_auth/invalid-credential] The supplied auth credential is incorrect, malformed or has expired.' : 
+        QuickAlert.show(
+          context: context, 
+          type: QuickAlertType.error,
+          title: 'email and pass dosnt match'
+        );
+        break;
+
+      case'[firebase_auth/too-many-requests] Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.':
+        
+        QuickAlert.show(
+          context: context, 
+          type: QuickAlertType.error,
+          title: 'too many login attemps try again later',
+          text: 'try to resete your persword if you forget it '
+        );
+        break;
+      default: 
+      QuickAlert.show(
+          context: context, 
+          type: QuickAlertType.error,
+          title: e,
+         
+        ); 
+    }
   }
 }

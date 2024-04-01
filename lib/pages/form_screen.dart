@@ -1,7 +1,7 @@
-import 'dart:ui';
-
 import 'package:code_route/classes/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
+
 
 class FormScreen extends StatefulWidget {
   const FormScreen({super.key});
@@ -23,6 +23,10 @@ class _FormScreenState extends State<FormScreen> {
   final _formkey = GlobalKey<FormState>();
 
   final auth = authservice();
+
+  bool activation = false;
+  String title = "Crée";
+  bool isVirified = false;
   
   
   @override
@@ -54,8 +58,8 @@ class _FormScreenState extends State<FormScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: TextFormField(     
-                  //validator: (value) => value!.isEmpty? 'enter name': null,
+                child: TextFormField(                    
+                  validator: (value) => value!.isEmpty? '   *enter name': null,
                   onChanged: (val){
                     setState(() {
                       nom = val;
@@ -83,7 +87,19 @@ class _FormScreenState extends State<FormScreen> {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: TextFormField(
-                  validator: (value) => value!.isEmpty? 'enter email':  null,
+                  validator: (value) {
+                      if(value!.isEmpty){                   
+                        return '   *enter email';                        
+                      }else{
+                        if(EmailValidator.validate(value.trim())){                         
+                          return null;
+                        }
+                        else{
+                          return "   *invalide email";
+                        }
+                      }
+                    },
+                  keyboardType: TextInputType.emailAddress,
                   onChanged: (val) {
                     setState(() {
                       email = val;
@@ -110,11 +126,12 @@ class _FormScreenState extends State<FormScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: TextFormField(
-                  //validator: (value) => value!.length !=10? 'invalid num': null,                 
+                child: TextFormField(   
+                  keyboardType: TextInputType.numberWithOptions(),              
+                  validator: (value) => value!.length !=10 ? '   *invalid num': null,                                                         
                   onChanged: (val) {
                     setState(() {
-                      num = val;
+                      num = val ;
                     });
                   },
                   decoration: InputDecoration(
@@ -139,7 +156,7 @@ class _FormScreenState extends State<FormScreen> {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: TextFormField(
-                    validator: (value) => value!.length<6? 'short pass': null,
+                    validator: (value) => value!.length<6? '   *short pass': null,
                     onChanged: (val) {
                     setState(() {
                       pass1 = val;
@@ -177,8 +194,8 @@ class _FormScreenState extends State<FormScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: TextFormField(               
-                  //validator: (value) => value! !=pass1? 'diff pass': null,   
+                child: TextFormField(              
+                  validator: (value) => value! !=pass1? '   *diff pass': null,   
                   onChanged: (val) {
                     setState(() {
                       pass2 = val;
@@ -206,7 +223,7 @@ class _FormScreenState extends State<FormScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: DropdownButton(
+                child: DropdownButton(                  
                   hint: const Text("Je suis un  "),
                   dropdownColor: Colors.white,
                   icon: const Icon(Icons.arrow_drop_down),
@@ -216,9 +233,9 @@ class _FormScreenState extends State<FormScreen> {
                   style: const TextStyle(
                       color: Color.fromRGBO(117, 117, 117, 1), fontSize: 18),
                   value: ValueChoose,
-                  onChanged: (newValue) {
+                  onChanged:activation? null: (newValue) {
                     setState(() {
-                      ValueChoose = newValue!;
+                      ValueChoose = newValue! as String;
                     });
                   },
                   items: const [
@@ -241,23 +258,21 @@ class _FormScreenState extends State<FormScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: GestureDetector(
                   onTap: () async{  
-                                     
+                                    
                     if(_formkey.currentState!.validate()){
                       dynamic result = await auth.registerWithEmailPass(
                         email: email, 
-                        password: pass1
+                        password: pass1,
+                        phoneNum: num ,
+                        name: nom,
+                        usertype: ValueChoose, 
+
                       );
-                      if(result == null){
-                        setState(() {
-                          error = 'please enter a valid email';
-                          print(error);
-                        });
-                      }
-                      else{
-                        Navigator.pop(context);
-                      }
-                      
-                    }                                                                                                 
+                      Navigator.pop(context);
+                                  
+                                       
+                    }
+                                                                                                                                               
                   },
                   child: Container(
                     padding:
@@ -266,9 +281,9 @@ class _FormScreenState extends State<FormScreen> {
                       color: const Color.fromARGB(255, 233, 169, 51),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Center(
+                    child:  Center(
                       child: Text(
-                        'Créer',
+                        title,
                         style: TextStyle(
                           color: Color.fromARGB(255, 0, 0, 0),
                           fontWeight: FontWeight.bold,
@@ -285,4 +300,6 @@ class _FormScreenState extends State<FormScreen> {
       ),
     );
   }
+
+  
 }

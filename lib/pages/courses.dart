@@ -1,7 +1,10 @@
 import 'package:code_route/classes/auth.dart';
+import 'package:code_route/classes/myuser.dart';
+import 'package:code_route/classes/user_provider.dart';
 import 'package:code_route/util/course.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 class courses extends StatefulWidget {
@@ -13,10 +16,25 @@ class courses extends StatefulWidget {
 
 class _coursesState extends State<courses> {
   final auth = authservice();
+
+  void readdata()async{
+    user_provider provider = Provider.of(context,listen: false);
+    await provider.refreshUser();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    readdata();
+  }
+  
   @override
   Widget build(BuildContext context) {
+    myUser? user = Provider.of<user_provider>(context).getuser ;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(user?.name ?? "guess"),
+      ),
       drawer: OptionsBar(),
       body: Container(
         decoration: BoxDecoration(
@@ -55,14 +73,14 @@ class _coursesState extends State<courses> {
                 itemBuilder: (context, index) => Hero(
                   tag: "tag${index+1}", 
                   child: Container(
+                    
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      
-                      image: DecorationImage(image: AssetImage("assets/${index+1}.png")),
                       borderRadius: BorderRadius.circular(50)
                     ),
                     child: GestureDetector(
                       onTap: () {
+                        
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => course(
@@ -73,6 +91,10 @@ class _coursesState extends State<courses> {
                           )
                         );
                       },
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Image.asset("assets/${index+1}.png")
+                      ),
                     ),
                   )
                 ) ,
