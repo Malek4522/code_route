@@ -19,7 +19,9 @@ class _courseState extends State<course> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        
+      ),
       body: Container(
         decoration: BoxDecoration(
           

@@ -1,15 +1,10 @@
-2024/04/03-01:20:21.791 3074 Log #3: 2 ops saved to Table #11 OK
-2024/04/03-01:20:21.793 3074 Archiving C:\Users\abdma\AppData\Local\Temp\flutter_tools.808f13df\flutter_tools_chrome_device.feb22ba\Default\Site Characteristics Database/000003.log: OK
-2024/04/03-01:20:21.808 3074 Log #6: 1 ops saved to Table #12 OK
-2024/04/03-01:20:21.811 3074 Archiving C:\Users\abdma\AppData\Local\Temp\flutter_tools.808f13df\flutter_tools_chrome_device.feb22ba\Default\Site Characteristics Database/000006.log: OK
-2024/04/03-01:20:21.826 3074 Log #10: 13 ops saved to Table #13 OK
-2024/04/03-01:20:21.827 3074 Archiving C:\Users\abdma\AppData\Local\Temp\flutter_tools.808f13df\flutter_tools_chrome_device.feb22ba\Default\Site Characteristics Database/000010.log: OK
-2024/04/03-01:20:21.831 3074 Table #4: 2 entries OK
-2024/04/03-01:20:21.831 3074 Table #6: 2 entries OK
-2024/04/03-01:20:21.831 3074 Table #7: 1 entries OK
-2024/04/03-01:20:21.831 3074 Table #8: 1 entries OK
-2024/04/03-01:20:21.831 3074 Table #11: 2 entries OK
-2024/04/03-01:20:21.832 3074 Table #12: 1 entries OK
-2024/04/03-01:20:21.832 3074 Table #13: 13 entries OK
-2024/04/03-01:20:21.845 3074 Archiving C:\Users\abdma\AppData\Local\Temp\flutter_tools.808f13df\flutter_tools_chrome_device.feb22ba\Default\Site Characteristics Database/MANIFEST-000001: OK
-2024/04/03-01:20:21.867 3074 **** Repaired leveldb C:\Users\abdma\AppData\Local\Temp\flutter_tools.808f13df\flutter_tools_chrome_device.feb22ba\Default\Site Characteristics Database; recovered 7 files; 1555 bytes. Some data may have been lost. ****
+2024/04/03-02:24:42.648 4250 Reusing MANIFEST C:\Users\abdma\AppData\Local\Temp\flutter_tools.827f3a30\flutter_tools_chrome_device.a15e865\Default\Site Characteristics Database/MANIFEST-000001
+2024/04/03-02:24:42.649 4250 Recovering log #15
+2024/04/03-02:24:42.649 4250 Reusing old log C:\Users\abdma\AppData\Local\Temp\flutter_tools.827f3a30\flutter_tools_chrome_device.a15e865\Default\Site Characteristics Database/000015.log 
+2024/04/03-02:24:42.650 4250 Delete type=0 #3
+2024/04/03-02:24:42.650 4250 Delete type=2 #4
+2024/04/03-02:24:42.650 4250 Delete type=2 #6
+2024/04/03-02:24:42.650 4250 Delete type=0 #6
+2024/04/03-02:24:42.650 4250 Delete type=2 #7
+2024/04/03-02:24:42.650 4250 Delete type=2 #8
+2024/04/03-02:24:42.650 4250 Delete type=0 #10
