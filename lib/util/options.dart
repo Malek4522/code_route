@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class OptionsBar extends StatefulWidget {
   const OptionsBar({super.key});
@@ -13,10 +15,19 @@ class OptionsBarState extends State<OptionsBar> {
       backgroundColor: Color.fromARGB(255, 233, 169, 51),
       child: ListView(
         children: [
-          UserAccountsDrawerHeader(
-              accountName: Text(''), accountEmail: Text('')),
+          ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.white24,
+              child: Icon(
+                CupertinoIcons.person,
+                color: Colors.white,
+              ),
+            ),
+            title: Text("user", style: TextStyle(color: Colors.black)),
+            subtitle: Text("email", style: TextStyle(color: Colors.black)),
+          ),
           SizedBox(
-            height: 20,
+            height: 60,
           ),
           ListTile(
             title: Text('COURS'),
