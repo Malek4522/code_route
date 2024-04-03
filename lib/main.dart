@@ -1,4 +1,5 @@
 import 'package:code_route/classes/user_provider.dart';
+import 'package:code_route/pages/courses.dart';
 import 'package:code_route/pages/emailVirification.dart';
 import 'package:code_route/pages/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,10 +49,15 @@ class Myapp extends StatelessWidget {
             }
             return login();
           },
+          
 
         ),
+        routes: {
+          'courses' :(context)=> courses(),
 
+        },
       ),
+      
     );
 
   }

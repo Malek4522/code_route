@@ -9,7 +9,10 @@ class authservice{
 
   Future<myUser?> getUserDetail()async{
     User currentuser = _auth.currentUser!;
-    DocumentSnapshot snap = await _firestore.collection('users').doc(currentuser.uid).get();
+    
+    DocumentSnapshot snap = FirebaseAuth.instance.currentUser!.isAnonymous?
+    await _firestore.collection('users').doc("guess").get():
+    await _firestore.collection('users').doc(currentuser.uid).get();
     return  myUser.fromsnap(snap);
   }
   
