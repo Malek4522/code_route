@@ -30,6 +30,7 @@ class OptionsBarState extends State<OptionsBar> {
             height: 60,
           ),
           ListTile(
+            leading: Icon(Icons.book),
             title: Text('COURS'),
             onTap: () {},
           ),
@@ -37,6 +38,7 @@ class OptionsBarState extends State<OptionsBar> {
             height: 10,
           ),
           ListTile(
+            leading: Icon(Icons.question_mark),
             title: Text('QUIZ'),
             onTap: () {},
           ),
@@ -44,6 +46,7 @@ class OptionsBarState extends State<OptionsBar> {
             height: 10,
           ),
           ListTile(
+            leading: Icon(Icons.settings),
             title: Text('PARAMETRE'),
             onTap: () {},
           ),
@@ -51,6 +54,7 @@ class OptionsBarState extends State<OptionsBar> {
             height: 10,
           ),
           ListTile(
+            leading: Icon(Icons.lightbulb),
             title: Text('ABOUT'),
             onTap: () {},
           ),
