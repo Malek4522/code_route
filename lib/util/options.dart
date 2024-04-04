@@ -23,8 +23,16 @@ class OptionsBarState extends State<OptionsBar> {
                 color: Colors.white,
               ),
             ),
-            title: Text("user", style: TextStyle(color: Colors.black)),
-            subtitle: Text("email", style: TextStyle(color: Colors.black)),
+            title: Text("user",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30,
+                )),
+            subtitle: Text("email",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                )),
           ),
           SizedBox(
             height: 60,
