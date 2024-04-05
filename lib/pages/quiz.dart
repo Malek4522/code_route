@@ -1,6 +1,4 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:code_route/classes/question.dart';
+import 'package:code_route/classes/qst.dart';
 import 'package:code_route/util/option.dart';
 import 'package:flutter/material.dart';
 import 'package:quickalert/quickalert.dart';
@@ -16,36 +14,7 @@ class _quizState extends State<quiz> {
   int i = 0;
   int score = 0;
   bool check = false;
-  List <question> mylist =[
-    question(
-      title: '2+2',
-      option: {
-        '3': false,
-        '4': true,
-        '5': false,
-        '6': false,
-        '7': false,
-        '8': false,  
-      }
-    ),
-    question(
-      title: '8+2 = 10',
-      option: {
-        'no': false,
-        'yes': true,
-      }
-    ),
-    question(
-      title: '1*4',
-      option: {
-        '1': false,
-        '2': false,
-        '3': false,
-        '4': true
-      }
-    ),
-
-  ];
+  
   
   void check_fct(){
     setState(() {
