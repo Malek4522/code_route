@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:code_route/classes/auth.dart';
+import 'package:code_route/pages/addQuiz.dart';
 import 'package:code_route/pages/courses.dart';
 import 'package:code_route/pages/login.dart';
 import 'package:code_route/util/timed_button.dart';
@@ -62,7 +63,7 @@ class _emailVirificationState extends State<emailVirification> {
 
   @override
   Widget build(BuildContext context) {
-    return isVirified? courses(): Scaffold(
+    return isVirified? addQuiz(): Scaffold(
       appBar: AppBar(
         title: Text("email virificating"),
         centerTitle: true,

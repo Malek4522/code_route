@@ -14,7 +14,7 @@ class _quizState extends State<quiz> {
   int i = 0;
   int score = 0;
   bool check = false;
-  
+  List<qst> mylist =[];
   
   void check_fct(){
     setState(() {
@@ -68,10 +68,10 @@ class _quizState extends State<quiz> {
                   child: Image.asset('assets/${i+1}.png',fit: BoxFit.fill,)
                 ),
               ),             
-              for(String key in mylist[i].option.keys)
+              for(String key in mylist[i].options.keys)
                 option(
                   title: key,
-                  valid: mylist[i].option[key] as bool,
+                  valid: mylist[i].options[key] as bool,
                   check: check,
                   checking: check_fct,
                   score: score_fct,

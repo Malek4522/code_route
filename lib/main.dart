@@ -1,13 +1,9 @@
-import 'package:code_route/classes/firestore.dart';
-import 'package:code_route/classes/storage.dart';
 import 'package:code_route/classes/user_provider.dart';
-import 'package:code_route/pages/courses.dart';
 import 'package:code_route/pages/emailVirification.dart';
 import 'package:code_route/pages/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:universal_io/io.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +14,7 @@ void main()async{
     options:  DefaultFirebaseOptions.currentPlatform ,
   );
   
-  //runApp( Myapp());
+  runApp( Myapp());
   
 }
 
@@ -54,11 +50,7 @@ class Myapp extends StatelessWidget {
           },
           
 
-        ),
-        routes: {
-          'courses' :(context)=> courses(),
-
-        },
+        ),       
       ),
       
     );
