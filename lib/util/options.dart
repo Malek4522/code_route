@@ -1,5 +1,6 @@
-import 'package:code_route/classes/auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class OptionsBar extends StatefulWidget {
   const OptionsBar({super.key});
@@ -8,19 +9,36 @@ class OptionsBar extends StatefulWidget {
 }
 
 class OptionsBarState extends State<OptionsBar> {
-  final auth = authservice();
   @override
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: Color.fromARGB(255, 233, 169, 51),
       child: ListView(
         children: [
-          UserAccountsDrawerHeader(
-              accountName: Text(''), accountEmail: Text('')),
+          ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.white24,
+              child: Icon(
+                CupertinoIcons.person,
+                color: Colors.white,
+              ),
+            ),
+            title: Text("user",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30,
+                )),
+            subtitle: Text("email",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                )),
+          ),
           SizedBox(
-            height: 20,
+            height: 60,
           ),
           ListTile(
+            leading: Icon(Icons.book),
             title: Text('COURS'),
             onTap: () {},
           ),
@@ -28,6 +46,7 @@ class OptionsBarState extends State<OptionsBar> {
             height: 10,
           ),
           ListTile(
+            leading: Icon(Icons.question_mark),
             title: Text('QUIZ'),
             onTap: () {},
           ),
@@ -35,6 +54,7 @@ class OptionsBarState extends State<OptionsBar> {
             height: 10,
           ),
           ListTile(
+            leading: Icon(Icons.settings),
             title: Text('PARAMETRE'),
             onTap: () {},
           ),
@@ -42,6 +62,7 @@ class OptionsBarState extends State<OptionsBar> {
             height: 10,
           ),
           ListTile(
+            leading: Icon(Icons.lightbulb),
             title: Text('ABOUT'),
             onTap: () {},
           ),
@@ -51,9 +72,7 @@ class OptionsBarState extends State<OptionsBar> {
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('DECONNECCTER'),
-            onTap: () async{
-              await auth.signOut();
-            },
+            onTap: () {},
           ),
         ],
       ),

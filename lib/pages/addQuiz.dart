@@ -58,12 +58,28 @@ class addQuizState extends State<addQuiz> {
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black),
                     ),
-                    hintText: 'text...',
+                    hintText: 'titre...',
                     fillColor: Color.fromARGB(255, 216, 214, 214),
                     filled: true,
                   ),
                 ),
               ),
+              SizedBox(
+                height: 10,
+              ),
+              MaterialButton(
+                color: const Color.fromARGB(255, 233, 169, 51),
+                child: Text(
+                  "choisir une photo de gallery",
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                onPressed: () {},
+              ),
+
               SizedBox(
                 height: 10,
               ),
@@ -135,6 +151,29 @@ class addQuizState extends State<addQuiz> {
               ),
               SizedBox(
                 height: 20,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
+                child: TextField(
+                  controller: _textController,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    hintText: 'explication...',
+                    fillColor: Color.fromARGB(255, 216, 214, 214),
+                    filled: true,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
               ),
 
               //bonne reponse
