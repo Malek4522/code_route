@@ -71,7 +71,9 @@ class authservice{
         userType: usertype,
       );
 
-      await _firestore.collection('users').doc(result.user!.uid).set(user.toJson());
+      await _firestore.collection('users').doc(result.user!.uid).set(        
+        user.toJson(),   
+      );
       state = "done";
      
 

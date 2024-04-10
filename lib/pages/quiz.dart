@@ -1,4 +1,4 @@
-import 'package:code_route/classes/qst.dart';
+import 'package:code_route/classes/content.dart';
 import 'package:code_route/util/option.dart';
 import 'package:flutter/material.dart';
 import 'package:quickalert/quickalert.dart';
@@ -14,7 +14,7 @@ class _quizState extends State<quiz> {
   int i = 0;
   int score = 0;
   bool check = false;
-  List<qst> mylist =[];
+  List<priority> mylist =[];
   
   void check_fct(){
     setState(() {

@@ -16,21 +16,13 @@ class courses extends StatefulWidget {
 
 class _coursesState extends State<courses> {
   final auth = authservice();
-
-  Future readdata()async{
-    user_provider provider = Provider.of(context,listen: false);
-    await provider.refreshUser();
-  }
-
   
   @override
   Widget build(BuildContext context) {
-    readdata();
+    
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          Provider.of<user_provider>(context).getuser?.name ?? ""
-        ),
+        
       ),
       drawer: OptionsBar(),
       body: Container(

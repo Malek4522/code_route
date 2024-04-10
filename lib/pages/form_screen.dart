@@ -1,6 +1,7 @@
 import 'package:code_route/classes/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/services.dart';
 
 
 class FormScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class _FormScreenState extends State<FormScreen> {
   String pass1 = "";
   String pass2 = ""; 
    
-  String ValueChoose = 'Condidat';
+  String? ValueChoose ;
   String error = "";
   bool passToggle = true;
   final _formkey = GlobalKey<FormState>();
@@ -32,7 +33,7 @@ class _FormScreenState extends State<FormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.amber,
         title: const Text("Creer Un Neauveau Compte"),
@@ -58,7 +59,8 @@ class _FormScreenState extends State<FormScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: TextFormField(                    
+                child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,                    
                   validator: (value) => value!.isEmpty? '   *enter name': null,
                   onChanged: (val){
                     setState(() {
@@ -87,6 +89,8 @@ class _FormScreenState extends State<FormScreen> {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: TextFormField(
+                  
+                  keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                       if(value!.isEmpty){                   
                         return '   *enter email';                        
@@ -99,7 +103,7 @@ class _FormScreenState extends State<FormScreen> {
                         }
                       }
                     },
-                  keyboardType: TextInputType.emailAddress,
+                
                   onChanged: (val) {
                     setState(() {
                       email = val;
@@ -126,7 +130,9 @@ class _FormScreenState extends State<FormScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: TextFormField(   
+                child: TextFormField(  
+                  
+                  inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'[,.]')),], 
                   keyboardType: TextInputType.numberWithOptions(),              
                   validator: (value) => value!.length !=10 ? '   *invalid num': null,                                                         
                   onChanged: (val) {
@@ -156,6 +162,7 @@ class _FormScreenState extends State<FormScreen> {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: TextFormField(
+                    keyboardType: TextInputType.visiblePassword,
                     validator: (value) => value!.length<6? '   *short pass': null,
                     onChanged: (val) {
                     setState(() {
@@ -194,7 +201,8 @@ class _FormScreenState extends State<FormScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: TextFormField(              
+                child: TextFormField(
+                  keyboardType: TextInputType.visiblePassword,              
                   validator: (value) => value! !=pass1? '   *diff pass': null,   
                   onChanged: (val) {
                     setState(() {
@@ -224,7 +232,7 @@ class _FormScreenState extends State<FormScreen> {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: DropdownButton(                  
-                  hint: const Text("Je suis un  "),
+                  hint: const Text("enter user type  "),
                   dropdownColor: Colors.white,
                   icon: const Icon(Icons.arrow_drop_down),
                   iconSize: 36,
@@ -260,12 +268,15 @@ class _FormScreenState extends State<FormScreen> {
                   onTap: () async{  
                                     
                     if(_formkey.currentState!.validate()){
-                      dynamic result = await auth.registerWithEmailPass(
+                      if(ValueChoose == null){
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("please select type")));
+                      }
+                      else dynamic result = await auth.registerWithEmailPass(
                         email: email, 
                         password: pass1,
                         phoneNum: num ,
                         name: nom,
-                        usertype: ValueChoose, 
+                        usertype: ValueChoose!, 
 
                       );
                       Navigator.pop(context);

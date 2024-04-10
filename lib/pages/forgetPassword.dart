@@ -138,8 +138,8 @@ class ForgotPaswordState extends State<ForgotPasword> {
                       ontap: (){
                         if(_formkey.currentState!.validate()){
                           showDialog(
-                          context: context, 
-                          builder: (context)=>Center(child: CircularProgressIndicator(),)
+                            context: context, 
+                            builder: (context)=>Center(child: CircularProgressIndicator(),)
                           );
                                 
                           auth.resetpassword(email: _emailController.text.trim());

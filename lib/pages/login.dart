@@ -28,6 +28,7 @@ class _loginState extends State<login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("Conection"),
         backgroundColor: const Color.fromARGB(255, 233, 169, 51),
@@ -40,6 +41,7 @@ class _loginState extends State<login> {
         child: Form(
           key: _formkey,
           child: Column(
+            
             children: [
               
               SizedBox(height: 100,),

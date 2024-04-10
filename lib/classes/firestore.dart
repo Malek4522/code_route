@@ -1,33 +1,85 @@
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:code_route/classes/qst.dart';
+import 'package:code_route/classes/content.dart';
 import 'package:code_route/classes/storage.dart';
 
 class firestore{
   final db = FirebaseFirestore.instance;
-  qst? question ;
+  var content ;
   
-  Future<String> uploadQuestion({
-    required String courseId,
+  Future<String> uploadcontent({
+    required String monitorId,
     required String title,
-    required String explication,
-    required Uint8List file,
-    required Map<String,dynamic> options,
+    required Uint8List image,
+    required String type,
+    String? plaqueType,
+    String? explication,
+    Map<String,dynamic>? options,
   })async{
     String state ="error";
     try{
-      String url = await storage().uploadimage(file: file, id: courseId);
-       question = qst(
-        title: title, 
-        explication: explication, 
-        options: options, 
-        url: url
-      );
+      if(type =="معلومات عامة"){
+        await db.collection("معلومات عامة").add({
+          "approved" : true,
+          //"approved" : false,
+          "title" : title,
+          "explication" : explication,
+        }).then((DocumentReference doc)async{
+          await storage().uploadimage(image: image, id: doc.id).then((String url)async{
+            await doc.update({
+              'url' : url
+            });
+            await db.collection('users').doc(monitorId).collection("addedContent").add({
+              'id' : doc,
+              'date' : DateTime.now(),
+            });
+          });          
+        });
+      }
+      else if(type == "اولويات"){
+        await db.collection("اولويات").add({
+          "approved" : true,
+          //"approved" : false,
+          "title" : title,
+          "options" : options,
+          "explication" : explication,
+        }).then((DocumentReference doc)async{
+          await storage().uploadimage(image: image, id: doc.id).then((String url)async{
+            await doc.update({
+              'url' : url
+            });
+            await db.collection('users').doc(monitorId).collection("addedContent").add({
+              'id' : doc,
+              'date' : DateTime.now(),
+            });
+          });          
+        });
+      }else{
+        await db.collection("اشارات").add({
+          "approved" : true,
+          //"approved" : false,
+          "title" : title,
+          "options" : options,
+        }).then((DocumentReference doc)async{
+          await storage().uploadimage(image: image, id: doc.id).then((String url)async{
+            await doc.update({
+              'url' : url
+            });
+            await db.collection('users').doc(monitorId).collection("addedContent").add({
+              'id' : doc,
+              'date' : DateTime.now(),
+            });
+          });          
+        });
+      }
 
-      db.doc(courseId).set(question!.toJson());
+      
+              
       state = "done";
+      
     }catch(e){
       state = e.toString();
+      print('my error: '+state);
     }
     return state; 
   }

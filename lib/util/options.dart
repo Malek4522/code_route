@@ -1,6 +1,9 @@
+import 'package:code_route/classes/auth.dart';
+import 'package:code_route/classes/myuser.dart';
+import 'package:code_route/classes/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class OptionsBar extends StatefulWidget {
   const OptionsBar({super.key});
@@ -9,8 +12,11 @@ class OptionsBar extends StatefulWidget {
 }
 
 class OptionsBarState extends State<OptionsBar> {
+  final _auth =authservice();
+  
   @override
   Widget build(BuildContext context) {
+     myUser? user = Provider.of<user_provider>(context).getuser;
     return Drawer(
       backgroundColor: Color.fromARGB(255, 233, 169, 51),
       child: ListView(
@@ -23,15 +29,17 @@ class OptionsBarState extends State<OptionsBar> {
                 color: Colors.white,
               ),
             ),
-            title: Text("user",
+            title: Text(user!.name,
+                maxLines: 1,
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 30,
+                  fontSize: 18,
                 )),
-            subtitle: Text("email",
+            subtitle: Text(user!.email,
+                maxLines: 1,
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 24,
+                  fontSize: 14,
                 )),
           ),
           SizedBox(
@@ -72,7 +80,9 @@ class OptionsBarState extends State<OptionsBar> {
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('DECONNECCTER'),
-            onTap: () {},
+            onTap: () async{
+              await _auth.signOut();
+            },
           ),
         ],
       ),
