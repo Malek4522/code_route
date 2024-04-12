@@ -28,13 +28,12 @@ class _optionState extends State<option> {
     return Padding(
      padding: EdgeInsets.all(8),
       child: GestureDetector(
-        child: Container(
-          margin: EdgeInsets.all(15),
-          width: double.infinity,
-          height: 35,
+        child: Container(    
+          padding: EdgeInsets.all(15),
+          margin: EdgeInsets.fromLTRB(40, 5, 40, 0),
           child: Text(
             widget.title,
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.start,
             style: TextStyle(fontSize: 25),
           ),
           decoration: BoxDecoration(

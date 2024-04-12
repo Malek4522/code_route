@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class storage{
@@ -6,9 +7,9 @@ class storage{
 
   Future<String> uploadimage({
     required  Uint8List image,
-    required String id
+    required DocumentReference reference
     })async{
-      Reference ref = _storage.ref(id);
+      Reference ref = _storage.ref(reference.path);
       UploadTask uploadTask = ref.putData(image);
 
       TaskSnapshot snap = await uploadTask;

@@ -1,34 +1,42 @@
 import 'package:code_route/classes/auth.dart';
-import 'package:code_route/classes/myuser.dart';
-import 'package:code_route/classes/user_provider.dart';
 import 'package:code_route/util/course.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 
-class courses extends StatefulWidget {
-  const courses({super.key});
+class courses extends StatelessWidget {
+   courses({super.key});
 
-  @override
-  State<courses> createState() => _coursesState();
-}
-
-class _coursesState extends State<courses> {
   final auth = authservice();
-  
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     
     return Scaffold(
+      key: _scaffoldKey,
+      extendBodyBehindAppBar: true,
+      endDrawer: OptionsBar(), 
       appBar: AppBar(
-        
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white,size: 40,),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        actions: [
+          IconButton(
+            onPressed:() => _scaffoldKey.currentState!.openEndDrawer(), 
+            icon: Icon(Icons.menu,color: Colors.white,size: 40,)
+          )
+        ],
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
-      drawer: OptionsBar(),
+
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/backround.jpg"),          
+            image: AssetImage("assets/background.jpg"),          
             fit: BoxFit.fill,
           ),
         ),

@@ -13,14 +13,7 @@ class priority{
     required this.url
   });
 
-  Map<String,dynamic>toJson()=>{
-    "title" : title,
-    "explication" : explication,
-    "url" : url,
-    "options" : options
-  };
-
-  static priority fromsnap(DocumentSnapshot snap){
+  static priority fromsnap(QueryDocumentSnapshot snap){
     var snapshot = snap.data() as Map<String, dynamic>;
     return priority(
       title: snapshot["title"], 
@@ -46,14 +39,8 @@ class plaque{
     required this.url
   });
 
-  Map<String,dynamic>toJson()=>{
-    "title" : title,
-    "type" : type,
-    "url" : url,
-    "options" : options
-  };
 
-  static plaque fromsnap(DocumentSnapshot snap){
+  static plaque fromsnap(QueryDocumentSnapshot snap){
     var snapshot = snap.data() as Map<String, dynamic>;
     return plaque(
       title: snapshot["title"], 
@@ -77,18 +64,12 @@ class generality{
     required this.description,
   });
 
-  Map<String,dynamic>toJson()=>{
-    "title" : title,
-    "url" : url,
-    "description" : description,
-  };
-
-  static generality fromsnap(DocumentSnapshot snap){
+  static generality fromsnap(QueryDocumentSnapshot snap){
     var snapshot = snap.data() as Map<String, dynamic>;
     return generality(
       title: snapshot["title"], 
       url: snapshot["url"],
-      description: snapshot["description"]
+      description: snapshot["explication"]
     );
   }
 

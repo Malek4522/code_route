@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_route/classes/firestore.dart';
 import 'package:code_route/classes/storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,13 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:code_route/util/options.dart';
 
 
-class addQuiz extends StatefulWidget {
-  const addQuiz({super.key});
+class addContent extends StatefulWidget {
+  const addContent({super.key});
   @override
-  State<addQuiz> createState() => addQuizState();
+  State<addContent> createState() => addContentState();
 }
 
-class addQuizState extends State<addQuiz> {
+class addContentState extends State<addContent> {
   final _titleController = TextEditingController();
   final _explicationController = TextEditingController();
   List<TextEditingController> controllers = [
@@ -37,7 +38,7 @@ class addQuizState extends State<addQuiz> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      drawer: OptionsBar(),
+      endDrawer: OptionsBar(),
       appBar: AppBar(
         title: Text(
           'AJOUTER UN QUIZ',
@@ -374,7 +375,7 @@ class addQuizState extends State<addQuiz> {
                             });
                           }
                           db.uploadcontent(
-                            monitorId: "dev",
+                            monitorRef: FirebaseFirestore.instance.collection("users").doc("dev"),
                             //monitorId: ,
                             type: _selectedType!,
                             plaqueType: _selectedPlaqueType,

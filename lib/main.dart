@@ -1,3 +1,5 @@
+import 'package:code_route/classes/auth.dart';
+import 'package:code_route/classes/firestore.dart';
 import 'package:code_route/classes/user_provider.dart';
 import 'package:code_route/pages/emailVirification.dart';
 import 'package:code_route/pages/login.dart';
@@ -13,8 +15,16 @@ void main()async{
   await Firebase.initializeApp(
     options:  DefaultFirebaseOptions.currentPlatform ,
   );
-  
+
   runApp( Myapp());
+  /*
+  final db = firestore();
+  db.retrivePost(type: "generality").then((list){
+    for(var element in list){
+      print(element.title);
+    }
+  });
+  */
   
 }
 
@@ -30,6 +40,7 @@ class Myapp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {

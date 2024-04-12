@@ -1,6 +1,9 @@
 import 'package:code_route/classes/user_provider.dart';
-import 'package:code_route/pages/addQuiz.dart';
+import 'package:code_route/pages/addContent.dart';
 import 'package:code_route/pages/courses.dart';
+import 'package:code_route/pages/firstpage.dart';
+import 'package:code_route/pages/general%20_knowledges.dart';
+import 'package:code_route/pages/quiz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,7 +34,7 @@ class _futureBuilderState extends State<futureBuilder> {
             child: Text("future builder error"),
           );
         }else{
-          return addQuiz();
+          return addContent();
         }
         
       }

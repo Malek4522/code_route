@@ -1,6 +1,9 @@
 import 'package:code_route/classes/auth.dart';
+import 'package:code_route/classes/content.dart';
 import 'package:code_route/classes/myuser.dart';
 import 'package:code_route/classes/user_provider.dart';
+import 'package:code_route/pages/coursesType.dart';
+import 'package:code_route/pages/quizTypes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +19,7 @@ class OptionsBarState extends State<OptionsBar> {
   
   @override
   Widget build(BuildContext context) {
-     myUser? user = Provider.of<user_provider>(context).getuser;
+    myUser? user = Provider.of<user_provider>(context).getuser;
     return Drawer(
       backgroundColor: Color.fromARGB(255, 233, 169, 51),
       child: ListView(
@@ -48,7 +51,15 @@ class OptionsBarState extends State<OptionsBar> {
           ListTile(
             leading: Icon(Icons.book),
             title: Text('COURS'),
-            onTap: () {},
+            onTap: () {
+              
+              Navigator.pushReplacement(
+                context, 
+                MaterialPageRoute(
+                  builder: (context)=>coursesType()
+                )
+              );                         
+            },
           ),
           SizedBox(
             height: 10,
@@ -56,7 +67,14 @@ class OptionsBarState extends State<OptionsBar> {
           ListTile(
             leading: Icon(Icons.question_mark),
             title: Text('QUIZ'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context)=>quizTypes()
+                )
+              );
+            },
           ),
           SizedBox(
             height: 10,

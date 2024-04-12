@@ -33,12 +33,13 @@ class information extends StatelessWidget {
               
               Container(
                 margin: EdgeInsets.all(20),
+                padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(50)
                 ),
                 child: Text(
-                  "  "+title+"  ",
+                  title,
                   style: TextStyle(fontSize: 50),
                 ),
               ),
@@ -46,7 +47,14 @@ class information extends StatelessWidget {
               Hero(
                 tag: "tag${index+1}", 
                 
-                child: Image.asset(image,scale: 10,)
+                child: Container(
+                  padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30)
+                  ),
+                  child: Image.asset(image,scale: 10,)
+                )
               ),
               SizedBox(height: 20,),
               Container(
