@@ -2,7 +2,12 @@ import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
 
 class quizTypes extends StatelessWidget {
-  const quizTypes({super.key});
+  const quizTypes({
+    super.key,
+    required this.data
+  });
+
+  final data;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +54,7 @@ class quizTypes extends StatelessWidget {
                     color: Colors.white,              
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: const Center(
+                  child:  Center(
                     child: Column(
                       children: [
                         Text(
@@ -61,7 +66,7 @@ class quizTypes extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '(0)',
+                          data[0].length.toString(),
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,
@@ -93,7 +98,7 @@ class quizTypes extends StatelessWidget {
                     color: Colors.white,                
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Column(
                       children: [
                         Text(
@@ -105,7 +110,7 @@ class quizTypes extends StatelessWidget {
                           ),                         
                         ),
                         Text(
-                          '(0)',
+                          data[1].length.toString(),
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,

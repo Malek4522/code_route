@@ -96,10 +96,11 @@ class authservice{
     required String email, required String password})async{
       String state ="error";
     try{
-      UserCredential result = await _auth.signInWithEmailAndPassword(
+       await _auth.signInWithEmailAndPassword(
         email: email, 
         password: password
       );
+      
 
       state ="done";     
     }catch(e){

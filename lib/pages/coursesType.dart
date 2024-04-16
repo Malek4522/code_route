@@ -1,8 +1,17 @@
+import 'package:code_route/pages/chiraz_plaques.dart';
+import 'package:code_route/pages/courses.dart';
+import 'package:code_route/pages/general%20_knowledges.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
 
 class coursesType extends StatelessWidget {
-  const coursesType({super.key});
+  coursesType({
+    super.key,
+    required this.data
+  });
+
+  final List data;
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +41,16 @@ class coursesType extends StatelessWidget {
             children: [
 
               GestureDetector(
-                onTap: () {
-                  /*
+                
+                onTap: () {              
                   Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context)=>coursesType()
+                          builder: (context)=>CPlaques(data: data[0],)
                         )
-                    );
-                  */
+                  );                 
                 },
+                
                 child: Container(
                   margin: EdgeInsets.fromLTRB(45, 130, 130, 0),
                   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
@@ -50,7 +59,7 @@ class coursesType extends StatelessWidget {
                     color: Colors.white,              
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: const Center(
+                  child:  Center(
                     child: Column(
                       children: [
                         Text(
@@ -62,7 +71,7 @@ class coursesType extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '(0)',
+                          data[0].length.toString(),
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,
@@ -77,14 +86,14 @@ class coursesType extends StatelessWidget {
 
               GestureDetector(
                 onTap: () {
-                  /*
+                  
                   Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context)=>coursesType()
+                          builder: (context)=>courses(data: data[1],)
                         )
-                    );
-                  */
+                  );
+                  
                 },
                 child: Container(
                   margin: EdgeInsets.fromLTRB(45, 50, 130, 0),
@@ -94,7 +103,7 @@ class coursesType extends StatelessWidget {
                     color: Colors.white,                
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: const Center(
+                  child:  Center(
                     child: Column(
                       children: [
                         Text(
@@ -106,12 +115,12 @@ class coursesType extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '(0)',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                          ),
+                          data[1].length.toString(),
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
                         ),
                       ],
                     ),
@@ -121,15 +130,13 @@ class coursesType extends StatelessWidget {
 
 
               GestureDetector(
-                onTap: () {
-                  /*
+                onTap: () {                
                   Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context)=>coursesType()
+                          builder: (context)=> generalknowledge(data: data[2])
                         )
-                    );
-                  */
+                    );                        
                 },
                 child: Container(
                   margin: EdgeInsets.fromLTRB(45, 50, 130, 0),
@@ -139,7 +146,7 @@ class coursesType extends StatelessWidget {
                     color: Colors.white,               
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Column(
                       children: [
                         Text(
@@ -151,7 +158,7 @@ class coursesType extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '(0)',
+                          data[2].length.toString(),
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,

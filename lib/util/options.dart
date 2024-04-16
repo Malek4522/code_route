@@ -1,9 +1,6 @@
 import 'package:code_route/classes/auth.dart';
-import 'package:code_route/classes/content.dart';
 import 'package:code_route/classes/myuser.dart';
 import 'package:code_route/classes/user_provider.dart';
-import 'package:code_route/pages/coursesType.dart';
-import 'package:code_route/pages/quizTypes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +35,7 @@ class OptionsBarState extends State<OptionsBar> {
                   color: Colors.black,
                   fontSize: 18,
                 )),
-            subtitle: Text(user!.email,
+            subtitle: Text(user.email,
                 maxLines: 1,
                 style: TextStyle(
                   color: Colors.black,
@@ -52,13 +49,13 @@ class OptionsBarState extends State<OptionsBar> {
             leading: Icon(Icons.book),
             title: Text('COURS'),
             onTap: () {
-              
+              /*
               Navigator.pushReplacement(
                 context, 
                 MaterialPageRoute(
                   builder: (context)=>coursesType()
                 )
-              );                         
+              );*/                         
             },
           ),
           SizedBox(
@@ -68,12 +65,14 @@ class OptionsBarState extends State<OptionsBar> {
             leading: Icon(Icons.question_mark),
             title: Text('QUIZ'),
             onTap: () {
+              /*
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context)=>quizTypes()
                 )
               );
+              */
             },
           ),
           SizedBox(

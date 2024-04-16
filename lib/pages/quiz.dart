@@ -26,7 +26,8 @@ class _quizState extends State<quiz> {
         '2' : true,
         '3' : false,
       },
-      url: "https://firebasestorage.googleapis.com/v0/b/code-route-f1a0f.appspot.com/o/2.png?alt=media&token=b2c4f7cf-6283-4085-b5e9-49d97ffc482d"
+      difficulty: 3.5,
+      url: "https://firebasestorage.googleapis.com/v0/b/code-route-f1a0f.appspot.com/o/1.png?alt=media&token=bc8b581d-ee99-4322-9bd4-6f0cb2406a88"
     )
   ];
   

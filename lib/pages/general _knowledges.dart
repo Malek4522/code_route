@@ -4,8 +4,11 @@ import 'package:code_route/util/information.dart';
 import 'package:flutter/material.dart';
 
 class generalknowledge extends StatelessWidget {
-  generalknowledge({super.key});
-
+  generalknowledge({
+    super.key,
+    required this.data
+  });
+  final  data;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +21,7 @@ class generalknowledge extends StatelessWidget {
           ),
         ),
         child: ListView.builder(
-          itemCount: 10,
+          itemCount: data.length,
           itemBuilder: (context,index) => ListTile(
             leading: Text(
               (index+1).toString(),
@@ -34,7 +37,7 @@ class generalknowledge extends StatelessWidget {
               ),
               child: Padding(
                 padding: EdgeInsets.all(25),
-                child: Text('title number ${index+1}')
+                child: Text(data[index]["title"],textDirection: TextDirection.rtl),
               ),
             ),
             
@@ -46,11 +49,10 @@ class generalknowledge extends StatelessWidget {
                    Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: ((context) => information(
-                        title: "title",
+                        title: data[index]["title"],
                         index: index, 
-                        description: "description", 
-                        //image: "${index+1}.png"
-                        image: "assets/${index+1}.png",
+                        description: data[index]["explication"], 
+                        image: data[index]["url"],
                       )
                     )
                    )

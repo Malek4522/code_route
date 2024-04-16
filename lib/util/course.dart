@@ -5,11 +5,13 @@ class course extends StatefulWidget {
       super.key,
       required this.index,
       required this.title,
-      required this.description
+      this.description,
+      required this.image
     });
   int index;
-  String title;
-  String description;
+  final String title;
+  final String? description;
+  final String image;
 
   @override
   State<course> createState() => _courseState();
@@ -18,21 +20,18 @@ class course extends StatefulWidget {
 class _courseState extends State<course> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        
-      ),
+    return Scaffold(   
       body: Container(
         decoration: BoxDecoration(
           
           image: DecorationImage(
-            image: AssetImage("assets/backround.jpg"),          
+            image: AssetImage("assets/background.jpg"),          
             fit: BoxFit.fill,
           ),
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,                       
+          child: ListView(
+                                
             children: [ 
               
               Container(
@@ -42,17 +41,18 @@ class _courseState extends State<course> {
                   borderRadius: BorderRadius.circular(50)
                 ),
                 child: Text(
-                  "  "+widget.title+"  ",
+                  widget.title,
                   style: TextStyle(fontSize: 50),
                 ),
               ),
               SizedBox(height: 20,),
               Hero(
                 tag: "tag${widget.index+1}", 
-                child: Image.asset("assets/${widget.index+1}.png",scale: 10,)
+                child: Image.network(widget.image,)
               ),
               SizedBox(height: 20,),
-              Container(
+
+              widget.description==null? Container(): Container(
                 
                 margin: EdgeInsets.all(50),
                 decoration: BoxDecoration(
@@ -62,7 +62,7 @@ class _courseState extends State<course> {
                 child: Padding(
                   padding: EdgeInsets.all(10),
                   child: Text(
-                   widget.description,                               
+                   widget.description!,                               
                     style: TextStyle(fontSize: 20),
                   ),
                 ),

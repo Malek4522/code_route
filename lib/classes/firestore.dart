@@ -1,17 +1,16 @@
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:code_route/classes/content.dart';
 import 'package:code_route/classes/storage.dart';
 
 class firestore{
   final db = FirebaseFirestore.instance;
-  var content ;
   
   Future<String> uploadcontent({
     required DocumentReference monitorRef,
     required String title,
     required Uint8List image,
     required String type,
+    double ? difficulty,
     String? plaqueType,
     String? explication,
     Map<String,dynamic>? options,
@@ -46,6 +45,7 @@ class firestore{
           "title" : title,
           "options" : options,
           "explication" : explication,
+          "difficulty" : difficulty,
         }).then((DocumentReference doc)async{
           await storage().uploadimage(image: image, reference: doc).then((String url)async{
             await doc.update({
@@ -61,10 +61,13 @@ class firestore{
         await db.collection("اشارات").add({
           "monitorRef" : monitorRef,
           "approved" : true,
+          "type" : plaqueType,
           //"approved" : false,
           "title" : title,
           "options" : options,
+          "difficulty" : difficulty,
         }).then((DocumentReference doc)async{
+          
           await storage().uploadimage(image: image, reference: doc).then((String url)async{
             await doc.update({
               'url' : url
@@ -88,33 +91,16 @@ class firestore{
     return state; 
   }
 
-  Future<List<dynamic>> retrivePost({
+  Future<List<QueryDocumentSnapshot>> retrivePost({
     required String type,
     String? subType,
   })async{
-    List<dynamic> myList = [];  
       if(subType == null){
-        await db.collection(type).get().then((QuerySnapshot snap)async{
-          for(var doc in snap.docs){
-            myList.add(generality.fromsnap(doc));          
-          }
-          return myList;
-        });
+        return await db.collection(type).get().then((value) => value.docs);
+        
       }else{
-        await db.collection(type).where("type").get().then((QuerySnapshot snap)async{
-          for(var doc in snap.docs){
-            myList.add(generality.fromsnap(doc));          
-          }
-          return myList;
-        });
+        return await db.collection(type).where("type",isEqualTo: subType).get().then((value) => value.docs);
       }   
-           
-        
-
-      
-        
-    
-    return myList;
 
   }
   

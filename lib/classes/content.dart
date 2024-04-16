@@ -5,12 +5,14 @@ class priority{
   final String explication;
   final String url;
   final Map<String,dynamic> options;
+  final double difficulty;
 
   priority({
     required this.title,
     required this.explication,
     required this.options,
-    required this.url
+    required this.url,
+    required this.difficulty
   });
 
   static priority fromsnap(QueryDocumentSnapshot snap){
@@ -19,7 +21,8 @@ class priority{
       title: snapshot["title"], 
       explication: snapshot["explication"], 
       options: snapshot["options"] as Map<String,dynamic>, 
-      url: snapshot["url"]
+      url: snapshot["url"],
+      difficulty : snapshot["difficulty"],
     );
   }
 
@@ -31,12 +34,14 @@ class plaque{
   final String type;
   final String url;
   final Map<String,dynamic> options;
+  final double difficulty;
 
   plaque({
     required this.title,
     required this.type,
     required this.options,
-    required this.url
+    required this.url,
+    required this.difficulty
   });
 
 
@@ -46,7 +51,8 @@ class plaque{
       title: snapshot["title"], 
       type: snapshot["type"], 
       options: snapshot["options"] as Map<String,dynamic>, 
-      url: snapshot["url"]
+      url: snapshot["url"],
+      difficulty : snapshot["difficulty"]
     );
   }
 

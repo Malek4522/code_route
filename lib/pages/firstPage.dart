@@ -1,18 +1,30 @@
-import 'package:code_route/classes/myuser.dart';
-import 'package:code_route/classes/user_provider.dart';
+import 'package:code_route/classes/firestore.dart';
 import 'package:code_route/pages/addContent.dart';
 import 'package:code_route/pages/coursesType.dart';
 import 'package:code_route/pages/quizTypes.dart';
+import 'package:code_route/util/futurBuilder.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 
 class firstPage extends StatelessWidget {
   const firstPage({super.key});
+  
+  Future fetchData_g()async{
+    final db = firestore();
+    return await db.retrivePost(type: "معلومات عامة");
+  }
+  Future fetchData_p()async{
+    final db = firestore();
+    return await db.retrivePost(type: "اشارات");
+  }
+  Future fetchData_s()async{
+    final db = firestore();
+    return await db.retrivePost(type: "اولويات");
+  }
 
   @override
   Widget build(BuildContext context) {
-    myUser? user = Provider.of<user_provider>(context).getuser;
     return Scaffold(
       endDrawer: OptionsBar(),
       appBar: AppBar(
@@ -39,16 +51,22 @@ class firstPage extends StatelessWidget {
             children: [
               
               GestureDetector(
+                
                 onTap: () {
                   Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context)=>coursesType()
+                          builder: (context)=>futureBuilder(
+                            fetchData: [fetchData_p(),fetchData_s(),fetchData_g()],
+                            result_with: (data) => coursesType(data: data),
+                          )
                         )
                   );
+                  
                 },
+                
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(130, 150, 130, 40),
+                  margin: EdgeInsets.fromLTRB(120, 150, 120, 40),
                   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   
                   decoration: BoxDecoration(
@@ -74,7 +92,11 @@ class firstPage extends StatelessWidget {
                   Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context)=>quizTypes()
+                          builder:(context)=> futureBuilder(
+                            fetchData: [fetchData_p(),fetchData_s()],
+                            result_with: (data) => quizTypes(data: data,),
+
+                          )
                         )
                   );
                 },
@@ -101,7 +123,7 @@ class firstPage extends StatelessWidget {
 
               //(user!.userType == 'Condidat')? SizedBox(height: 1,):Container(
               Container(  
-                margin: EdgeInsets.fromLTRB(70, 30, 70, 50),
+                margin: EdgeInsets.fromLTRB(70, 40, 70, 50),
                 padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
                 
                 decoration: BoxDecoration(

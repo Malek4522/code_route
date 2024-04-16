@@ -9,7 +9,8 @@ class storage{
     required  Uint8List image,
     required DocumentReference reference
     })async{
-      Reference ref = _storage.ref(reference.path);
+      //print(reference.path);
+      Reference ref = _storage.ref(reference.id);
       UploadTask uploadTask = ref.putData(image);
 
       TaskSnapshot snap = await uploadTask;

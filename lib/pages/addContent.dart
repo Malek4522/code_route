@@ -1,8 +1,6 @@
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_route/classes/firestore.dart';
-import 'package:code_route/classes/storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:code_route/util/options.dart';
@@ -21,12 +19,14 @@ class addContentState extends State<addContent> {
     for (int i = 0; i < 5; i++) TextEditingController()
   ];
 
+  double difficulty = 1;
+
   int n = 3;
   List<int> options = [1, 2, 3];
   int? _selectedOption;
   List types = ["معلومات عامة","اولويات","اشارات",];
   String? _selectedType;
-  List plaqueType = ["لتحذير","الارشاد","الممنوع","الاجباري"];
+  List plaqueType = ["التحذير","الارشاد","الممنوع","الاجباري"];
   String?_selectedPlaqueType;
 
   Uint8List? _selectedImage; 
@@ -41,7 +41,7 @@ class addContentState extends State<addContent> {
       endDrawer: OptionsBar(),
       appBar: AppBar(
         title: Text(
-          'AJOUTER UN QUIZ',
+          'AJOUTER UN QUIZ',         
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -353,6 +353,42 @@ class addContentState extends State<addContent> {
                 SizedBox(
                   height: 10,
                 ),
+
+                SizedBox(
+                  height: 10,
+                ),
+
+                (_selectedType == null)?SizedBox(height: 1,)  : (_selectedType==types[0])?
+                  SizedBox(height: 1,) :Container(
+                    margin: EdgeInsets.all(30),
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.white
+                    ),
+                    child: Column(
+                      children: [                       
+                        Text(
+                          "select difficulty",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25, 
+                          ),
+                        ),
+                        Slider(                    
+                          value: difficulty, 
+                          onChanged: (value) => setState(() {difficulty = value;}),
+                          min: 1,
+                          max: 10,
+                          divisions: 18,
+                          label: difficulty.toString(),
+                          thumbColor: Color.fromARGB(255, 28, 28, 68),
+                        
+                        ),
+                      ],
+                    ),
+                  ),
                 
             
                 
@@ -377,6 +413,7 @@ class addContentState extends State<addContent> {
                           db.uploadcontent(
                             monitorRef: FirebaseFirestore.instance.collection("users").doc("dev"),
                             //monitorId: ,
+                            difficulty: difficulty,
                             type: _selectedType!,
                             plaqueType: _selectedPlaqueType,
                             options: options,

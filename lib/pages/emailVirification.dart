@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:code_route/classes/auth.dart';
+import 'package:code_route/classes/user_provider.dart';
+import 'package:code_route/pages/firstPage.dart';
 import 'package:code_route/util/futurBuilder.dart';
 import 'package:code_route/util/timed_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class emailVirification extends StatefulWidget {
   const emailVirification({super.key});
@@ -54,14 +57,17 @@ class _emailVirificationState extends State<emailVirification> {
         }
         
       );
-    }
-    
+    } 
+  }
+  Future readdata()async{
+    user_provider provider = Provider.of(context,listen: false);
+    await provider.refreshUser();
   }
   
 
   @override
   Widget build(BuildContext context) {
-    return isVirified? futureBuilder(): WillPopScope(
+    return isVirified? futureBuilder(fetchData: [readdata()],result_without: firstPage()): WillPopScope(
       onWillPop: () async=>_returning ,
       child: Scaffold(
         appBar: AppBar(

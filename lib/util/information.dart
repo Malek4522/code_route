@@ -26,56 +26,55 @@ class information extends StatelessWidget {
             fit: BoxFit.fill,
           ),              
         ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,                       
-            children: [ 
+        child: ListView(                       
+          children: [ 
+            
+            Container(
+              margin: EdgeInsets.all(20),
+              padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50)
+              ),
+              child: Text(
+                title,
+                textDirection: TextDirection.rtl,
+                style: TextStyle(fontSize: 50),
+              ),
+            ),
+            SizedBox(height: 20,),
+            Hero(
+              tag: "tag${index+1}", 
               
-              Container(
-                margin: EdgeInsets.all(20),
-                padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+              child: Container(
+                padding: EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(50)
+                  borderRadius: BorderRadius.circular(30)
                 ),
+                child: Image.network(image)
+              )
+            ),
+            SizedBox(height: 20,),
+            Container(
+              
+              margin: EdgeInsets.all(50),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10)
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(10),
                 child: Text(
-                  title,
-                  style: TextStyle(fontSize: 50),
+                  description,
+                  textDirection: TextDirection.rtl,                               
+                  style: TextStyle(fontSize: 20),
                 ),
-              ),
-              SizedBox(height: 20,),
-              Hero(
-                tag: "tag${index+1}", 
-                
-                child: Container(
-                  padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30)
-                  ),
-                  child: Image.asset(image,scale: 10,)
-                )
-              ),
-              SizedBox(height: 20,),
-              Container(
-                
-                margin: EdgeInsets.all(50),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10)
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    description,                               
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                
               ),
               
-            ],
-          ),
+            ),
+            
+          ],
         ),
       ),
 
