@@ -271,7 +271,7 @@ class _FormScreenState extends State<FormScreen> {
                       if(ValueChoose == null){
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("please select type")));
                       }
-                      else dynamic result = await auth.registerWithEmailPass(
+                      else  await auth.registerWithEmailPass(
                         email: email, 
                         password: pass1,
                         phoneNum: num ,
