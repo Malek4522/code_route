@@ -244,16 +244,16 @@ class addQuizState extends State<addQuiz> {
                     },
                     items: const [
                       DropdownMenuItem<String>(
-                        value: 'plaques',
-                        child: Text('plaques'),
+                        value: 'PLAQUES',
+                        child: Text('PLAQUES'),
                       ),
                       DropdownMenuItem<String>(
-                        value: 'priorite',
-                        child: Text('priorite'),
+                        value: 'PRIORETE',
+                        child: Text('PRIORETE'),
                       ),
                       DropdownMenuItem<String>(
-                        value: 'gene',
-                        child: Text('gene'),
+                        value: 'GÉNÉRALITÉS',
+                        child: Text('GÉNÉRALITÉS'),
                       ),
                     ],
                   ),
