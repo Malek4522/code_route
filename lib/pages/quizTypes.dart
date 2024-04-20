@@ -1,5 +1,9 @@
+import 'package:code_route/classes/routeProvider.dart';
+import 'package:code_route/pages/quiz.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:code_route/pages/firstPage.dart';
 
 class quizTypes extends StatelessWidget {
   const quizTypes({
@@ -7,13 +11,21 @@ class quizTypes extends StatelessWidget {
     required this.data
   });
 
-  final data;
+  static const String routeName = 'pages/quizType.dart';
+  final List data;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       endDrawer: OptionsBar(),
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Provider.of<routeProvider>(context, listen: false).removeroute();
+            Navigator.of(context).pop();
+          },
+        ),
         title: Text(
           'quiz',
           style: TextStyle(
@@ -21,6 +33,7 @@ class quizTypes extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: 38,
           ),
+          
         ),
         backgroundColor: Color.fromARGB(255, 233, 169, 51),
         elevation: 0,
@@ -37,17 +50,16 @@ class quizTypes extends StatelessWidget {
 
               GestureDetector(
                 onTap: () {
-                  /*
+                  Provider.of<routeProvider>(context, listen: false).addRoute(quiz.routeName);
                   Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context)=>quizTypes()
-                        )
-                    );
-                  */
+                    context,
+                    MaterialPageRoute(
+                      builder: (context)=>quiz(data: data[0])
+                    )
+                  );
                 },
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(100, 130, 100, 0),
+                  margin: EdgeInsets.fromLTRB(90, 130, 90, 0),
                   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   
                   decoration: BoxDecoration(  
@@ -62,7 +74,7 @@ class quizTypes extends StatelessWidget {
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,
-                            fontSize: 60,
+                            fontSize: 55,
                           ),
                         ),
                         Text(
@@ -81,17 +93,17 @@ class quizTypes extends StatelessWidget {
 
               GestureDetector(
                 onTap: () {
-                  /*
+                  Provider.of<routeProvider>(context, listen: false).addRoute(quiz.routeName);
                   Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context)=>quizTypes()
+                          builder: (context)=>quiz(data: data[1])
                         )
                     );
-                  */
+                  
                 },
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(100, 50, 100, 0),
+                  margin: EdgeInsets.fromLTRB(90, 50, 90, 0),
                   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   
                   decoration: BoxDecoration(
@@ -127,7 +139,6 @@ class quizTypes extends StatelessWidget {
           ),
         ),
       )  
-
     );
   }
 }

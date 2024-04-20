@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:code_route/classes/routeProvider.dart';
+import 'package:code_route/pages/general%20_knowledges.dart';
+import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class information extends StatelessWidget {
   information({
@@ -16,9 +20,32 @@ class information extends StatelessWidget {
   final String description;
   final String image;
 
+  static const String routeName = 'pages/information.dart';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
+      endDrawer: OptionsBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Provider.of<routeProvider>(context, listen: false).removeroute();
+            Navigator.of(context).pop();
+          },
+        ),
+        title: Text(
+          'course',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 38,
+          ),
+        ),              
+        backgroundColor: Color.fromARGB(255, 233, 169, 51),
+        elevation: 0,
+      ),    
       body: Container(       
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -47,6 +74,7 @@ class information extends StatelessWidget {
               tag: "tag${index+1}", 
               
               child: Container(
+                margin: EdgeInsets.all(20),
                 padding: EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -73,29 +101,34 @@ class information extends StatelessWidget {
               ),
               
             ),
+
+            Container(
+              margin: EdgeInsets.fromLTRB(100, 10, 100, 30),
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50)
+              ),
+              child: GestureDetector(
+                child: Center(
+                  child: Text(
+                    "Done",
+                    style: TextStyle(fontSize: 50),
+                  ),
+                ),
+                onTap: () {
+                    Navigator.pop(context);
+                },
+              )
+            ),
             
           ],
         ),
       ),
 
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        margin: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(50)
-        ),
-        child: GestureDetector(
-          child: Text(
-            "   Done   ",
-            style: TextStyle(fontSize: 50),
-          ),
-          onTap: () {
-              Navigator.pop(context);
-          },
-          ),
+      
               
-      ),
+      
     );
   }
 }

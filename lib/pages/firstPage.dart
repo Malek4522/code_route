@@ -1,23 +1,28 @@
 import 'package:code_route/classes/firestore.dart';
+import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/pages/addContent.dart';
 import 'package:code_route/pages/coursesType.dart';
 import 'package:code_route/pages/quizTypes.dart';
 import 'package:code_route/util/futurBuilder.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 class firstPage extends StatelessWidget {
   const firstPage({super.key});
-  
+  static const String routeName = 'pages/firstPage.dart';
+
   Future fetchData_g()async{
     final db = firestore();
     return await db.retrivePost(type: "معلومات عامة");
   }
+
   Future fetchData_p()async{
     final db = firestore();
     return await db.retrivePost(type: "اشارات");
   }
+
   Future fetchData_s()async{
     final db = firestore();
     return await db.retrivePost(type: "اولويات");
@@ -28,7 +33,7 @@ class firstPage extends StatelessWidget {
     return Scaffold(
       endDrawer: OptionsBar(),
       appBar: AppBar(
-        
+      
         title: Text(
           'commencer',
           style: TextStyle(
@@ -51,8 +56,8 @@ class firstPage extends StatelessWidget {
             children: [
               
               GestureDetector(
-                
                 onTap: () {
+                  Provider.of<routeProvider>(context, listen: false).addRoute(coursesType.routeName);
                   Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -89,13 +94,13 @@ class firstPage extends StatelessWidget {
 
               GestureDetector(
                 onTap: () {
+                  Provider.of<routeProvider>(context, listen: false).addRoute(quizTypes.routeName);
                   Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder:(context)=> futureBuilder(
                             fetchData: [fetchData_p(),fetchData_s()],
                             result_with: (data) => quizTypes(data: data,),
-
                           )
                         )
                   );
@@ -132,12 +137,14 @@ class firstPage extends StatelessWidget {
                 ),
                 child: GestureDetector(
                   onTap: () {
+                    Provider.of<routeProvider>(context, listen: false).addRoute(addContent.routeName);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context)=>addContent()
                         )
                     );
+                    
                   },
                   child: const Center(
                     child: Text(

@@ -1,36 +1,38 @@
-import 'package:code_route/classes/content.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:code_route/classes/routeProvider.dart';
+import 'package:code_route/pages/quizTypes.dart';
 import 'package:code_route/util/option.dart';
+import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 
 class quiz extends StatefulWidget {
-  const quiz({super.key});
+  const quiz({
+    super.key,
+    required this.data
+  });
+  static const String routeName = 'pages/quiz.dart';
+
+  final List<QueryDocumentSnapshot>  data;
 
   @override
   State<quiz> createState() => _quizState();
 }
 
+List<T> listPickRandItem<T>(List<T> list, int count){
+  final mylist = List<T>.from(list);
+  mylist.shuffle();
+  return mylist.take(count).toList();
+}
+
 class _quizState extends State<quiz> {
   
-  int j = 65;
+  List<QueryDocumentSnapshot> mylist= [];
   int i = 0;
   int score = 0;
   bool check = false;
-  List<dynamic> mylist =[
-    priority(
-      title: 'choose the correct answer',
-      explication: 'test test test test test test test test test test test test test test test test test test test test test ',
-      options: {
-        '1' : false,
-        '2' : true,
-        '3' : false,
-      },
-      difficulty: 3.5,
-      url: "https://firebasestorage.googleapis.com/v0/b/code-route-f1a0f.appspot.com/o/1.png?alt=media&token=bc8b581d-ee99-4322-9bd4-6f0cb2406a88"
-    )
-  ];
-  
+   
   void check_fct(){
     setState(() {
       check = true;
@@ -42,8 +44,36 @@ class _quizState extends State<quiz> {
   }
   
   @override
+  void initState() {
+    mylist = listPickRandItem(widget.data, 2) ;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(    
+    return Scaffold(
+      //extendBodyBehindAppBar: true,
+      endDrawer: OptionsBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Provider.of<routeProvider>(context, listen: false).removeroute();
+            Navigator.of(context).pop();
+          },
+        ),
+        title: Text(
+          "QUIZ ${i+1} / 20",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 38,
+          ),
+        ),
+        backgroundColor: Color.fromARGB(255, 233, 169, 51),
+        elevation: 0,
+      ),    
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -55,22 +85,6 @@ class _quizState extends State<quiz> {
           child: ListView(
             children: [
               
-              Container(
-                margin: EdgeInsets.fromLTRB(100, 10, 100, 10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(25)
-                ),
-                child: Text(
-                  mylist[i].runtimeType.toString()+"-QUIZ",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 38,
-                ),
-                ),
-              ),
 
               Container(
                 margin: EdgeInsets.all(25),
@@ -79,7 +93,7 @@ class _quizState extends State<quiz> {
                   borderRadius: BorderRadius.circular(25)
                 ),
                 child: Text(
-                  mylist[i].title,
+                  mylist[i]["title"],
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 30),
                 ),
@@ -93,15 +107,15 @@ class _quizState extends State<quiz> {
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(15),
-                  child: Image.network(mylist[i].url,)
+                  child: Image.network(mylist[i]["url"],)
                 ),
               ),
 
                           
-              for(String key in mylist[i].options.keys)
+              for(String key in mylist[i]['options'].keys)
                 option(
-                  title: String.fromCharCode(j++)+".  " +key,
-                  valid: mylist[i].options[key] as bool,
+                  title: key,
+                  valid: mylist[i]["options"][key] ,
                   check: check,
                   checking: check_fct,
                   score: score_fct,
@@ -110,11 +124,11 @@ class _quizState extends State<quiz> {
               GestureDetector(
 
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
-                    (mylist[i] is plaque)? SizedBox(height: 1,):GestureDetector(
+                    (!mylist[i].data().toString().contains("explication")||!check)? Container():GestureDetector(
                       onTap: () {
                         if(check){
                           showDialog(
@@ -137,16 +151,16 @@ class _quizState extends State<quiz> {
                                           color: Colors.grey,
                                           borderRadius: BorderRadius.circular(5)
                                         ),
-                                        child: Text(mylist[i].explication,style: TextStyle(fontSize: 30),)
+                                        child: Text(mylist[i]["explication"],style: TextStyle(fontSize: 30),)
                                       ),
 
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.pop(context);
+                                          Navigator.pop(context);                                                                                  
                                         },
                                         child: Container(
                                           margin: EdgeInsets.all(10),
-                                          padding: EdgeInsets.fromLTRB(200, 10, 0,0 ),
+                                          padding: EdgeInsets.fromLTRB(150, 10, 0,0 ),
                                           decoration: BoxDecoration(                                      
                                             borderRadius: BorderRadius.circular(5)
                                           ),
@@ -170,7 +184,7 @@ class _quizState extends State<quiz> {
                       },
                       child: Container(
                         margin: EdgeInsets.fromLTRB(10, 30, 10, 30),
-                        padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                           decoration: BoxDecoration(
                           color: Colors.yellow,
                           borderRadius: BorderRadius.circular(10)
@@ -189,7 +203,6 @@ class _quizState extends State<quiz> {
                         if(i < mylist.length -1){
                           if(check){
                             setState(() {
-                              j = 65;
                               i++;
                               check = false;
                               });
@@ -201,13 +214,21 @@ class _quizState extends State<quiz> {
                               type: QuickAlertType.success,
                               title: "You have finished your test",
                               text: "your score is: $score",
+                              onConfirmBtnTap: (){
+                                Navigator.pop(context);
+                                /*
+                                Navigator.pop(context);
+                                Provider.of<routeProvider>(context, listen: false).removeroute();
+                                */
+                                
+                              }
                             );
                           }
                         }
                       },
-                      child: Container(
+                      child:!check?Container():  Container(
                         margin: EdgeInsets.fromLTRB(10, 30, 10, 30),
-                        padding: EdgeInsets.fromLTRB(80, 10, 80, 10),             
+                        padding: EdgeInsets.fromLTRB(60, 10, 60, 10),             
                         decoration: BoxDecoration(
                           color: Colors.yellow,
                           borderRadius: BorderRadius.circular(10)

@@ -1,23 +1,33 @@
+import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/pages/chiraz_plaques.dart';
 import 'package:code_route/pages/courses.dart';
+import 'package:code_route/pages/firstPage.dart';
 import 'package:code_route/pages/general%20_knowledges.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class coursesType extends StatelessWidget {
   coursesType({
     super.key,
     required this.data
   });
+  static const String routeName = 'pages/coursesType.dart';
 
   final List data;
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       endDrawer: OptionsBar(),
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Provider.of<routeProvider>(context, listen: false).removeroute();
+            Navigator.of(context).pop();
+          },
+        ),
         
         title: Text(
           'cours',
@@ -42,13 +52,15 @@ class coursesType extends StatelessWidget {
 
               GestureDetector(
                 
-                onTap: () {              
+                onTap: () {
+                  Provider.of<routeProvider>(context, listen: false).addRoute(CPlaques.routeName);              
                   Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context)=>CPlaques(data: data[0],)
                         )
-                  );                 
+                  );
+                                   
                 },
                 
                 child: Container(
@@ -86,7 +98,7 @@ class coursesType extends StatelessWidget {
 
               GestureDetector(
                 onTap: () {
-                  
+                  Provider.of<routeProvider>(context, listen: false).addRoute(courses.routeName);
                   Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -130,7 +142,8 @@ class coursesType extends StatelessWidget {
 
 
               GestureDetector(
-                onTap: () {                
+                onTap: () {
+                  Provider.of<routeProvider>(context, listen: false).addRoute(generalknowledge.routeName);                
                   Navigator.push(
                         context,
                         MaterialPageRoute(

@@ -1,15 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/pages/courses.dart';
+import 'package:code_route/pages/coursesType.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class CPlaques extends StatelessWidget {
   CPlaques({
     super.key,
     required this.data
   });
+  static const String routeName = 'pages/chiraz_plaques.dart';
   final  List<QueryDocumentSnapshot> data;
 
   final List<String> assets = ["assets/danger.jpg","assets/indication.jpg","assets/ordre.jpg","assets/obligation.jpg"];
@@ -21,29 +25,24 @@ class CPlaques extends StatelessWidget {
     return Scaffold(
       endDrawer: OptionsBar(),
       appBar: AppBar(
-        backgroundColor: Colors.orange[700],
-        title: const Text(
-          "Plaques",
-          style: TextStyle(
-            color: Color.fromARGB(255, 0, 0, 0),
-            fontWeight: FontWeight.bold,
-            fontSize: 23,
-          ),
-        ),
         leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.arrow_back),
-          color: Colors.white,
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Provider.of<routeProvider>(context, listen: false).removeroute();
+            Navigator.of(context).pop();
+          },
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              
-            },
-            icon: const Icon(Icons.menu),
-            color: Colors.white,
+        
+        title: Text(
+          'courses',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 38,
           ),
-        ],
+        ),
+        backgroundColor: Color.fromARGB(255, 233, 169, 51),
+        elevation: 0,
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -65,12 +64,15 @@ class CPlaques extends StatelessWidget {
               itemCount: 4,
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
+                  Provider.of<routeProvider>(context, listen: false).addRoute(courses.routeName);
                   Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context)=>courses(data: data.where((element) => element["type"]==plaqueType[index]).toList())
-                        )
+                    context,
+                    MaterialPageRoute(
+                      builder: (context)=>courses(data: data.where((element) => element["type"]==plaqueType[index]).toList())
+                    )
                   );
+                                   
+                  
                 },
                 child: Container(
                   padding: EdgeInsets.fromLTRB(30, 5, 30, 5),

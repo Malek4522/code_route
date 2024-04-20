@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_route/classes/auth.dart';
+import 'package:code_route/classes/routeProvider.dart';
+import 'package:code_route/pages/coursesType.dart';
 import 'package:code_route/util/course.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 class courses extends StatelessWidget {
@@ -10,6 +13,7 @@ class courses extends StatelessWidget {
     super.key,
     required this.data
   });
+  static const String routeName = 'pages/courses.dart';
 
   final List<QueryDocumentSnapshot>  data;
   final auth = authservice();
@@ -20,21 +24,26 @@ class courses extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      extendBodyBehindAppBar: true,
-      endDrawer: OptionsBar(), 
+      endDrawer: OptionsBar(),
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white,size: 40,),
-          onPressed: () => Navigator.of(context).pop(),
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Provider.of<routeProvider>(context, listen: false).removeroute();
+            Navigator.of(context).pop();
+          },
         ),
-        actions: [
-          IconButton(
-            onPressed:() => _scaffoldKey.currentState!.openEndDrawer(), 
-            icon: Icon(Icons.menu,color: Colors.white,size: 40,)
-          )
-        ],
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+
+        title: Text(
+          'courses',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 38,
+          ),
+        ),
+        backgroundColor: Color.fromARGB(255, 233, 169, 51),
+        elevation: 0,   
       ),
 
       body: Container(
@@ -73,20 +82,26 @@ class courses extends StatelessWidget {
                 itemBuilder: (context, index) => Hero(
                   tag: "tag${index+1}", 
                   child: Container(
-                    
+                    padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(50)
                     ),
                     child: GestureDetector(
-                      onTap: () {                       
+                      onTap: () {
+                        Provider.of<routeProvider>(context, listen: false).addRoute(course.routeName);                      
+                        Map<String,dynamic> options =data[index].data().toString().contains("options")?
+                        data[index].get("options"): null;
+                        var usdKey = options.keys.firstWhere(
+                          (k) => options[k] == true, orElse: () =>"");
+
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => course(
                               index: index,
-                              title: data[index].get("title"),
-                              description: data[index].toString().contains("explication")?
-                              data[index].get("explication"): null ,
+                              title: (options ==null)? data[index].get("title"):null,
+                              description: data[index].data().toString().contains("explication")?
+                              data[index].get("explication"): usdKey ,
                               image: data[index].get("url"),
                             )
                           )

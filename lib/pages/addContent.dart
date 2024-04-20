@@ -8,6 +8,7 @@ import 'package:code_route/util/options.dart';
 
 class addContent extends StatefulWidget {
   const addContent({super.key});
+  static const String routeName = 'pages/addContent.dart';
   @override
   State<addContent> createState() => addContentState();
 }
@@ -37,7 +38,7 @@ class addContentState extends State<addContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       endDrawer: OptionsBar(),
       appBar: AppBar(
         title: Text(

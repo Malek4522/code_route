@@ -1,18 +1,49 @@
 import 'package:code_route/classes/auth.dart';
+import 'package:code_route/classes/firestore.dart';
 import 'package:code_route/classes/myuser.dart';
+import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/classes/user_provider.dart';
+import 'package:code_route/pages/chiraz_plaques.dart';
+import 'package:code_route/pages/coursesType.dart';
+import 'package:code_route/pages/firstPage.dart';
+import 'package:code_route/pages/quizTypes.dart';
+import 'package:code_route/util/course.dart';
+import 'package:code_route/util/futurBuilder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class OptionsBar extends StatefulWidget {
-  const OptionsBar({super.key});
+  const OptionsBar({super.key,});
+
   @override
   State<OptionsBar> createState() => OptionsBarState();
 }
 
+Map<String,int> toCourses = {
+  firstPage.routeName :1,
+  coursesType.routeName:1,
+  quizTypes.routeName:2,
+  CPlaques.routeName:2,
+  course.routeName:2,
+
+
+};
+
 class OptionsBarState extends State<OptionsBar> {
   final _auth =authservice();
+  Future fetchData_g()async{
+    final db = firestore();
+    return await db.retrivePost(type: "معلومات عامة");
+  }
+  Future fetchData_p()async{
+    final db = firestore();
+    return await db.retrivePost(type: "اشارات");
+  }
+  Future fetchData_s()async{
+    final db = firestore();
+    return await db.retrivePost(type: "اولويات");
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -49,13 +80,23 @@ class OptionsBarState extends State<OptionsBar> {
             leading: Icon(Icons.book),
             title: Text('COURS'),
             onTap: () {
-              /*
-              Navigator.pushReplacement(
-                context, 
-                MaterialPageRoute(
-                  builder: (context)=>coursesType()
-                )
-              );*/                         
+              Navigator.pop(context);
+              if(Provider.of<routeProvider>(context, listen: false).current!=coursesType.routeName){
+                popManager(context, coursesType.routeName) ;
+                if(Provider.of<routeProvider>(context, listen: false).current!=coursesType.routeName){
+
+                  Provider.of<routeProvider>(context, listen: false).addRoute(coursesType.routeName);              
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context)=>futureBuilder(
+                        fetchData: [fetchData_p(),fetchData_s(),fetchData_g()],
+                        result_with: (data) => coursesType(data: data),
+                      )
+                    )
+                  );
+                }  
+              }          
             },
           ),
           SizedBox(
@@ -65,14 +106,23 @@ class OptionsBarState extends State<OptionsBar> {
             leading: Icon(Icons.question_mark),
             title: Text('QUIZ'),
             onTap: () {
-              /*
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context)=>quizTypes()
-                )
-              );
-              */
+              Navigator.pop(context);
+              if(Provider.of<routeProvider>(context, listen: false).current!=quizTypes.routeName){
+                popManager(context, quizTypes.routeName) ;
+                if(Provider.of<routeProvider>(context, listen: false).current!=quizTypes.routeName){
+                  Provider.of<routeProvider>(context, listen: false).addRoute(quizTypes.routeName);                       
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:(context)=> futureBuilder(
+                        fetchData: [fetchData_p(),fetchData_s()],
+                        result_with: (data) => quizTypes(data: data,),
+                      )
+                    )
+                  );
+                }                                
+              }
+               
             },
           ),
           SizedBox(
@@ -99,6 +149,12 @@ class OptionsBarState extends State<OptionsBar> {
             title: Text('DECONNECCTER'),
             onTap: () async{
               await _auth.signOut();
+              Navigator.pop(context);
+              while(Provider.of<routeProvider>(context, listen: false).current!=firstPage.routeName){
+                Navigator.pop(context);
+                Provider.of<routeProvider>(context, listen: false).removeroute();
+
+              }
             },
           ),
         ],
@@ -106,3 +162,19 @@ class OptionsBarState extends State<OptionsBar> {
     );
   }
 }
+
+popManager(BuildContext context, String destination){
+  if(Provider.of<routeProvider>(context, listen: false).history.contains(destination)){
+    while(Provider.of<routeProvider>(context, listen: false).current != destination){
+      Navigator.pop(context);
+      Provider.of<routeProvider>(context, listen: false).removeroute();
+    }
+  }
+}
+
+
+
+
+
+  
+

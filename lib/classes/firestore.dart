@@ -95,14 +95,15 @@ class firestore{
     required String type,
     String? subType,
   })async{
-      if(subType == null){
+      if(type =='معلومات عامة'){
         return await db.collection(type).get().then((value) => value.docs);
+      }else if(subType == null){
+        return await db.collection(type).orderBy("difficulty").get().then((value) => value.docs);
         
       }else{
-        return await db.collection(type).where("type",isEqualTo: subType).get().then((value) => value.docs);
+        return await db.collection(type).where("type",isEqualTo: subType).orderBy("difficulty").get().then((value) => value.docs);
       }   
 
   }
   
-
 }

@@ -36,7 +36,7 @@ class _emailVirificationState extends State<emailVirification> {
        
     if(!isVirified){
       timer =Timer.periodic(
-        Duration(seconds: 3), 
+        Duration(seconds: 2), 
         (_)async{
           
           try{
