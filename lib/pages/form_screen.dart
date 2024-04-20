@@ -2,6 +2,8 @@ import 'package:code_route/classes/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 
 class FormScreen extends StatefulWidget {
@@ -20,7 +22,8 @@ class _FormScreenState extends State<FormScreen> {
    
   String? ValueChoose ;
   String error = "";
-  bool passToggle = true;
+  bool passToggle1 = true;
+  bool passToggle2 = true;
   final _formkey = GlobalKey<FormState>();
 
   final auth = authservice();
@@ -169,7 +172,7 @@ class _FormScreenState extends State<FormScreen> {
                       pass1 = val;
                     });
                   },
-                    obscureText: passToggle,
+                    obscureText: passToggle1,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10),
                       border: InputBorder.none,
@@ -184,10 +187,10 @@ class _FormScreenState extends State<FormScreen> {
                       suffixIcon: InkWell(
                         onTap: () {
                           setState(() {
-                            passToggle = !passToggle;
+                            passToggle1 = !passToggle1;
                           });
                         },
-                        child: Icon(passToggle
+                        child: Icon(passToggle1
                             ? Icons.visibility
                             : Icons.visibility_off),
                       ),
@@ -209,6 +212,7 @@ class _FormScreenState extends State<FormScreen> {
                       pass2 = val;
                     });
                   },
+                  obscureText: passToggle2,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10),
                       border: InputBorder.none,
@@ -219,7 +223,18 @@ class _FormScreenState extends State<FormScreen> {
                           Icons.lock,
                           color: Colors.black,
                         ),
-                      )),
+                      ),
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          setState(() {
+                            passToggle2 = !passToggle2;
+                          });
+                        },
+                        child: Icon(passToggle2
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                      ),
+                    ),
                 ),
               ),
               const SizedBox(
@@ -271,17 +286,30 @@ class _FormScreenState extends State<FormScreen> {
                       if(ValueChoose == null){
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("please select type")));
                       }
-                      else  await auth.registerWithEmailPass(
-                        email: email, 
-                        password: pass1,
-                        phoneNum: num ,
-                        name: nom,
-                        usertype: ValueChoose!, 
+                      else{ 
+                        final result = await auth.registerWithEmailPass(
+                          email: email, 
+                          password: pass1,
+                          phoneNum: num ,
+                          name: nom,
+                          usertype: ValueChoose!, 
 
-                      );
-                      Navigator.pop(context);
-                                  
-                                       
+                        );
+                        switch(result){
+                          case 'done': 
+                            Navigator.pop(context);break;
+                          case 'weak-password':
+                            break;
+                          case'email-already-in-use':
+                            QuickAlert.show(
+                              context: context, 
+                              type: QuickAlertType.error,
+                              title: 'this email is already used'
+                            );
+                          default : print("myerror: $result");break;
+                        }
+                      }
+                                     
                     }
                                                                                                                                                
                   },

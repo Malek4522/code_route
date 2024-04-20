@@ -24,6 +24,8 @@ class _loginState extends State<login> {
 
   RestartableTimer? timer;
   bool enable = true;
+  
+  bool passToggle = true;
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +102,7 @@ class _loginState extends State<login> {
                         password = value;
                       });
                     },
+                    obscureText: passToggle,
                     decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(vertical: 10),
                         border: InputBorder.none,
@@ -110,7 +113,20 @@ class _loginState extends State<login> {
                             Icons.lock,
                             color: Colors.black,
                           ),
-                        )),
+
+                        ),
+                        suffixIcon: InkWell(
+                        onTap: () {
+                          setState(() {
+                            passToggle = !passToggle;
+                          });
+                        },
+                        child: Icon(passToggle
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                      ),
+                      ),
+                      
                   ),
                 ),
                 GestureDetector(
@@ -260,35 +276,25 @@ class _loginState extends State<login> {
   }
 
   handelerror(e){
-    if(e != 'done') print("my error: "+e);
-
     switch(e){
       case 'done': 
         break;
-      case '[firebase_auth/invalid-credential] The supplied auth credential is incorrect, malformed or has expired.' : 
+      case 'invalid-credential':  
         QuickAlert.show(
           context: context, 
           type: QuickAlertType.error,
           title: 'email and pass dosnt match'
         );
         break;
-
-      case'[firebase_auth/too-many-requests] Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.':
-        
+      case 'too-many-requests':
         QuickAlert.show(
           context: context, 
           type: QuickAlertType.error,
-          title: 'too many login attemps try again later',
-          text: 'try to resete your persword if you forget it '
-        );
-        break;
+          title: 'too many attemps',
+          text: 'account has been disable temperary, please try to reset the password'
+        );    
       default: 
-      QuickAlert.show(
-          context: context, 
-          type: QuickAlertType.error,
-          title: e,
-         
-        ); 
+        print("myerror: $e");break; 
     }
   }
 }

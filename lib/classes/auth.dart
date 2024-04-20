@@ -19,16 +19,16 @@ class authservice{
   
 
   Future sign_anonym()async{
-    String state = 'error';
+
     try{
       await _auth.signInAnonymously();
-      state = 'done';
-    }
-    catch(e){
-      state = e.toString();
+      return "done";
+    }on FirebaseAuthException catch (e){
+      return e.code;
+    }catch(e){
+      print("myerror: $e");
       
     }
-    return state;
     
   }
 
@@ -56,7 +56,6 @@ class authservice{
     required String usertype,
 
     })async{
-      String state = "error";
     try{
       UserCredential result =  await _auth.createUserWithEmailAndPassword(
         email: email, 
@@ -74,13 +73,12 @@ class authservice{
       await _firestore.collection('users').doc(result.user!.uid).set(        
         user.toJson(),   
       );
-      state = "done";
-     
-
+      return "done";
+    }on FirebaseAuthException catch(e){
+      return e.code;
     }catch(e){
-      state = e.toString();
+      print("myerror: $e");
     }
-    return state;
   }
   
   Future sendVirificationEmail()async{
@@ -94,20 +92,18 @@ class authservice{
   
   Future loginWithEmailPass({
     required String email, required String password})async{
-      String state ="error";
+;
     try{
        await _auth.signInWithEmailAndPassword(
         email: email, 
         password: password
       );
-      
-
-      state ="done";     
-    }catch(e){
-      state = e.toString();
-      
+      return "done";
+    }on FirebaseAuthException catch (e){
+      return e.code;
+    } catch(e){
+      return e;    
     }
-    return state;
   }
   
   Future resetpassword({
