@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 
 class user_provider extends ChangeNotifier{
   myUser? _user;
-  final auth = authservice();
   myUser?  get getuser => _user ;
 
+  
+  
   Future refreshUser()async{
+    final auth = authservice();
     myUser? user = await auth.getUserDetail();
     _user = user ;
     notifyListeners();

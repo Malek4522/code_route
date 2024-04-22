@@ -21,74 +21,8 @@ void main()async{
   runApp(Myapp());
   
 }  
-/*
-class Myapp extends StatelessWidget {
-  const Myapp({super.key});
 
-  Future fetchData_p()async{
-    final db = firestore();
-    return await db.retrivePost(type: "اشارات");
-  }
-  
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: futureBuilder(
-          fetchData: [fetchData_p()],
-          result_with: (data) => testing(data: data),
-        ),
-      ),
-    );
-  }
-}
 
-class testing extends StatefulWidget {
-  const testing({
-    super.key,
-    required this.data,
-  });
-  final data;
-
-  @override
-  State<testing> createState() => _testingState();
-}
-
-class _testingState extends State<testing> {
-  int index =0;
-  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.data[0][index].id),
-        centerTitle: true,
-      ),
-      body: Image.network(widget.data[0][index]["url"]),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        margin: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(50)
-        ),
-        child: GestureDetector(
-          child: Text(
-            widget.data[0][index]["type"],
-            style: TextStyle(fontSize: 50),
-          ),
-          onTap: () {
-              setState(() {
-                index++;
-              });;
-          },
-          ),
-              
-      ),
-    );
-  }
-}
-*/
 
 class Myapp extends StatelessWidget {
   const Myapp({super.key});

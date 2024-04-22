@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:code_route/classes/myuser.dart';
 
 
+
 class authservice{
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -19,7 +20,6 @@ class authservice{
   
 
   Future sign_anonym()async{
-
     try{
       await _auth.signInAnonymously();
       return "done";
@@ -46,6 +46,28 @@ class authservice{
      
     }
     return state;
+  }
+
+  Future<String> changeEmail(String newEmail,String pass)async{
+      
+     
+      
+      try{
+        var user = FirebaseAuth.instance.currentUser;
+        var cred = EmailAuthProvider.credential(email: user!.email!, password: pass);
+      
+
+        await user.reauthenticateWithCredential(cred);
+        await user.verifyBeforeUpdateEmail(newEmail);      
+        signOut();
+        return'done';
+
+      }on FirebaseAuthException catch(e){
+        return e.code;
+      }catch(e){
+        return 'unexpected $e';
+      } 
+    
   }
 
   Future registerWithEmailPass({
@@ -94,7 +116,7 @@ class authservice{
     required String email, required String password})async{
 ;
     try{
-       await _auth.signInWithEmailAndPassword(
+        await _auth.signInWithEmailAndPassword(
         email: email, 
         password: password
       );

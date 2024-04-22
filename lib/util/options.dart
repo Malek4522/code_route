@@ -3,11 +3,10 @@ import 'package:code_route/classes/firestore.dart';
 import 'package:code_route/classes/myuser.dart';
 import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/classes/user_provider.dart';
-import 'package:code_route/pages/chiraz_plaques.dart';
 import 'package:code_route/pages/coursesType.dart';
 import 'package:code_route/pages/firstPage.dart';
+import 'package:code_route/pages/parametre.dart';
 import 'package:code_route/pages/quizTypes.dart';
-import 'package:code_route/util/course.dart';
 import 'package:code_route/util/futurBuilder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,16 +18,6 @@ class OptionsBar extends StatefulWidget {
   @override
   State<OptionsBar> createState() => OptionsBarState();
 }
-
-Map<String,int> toCourses = {
-  firstPage.routeName :1,
-  coursesType.routeName:1,
-  quizTypes.routeName:2,
-  CPlaques.routeName:2,
-  course.routeName:2,
-
-
-};
 
 class OptionsBarState extends State<OptionsBar> {
   final _auth =authservice();
@@ -47,7 +36,8 @@ class OptionsBarState extends State<OptionsBar> {
   
   @override
   Widget build(BuildContext context) {
-    myUser? user = Provider.of<user_provider>(context).getuser;
+    Provider.of<user_provider>(context,listen: false).refreshUser();
+    myUser? user = Provider.of<user_provider>(context,listen: true).getuser;
     return Drawer(
       backgroundColor: Color.fromARGB(255, 233, 169, 51),
       child: ListView(
@@ -131,7 +121,23 @@ class OptionsBarState extends State<OptionsBar> {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('PARAMETRE'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pop(context);
+              if(Provider.of<routeProvider>(context, listen: false).current!=Settings.routeName){
+                popManager(context, Settings.routeName);
+                if(Provider.of<routeProvider>(context, listen: false).current!=Settings.routeName){
+                  Provider.of<routeProvider>(context, listen: false).addRoute(Settings.routeName);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:(context)=> Settings(),
+                    )
+                  );
+
+                }
+              }
+
+            },
           ),
           SizedBox(
             height: 10,

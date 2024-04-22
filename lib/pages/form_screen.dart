@@ -29,7 +29,7 @@ class _FormScreenState extends State<FormScreen> {
   final auth = authservice();
 
   bool activation = false;
-  String title = "Crée";
+
   bool isVirified = false;
   
   
@@ -322,7 +322,7 @@ class _FormScreenState extends State<FormScreen> {
                     ),
                     child:  Center(
                       child: Text(
-                        title,
+                        "creat",
                         style: TextStyle(
                           color: Color.fromARGB(255, 0, 0, 0),
                           fontWeight: FontWeight.bold,

@@ -1,8 +1,10 @@
+import 'package:code_route/classes/user_provider.dart';
 import 'package:code_route/pages/forgetPassword.dart';
 import 'package:flutter/material.dart';
 import 'package:code_route/classes/auth.dart';
 import 'package:code_route/pages/form_screen.dart';
 import 'package:async/async.dart';
+import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:email_validator/email_validator.dart';
 
