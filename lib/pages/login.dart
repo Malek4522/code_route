@@ -1,4 +1,6 @@
 import 'package:code_route/classes/user_provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';//.....
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:code_route/pages/forgetPassword.dart';
 import 'package:flutter/material.dart';
 import 'package:code_route/classes/auth.dart';
@@ -140,14 +142,14 @@ class _loginState extends State<login> {
                         )
                     );
                   },
-                  child: Text(
-                    "Mot de pass oublier?",
+                  child:Text(AppLocalizations.of(context)?.forgotpassword ?? 'Default Text'
+,
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       decorationColor: Colors.white,
                       color: Colors.white,
                       fontSize: 15,                 
-                      fontWeight: FontWeight.bold
+                      fontWeight: FontWeight.bold 
                     ),
                     textAlign: TextAlign.left,
                   ),

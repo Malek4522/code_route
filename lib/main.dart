@@ -1,3 +1,7 @@
+// ignore_for_file: unused_import, prefer_const_constructors, prefer_const_literals_to_create_immutables
+
+import 'package:flutter_localizations/flutter_localizations.dart';//.....
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';//....
 import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/classes/user_provider.dart';
 import 'package:code_route/pages/coursesType.dart';
@@ -40,6 +44,19 @@ class Myapp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        locale: Locale('ar'), //LANGUAGE IM CURRENTLY USING
+                              //REPLACEE TEXT('BLA') WITH: Text(AppLocalizations.of(context)?.BLA ?? 'Default Text')
+        supportedLocales: [
+          Locale('en'),
+          Locale('ar'),
+          Locale('fr')
+        ],
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
@@ -58,7 +75,7 @@ class Myapp extends StatelessWidget {
             }
             return login();
           },
-
+        
         ),      
       ),
       

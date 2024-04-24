@@ -1,0 +1,22 @@
+{
+    "language": "English",
+    "@language":{
+        "description": "the current language"
+    },
+    "courses": "courses",
+    "@courses":{
+        "description": "courseseeee"
+    },
+    "quizes": "quizes",
+    "@quizes":{
+        "description": "quizeeee"
+    },
+    "login": "Log in",
+    "@login":{
+        "description": "login"
+    },
+    "forgotpassword": "forgot password?",
+    "@forgotpassword":{
+        "description": "forgot password"
+    }
+}
