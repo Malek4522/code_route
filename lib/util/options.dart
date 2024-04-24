@@ -8,6 +8,7 @@ import 'package:code_route/pages/firstPage.dart';
 import 'package:code_route/pages/parametre.dart';
 import 'package:code_route/pages/quizTypes.dart';
 import 'package:code_route/util/futurBuilder.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -56,7 +57,8 @@ class OptionsBarState extends State<OptionsBar> {
                   color: Colors.black,
                   fontSize: 18,
                 )),
-            subtitle: Text(user.email,
+            subtitle: Text(FirebaseAuth.instance.currentUser!.isAnonymous?
+              "": FirebaseAuth.instance.currentUser!.email!,
                 maxLines: 1,
                 style: TextStyle(
                   color: Colors.black,

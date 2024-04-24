@@ -8,7 +8,7 @@ class option extends StatefulWidget {
     required this.valid,
     required this.check,
     required this.checking,
-    required this.score
+    required this.score,
   });
   final String title;
   final bool valid;
