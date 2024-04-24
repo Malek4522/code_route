@@ -59,6 +59,9 @@ class ListTileExample extends StatelessWidget {
           ),
           Card(
             child: ListTile(
+              leading: Icon(Icons.check),
+              //Icon(Icons.close),//refused
+              // Icon(Icons.refresh),//waiting
               title: Text('One-line with trailing widget'),
               trailing: ElevatedButton(
                 onPressed: null,
@@ -68,7 +71,9 @@ class ListTileExample extends StatelessWidget {
           ),
           Card(
             child: ListTile(
-              leading: FlutterLogo(),
+              leading: Icon(Icons.check),
+              //Icon(Icons.close),//refused
+              // Icon(Icons.refresh),//waiting
               title: Text('One-line with both widgets'),
               trailing: ElevatedButton(
                 onPressed: null,
@@ -78,6 +83,9 @@ class ListTileExample extends StatelessWidget {
           ),
           Card(
             child: ListTile(
+              leading: Icon(Icons.check),
+              //Icon(Icons.close),//refused
+              // Icon(Icons.refresh),//waiting
               title: Text('One-line dense ListTile'),
               trailing: ElevatedButton(
                 onPressed: null,
@@ -87,7 +95,9 @@ class ListTileExample extends StatelessWidget {
           ),
           Card(
             child: ListTile(
-              leading: FlutterLogo(size: 56.0),
+              leading: Icon(Icons.check),
+              //Icon(Icons.close),//refused
+              // Icon(Icons.refresh),//waiting
               title: Text('Two-line ListTile'),
               trailing: ElevatedButton(
                 onPressed: null,
@@ -97,7 +107,9 @@ class ListTileExample extends StatelessWidget {
           ),
           Card(
             child: ListTile(
-              leading: FlutterLogo(size: 72.0),
+              leading: Icon(Icons.check),
+              //Icon(Icons.close),//refused
+              // Icon(Icons.refresh),//waiting
               title: Text('Three-line ListTile'),
               trailing: ElevatedButton(
                 onPressed: null,
