@@ -3,6 +3,7 @@ import 'package:code_route/classes/firestore.dart';
 import 'package:code_route/classes/myuser.dart';
 import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/classes/user_provider.dart';
+import 'package:code_route/pages/CheckMoniteur.dart';
 import 'package:code_route/pages/coursesType.dart';
 import 'package:code_route/pages/firstPage.dart';
 import 'package:code_route/pages/parametre.dart';
@@ -34,6 +35,7 @@ class OptionsBarState extends State<OptionsBar> {
     final db = firestore();
     return await db.retrivePost(type: "اولويات");
   }
+  
   
   @override
   Widget build(BuildContext context) {
@@ -133,6 +135,33 @@ class OptionsBarState extends State<OptionsBar> {
                     context,
                     MaterialPageRoute(
                       builder:(context)=> Settings(),
+                    )
+                  );
+
+                }
+              }
+
+            },
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          ListTile(
+            leading: Icon(Icons.lightbulb),
+            title: Text('added content'),
+            onTap: () {
+              Navigator.pop(context);
+              if(Provider.of<routeProvider>(context, listen: false).current!=CheckMoniteur.routeName){
+                popManager(context, Settings.routeName);
+                if(Provider.of<routeProvider>(context, listen: false).current!=CheckMoniteur.routeName){
+                  Provider.of<routeProvider>(context, listen: false).addRoute(CheckMoniteur.routeName);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:(context)=> futureBuilder(
+                        fetchData: [firestore().retriveAddedContent(uid: user.uid)],
+                        result_with: (data) => CheckMoniteur(data: data),
+                      )
                     )
                   );
 

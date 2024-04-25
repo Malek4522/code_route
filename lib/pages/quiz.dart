@@ -15,8 +15,8 @@ class quiz extends StatefulWidget {
     super.key,
     required this.data
   });
+  
   static const String routeName = 'pages/quiz.dart';
-
   final List<QueryDocumentSnapshot>  data;
 
   @override
@@ -168,7 +168,9 @@ class _quizState extends State<quiz> {
                 ),
 
               check? Container():
-              LinearTimer(durationMiliseconds: (mylist[i]["difficulty"]*1000+7000).round(), onTimerFinish: (){print("object");},stop: check,), 
+              LinearTimer(durationMiliseconds: (mylist[i]["difficulty"]*1000+7000).round(), onTimerFinish: (){setState(() {
+                check=true;
+              });},stop: check,), 
               
               GestureDetector(
 

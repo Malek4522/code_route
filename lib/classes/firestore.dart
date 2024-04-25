@@ -105,5 +105,39 @@ class firestore{
       }   
 
   }
+
+  Future<List<DocumentSnapshot>> retriveAddedContent({required uid})async{
+    await db.
+    /* 
+    List<DocumentSnapshot> mylist = [];
+    return await db.collection("users").doc(uid).collection("addedContent").orderBy("date").get().then(
+      (value)async{
+              
+        for(var doc in value.docs){
+          //mylist.add(await  doc.get("contentRef").get());
+          await  doc.get("contentRef").get().then((val){
+            mylist.add(val);
+          });            
+        }
+        print(mylist.length);
+        return mylist;
+            
+      }    
+    );
+    */
+  }
+
+  Future<List<DocumentSnapshot>> futurelist(QuerySnapshot<Map<String, dynamic>>value)async{
+    List<DocumentSnapshot> mylist = [];
+    for(var doc in value.docs){
+          
+          doc.get("contentRef").get().then((val){
+            mylist.add(val);
+            print(val.id);
+          });
+                 
+    }
+    return Future.value(mylist);
+  }
   
 }
