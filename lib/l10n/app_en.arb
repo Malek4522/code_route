@@ -1,22 +1,29 @@
-{
-    "language": "English",
-    "@language":{
-        "description": "the current language"
-    },
-    "courses": "courses",
-    "@courses":{
-        "description": "courseseeee"
-    },
-    "quizes": "quizes",
-    "@quizes":{
-        "description": "quizeeee"
-    },
-    "login": "Log in",
-    "@login":{
-        "description": "login"
-    },
-    "forgotpassword": "forgot password?",
-    "@forgotpassword":{
-        "description": "forgot password"
-    }
-}
+
+    {
+        "@@locale": "en",
+        "connection": "Connection",
+        "email_hint": "E-MAIL",
+        "invalid_email": "   *invalide email",
+        "enter_email": "   *enter email",
+        "password_hint": "Password",
+        "short_pass": "   *short password",
+        "forgot_password": "forgot password?",
+        "log_in": "Log in",
+        "dont_have_account": "new here?",
+        "create_account": "Create an account",
+        "or": "or",
+        "continue_as_guest": "Continue as a guest",
+        "email_and_pass_dont_match": "Incorrect identifiers :Username or password incorrect",
+        "too_many_attempts": "too many attemps",
+        "account_disabled": "account has been disable temperary, please try to reset the password",
+        "commencer": "Begin",
+        "courses": "Courses",
+        "quiz": "Quiz",
+        "add_content": "Add Content",
+        "plaques": "Plaques",
+        "priority": "Priority",
+        "generality": "Generality",
+        "cours": "Courses"
+        
+      }
+      

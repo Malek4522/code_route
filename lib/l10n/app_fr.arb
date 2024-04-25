@@ -1,6 +1,30 @@
 {
-    "language":"langues",
-    "courses":"cours",
-    "quizes":"questions",
-    "forgotpassword":"mot de passe oubliee?"
+    
+        "@@locale": "fr",
+        "connection": "Connexion",
+        "email_hint": "E-MAIL",
+        "invalid_email": "Email invalide",
+        "enter_email": "Entrez l email",
+        "password_hint": "Mot de passe",
+        "short_pass": "Mot de passe trop court",
+        "forgot_password": "Mot de passe oublié ?",
+        "log_in": "Se connecter",
+        "dont_have_account": "Vous n avez pas de compte ?",
+        "create_account": "Créer un compte",
+        "or": "Ou",
+        "continue_as_guest": "Continuer en tant qu invité",
+        "email_and_pass_dont_match": "L email et le mot de passe ne correspondent pas",
+        "too_many_attempts": "Trop de tentatives",
+        "account_disabled": "Compte temporairement désactivé, veuillez réinitialiser votre mot de passe",
+        "commencer": "Commencer",
+        "courses": "Cours",
+        "quiz": "Quiz",
+        "add_content": "Ajouter du contenu",
+        "plaques": "Plaques",
+        "priority": "Priorité",
+        "generality": "Généralités",
+        "cours": "Cours"
+        
+      
+      
 }
