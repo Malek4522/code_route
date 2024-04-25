@@ -1,21 +1,17 @@
 import 'package:code_route/classes/routeProvider.dart';
-import 'package:code_route/pages/chiraz_plaques.dart';
-import 'package:code_route/pages/courses.dart';
-import 'package:code_route/pages/firstPage.dart';
-import 'package:code_route/pages/general%20_knowledges.dart';
+import 'package:code_route/pages/quiz.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:code_route/pages/firstPage.dart';
 
-
-class coursesType extends StatelessWidget {
-  coursesType({
+class quizTypes extends StatelessWidget {
+  const quizTypes({
     super.key,
     required this.data
   });
-  static const String routeName = 'pages/coursesType.dart';
 
+  static const String routeName = 'pages/quizType.dart';
   final List data;
 
   @override
@@ -30,14 +26,14 @@ class coursesType extends StatelessWidget {
             Navigator.of(context).pop();
           },
         ),
-        
         title: Text(
-            AppLocalizations.of(context)?.cours ?? 'Courses',
+          'quiz',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 38,
           ),
+          
         ),
         backgroundColor: Color.fromARGB(255, 233, 169, 51),
         elevation: 0,
@@ -53,20 +49,17 @@ class coursesType extends StatelessWidget {
             children: [
 
               GestureDetector(
-                
                 onTap: () {
-                  Provider.of<routeProvider>(context, listen: false).addRoute(CPlaques.routeName);              
+                  Provider.of<routeProvider>(context, listen: false).addRoute(quiz.routeName);
                   Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context)=>CPlaques(data: data[0],)
-                        )
+                    context,
+                    MaterialPageRoute(
+                      builder: (context)=>quiz(data: data[0])
+                    )
                   );
-                                   
                 },
-                
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(45, 130, 130, 0),
+                  margin: EdgeInsets.fromLTRB(90, 130, 90, 0),
                   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   
                   decoration: BoxDecoration(  
@@ -77,11 +70,11 @@ class coursesType extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          AppLocalizations.of(context)?.plaques ?? 'Plaques',
+                          'plaques',
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,
-                            fontSize: 40,
+                            fontSize: 55,
                           ),
                         ),
                         Text(
@@ -100,97 +93,52 @@ class coursesType extends StatelessWidget {
 
               GestureDetector(
                 onTap: () {
-                  Provider.of<routeProvider>(context, listen: false).addRoute(courses.routeName);
+                  Provider.of<routeProvider>(context, listen: false).addRoute(quiz.routeName);
                   Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context)=>courses(data: data[1],)
+                          builder: (context)=>quiz(data: data[1])
                         )
-                  );
+                    );
                   
                 },
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(45, 50, 130, 0),
+                  margin: EdgeInsets.fromLTRB(90, 50, 90, 0),
                   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   
                   decoration: BoxDecoration(
                     color: Colors.white,                
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child:  Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)?.priority ?? 'Priority',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 40,
-                          ),
-                        ),
-                        Text(
-                          data[1].length.toString(),
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-
-
-              GestureDetector(
-                onTap: () {
-                  Provider.of<routeProvider>(context, listen: false).addRoute(generalknowledge.routeName);                
-                  Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context)=> generalknowledge(data: data[2])
-                        )
-                    );                        
-                },
-                child: Container(
-                  margin: EdgeInsets.fromLTRB(45, 50, 130, 0),
-                  padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                  
-                  decoration: BoxDecoration( 
-                    color: Colors.white,               
-                    borderRadius: BorderRadius.circular(20),
-                  ),
                   child: Center(
                     child: Column(
                       children: [
                         Text(
-                          AppLocalizations.of(context)?.generality ?? 'Generality',
+                          'priority',
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,
-                            fontSize: 40,
-                          ),
+                            fontSize: 60,
+                          ),                         
                         ),
                         Text(
-                          data[2].length.toString(),
+                          data[1].length.toString(),
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
                           ),
                         ),
+                        
                       ],
                     ),
                   ),
                 ),
-              ),
-
+              ),         
             ],
           ),
         ),
       )  
-
     );
   }
 }
