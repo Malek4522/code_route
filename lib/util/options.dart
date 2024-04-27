@@ -8,6 +8,7 @@ import 'package:code_route/pages/coursesType.dart';
 import 'package:code_route/pages/firstPage.dart';
 import 'package:code_route/pages/parametre.dart';
 import 'package:code_route/pages/quizTypes.dart';
+import 'package:code_route/pages/scoreHistory.dart';
 import 'package:code_route/util/futurBuilder.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,6 +35,10 @@ class OptionsBarState extends State<OptionsBar> {
   Future fetchData_s()async{
     final db = firestore();
     return await db.retrivePost(type: "اولويات");
+  }
+  Future fetchData_c(String uid)async{
+    final db = firestore();
+    return await db.db.collection("users").doc(uid).collection('scoreHistory').get().then((value) => value.docs);
   }
   
   
@@ -143,16 +148,42 @@ class OptionsBarState extends State<OptionsBar> {
 
             },
           ),
+          ListTile(
+            leading: Icon(Icons.history),
+            title: Text('Score history'),
+            onTap: () {
+              
+              Navigator.pop(context);
+              if(Provider.of<routeProvider>(context, listen: false).current!=ScoreHistory.routeName){
+                popManager(context, ScoreHistory.routeName);
+                
+                if(Provider.of<routeProvider>(context, listen: false).current!=ScoreHistory.routeName){
+                  Provider.of<routeProvider>(context, listen: false).addRoute(ScoreHistory.routeName);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context)=>futureBuilder(
+                        fetchData: [fetchData_c(user.uid)],
+                        result_with: (data) => ScoreHistory(data: data),
+                      )
+                    )
+                  );
+                }
+              }
+
+            },
+          ),
           SizedBox(
             height: 10,
           ),
+          
           ListTile(
-            leading: Icon(Icons.lightbulb),
+            leading: Icon(Icons.add_circle_sharp),
             title: Text('added content'),
             onTap: () {
               Navigator.pop(context);
               if(Provider.of<routeProvider>(context, listen: false).current!=CheckMoniteur.routeName){
-                popManager(context, Settings.routeName);
+                popManager(context, CheckMoniteur.routeName);
                 if(Provider.of<routeProvider>(context, listen: false).current!=CheckMoniteur.routeName){
                   Provider.of<routeProvider>(context, listen: false).addRoute(CheckMoniteur.routeName);
                   Navigator.push(

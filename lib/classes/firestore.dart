@@ -91,7 +91,7 @@ class firestore{
     return state; 
   }
 
-  Future<List<QueryDocumentSnapshot>> retrivePost({
+  Future<List<DocumentSnapshot>> retrivePost({
     required String type,
     String? subType,
   })async{
@@ -106,38 +106,27 @@ class firestore{
 
   }
 
-  Future<List<DocumentSnapshot>> retriveAddedContent({required uid})async{
-    await db.
-    /* 
-    List<DocumentSnapshot> mylist = [];
-    return await db.collection("users").doc(uid).collection("addedContent").orderBy("date").get().then(
-      (value)async{
-              
-        for(var doc in value.docs){
-          //mylist.add(await  doc.get("contentRef").get());
-          await  doc.get("contentRef").get().then((val){
-            mylist.add(val);
-          });            
-        }
-        print(mylist.length);
-        return mylist;
-            
-      }    
-    );
-    */
+  Future<List> retriveAddedContent({required uid})async{   
+    
+    var addedContentQuery = db
+      .collection("users")
+      .doc(uid)
+      .collection("addedContent")
+      .orderBy("date");
+
+    var addedContentSnapshot = await addedContentQuery.get();
+
+    var contentRefs = addedContentSnapshot.docs.map((doc) => doc.get("contentRef")).toList();
+
+    // Ensure that contentRefs is of type List<DocumentReference>
+    List<DocumentReference> documentReferences = contentRefs.cast<DocumentReference>();
+
+    var contentFutures = documentReferences.map((ref) => ref.get()).toList();
+    var contentSnapshots = await Future.wait(contentFutures);
+
+    return contentSnapshots;
+    
+    
   }
 
-  Future<List<DocumentSnapshot>> futurelist(QuerySnapshot<Map<String, dynamic>>value)async{
-    List<DocumentSnapshot> mylist = [];
-    for(var doc in value.docs){
-          
-          doc.get("contentRef").get().then((val){
-            mylist.add(val);
-            print(val.id);
-          });
-                 
-    }
-    return Future.value(mylist);
-  }
-  
 }

@@ -74,7 +74,7 @@ class generalknowledge extends StatelessWidget {
             ),
             onTap: () {
               Provider.of<routeProvider>(context, listen: false).addRoute(information.routeName);
-                   Navigator.of(context).push(
+                  Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: ((context) => information(
                         title: data[index]["title"],
@@ -84,7 +84,7 @@ class generalknowledge extends StatelessWidget {
                       )
                     )
                    )
-                   );
+                  );
                 },
                 
         ),

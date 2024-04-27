@@ -54,7 +54,7 @@ class quizTypes extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context)=>quiz(data: data[0])
+                      builder: (context)=>quiz(data: data[0],)
                     )
                   );
                 },
@@ -97,7 +97,7 @@ class quizTypes extends StatelessWidget {
                   Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context)=>quiz(data: data[1])
+                          builder: (context)=>quiz(data: data[1],)
                         )
                     );
                   

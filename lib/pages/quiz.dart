@@ -11,13 +11,17 @@ import 'package:quickalert/quickalert.dart';
 late Timer _timer;
 
 class quiz extends StatefulWidget {
-  const quiz({
+   quiz({
     super.key,
-    required this.data
+    this.data,
+    this.singledata,
   });
+
   
   static const String routeName = 'pages/quiz.dart';
-  final List<QueryDocumentSnapshot>  data;
+  List<DocumentSnapshot>?  data;
+  DocumentSnapshot? singledata;
+
 
   @override
   State<quiz> createState() => _quizState();
@@ -31,7 +35,7 @@ List<T> listPickRandItem<T>(List<T> list, int count){
 
 class _quizState extends State<quiz> {
   
-  List<QueryDocumentSnapshot> mylist= [];
+  List<DocumentSnapshot> mylist= [];
   int i = 0;
   double score = 500;
   bool check = false;
@@ -92,8 +96,14 @@ class _quizState extends State<quiz> {
   @override
   void initState() {
     super.initState();
-    mylist = listPickRandItem(widget.data, 2) ;
-    counterdown();
+    if(widget.singledata ==null){
+      mylist = listPickRandItem(widget.data!, 2) ;
+      counterdown();
+    }else{
+      mylist.add(widget.singledata!);
+      check = true;
+    }
+    
   }
 
   @override
@@ -109,7 +119,7 @@ class _quizState extends State<quiz> {
           },
         ),
         title: Text(
-          "QUIZ ${i+1} / 20",
+          (widget.singledata ==null)?"QUIZ ${i+1} / 20":"QUIZ",
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.black,
@@ -167,6 +177,7 @@ class _quizState extends State<quiz> {
                   score: score_fct,
                 ),
 
+              (widget.singledata !=null)?Container():
               check? Container():
               LinearTimer(durationMiliseconds: (mylist[i]["difficulty"]*1000+7000).round(), onTimerFinish: (){setState(() {
                 check=true;
@@ -179,6 +190,7 @@ class _quizState extends State<quiz> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
+                    //(widget.singledata !=null)? Container():
                     (!mylist[i].data().toString().contains("explication")||!check)? Container():GestureDetector(
                       onTap: () {
                         if(check){
@@ -249,7 +261,9 @@ class _quizState extends State<quiz> {
                         ),
                       ),
                     ),
-                    GestureDetector(
+
+
+                    (widget.singledata !=null)? Container(): GestureDetector(
                       onTap: () {
                         if(i < mylist.length -1){
                           if(check){
@@ -272,8 +286,9 @@ class _quizState extends State<quiz> {
                           if(check){
                             if(!FirebaseAuth.instance.currentUser!.isAnonymous){
                               FirebaseFirestore.instance.collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid).collection('scoreHistory').add({
+                              .doc(FirebaseAuth.instance.currentUser!.uid).collection('scoreHistory').add({                    
                                 'score': score,
+                                'type': mylist[0].data().toString().contains("explication")? "اولويات":"اشارات",
                                 'date': DateTime.now(),
                               });
                             }  

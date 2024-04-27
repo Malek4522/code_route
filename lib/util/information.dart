@@ -117,7 +117,8 @@ class information extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                    Navigator.pop(context);
+                  Provider.of<routeProvider>(context, listen: false).removeroute();
+                  Navigator.pop(context);
                 },
               )
             ),

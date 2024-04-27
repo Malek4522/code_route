@@ -49,9 +49,6 @@ class authservice{
   }
 
   Future<String> changeEmail(String newEmail,String pass)async{
-      
-     
-      
       try{
         var user = FirebaseAuth.instance.currentUser;
         var cred = EmailAuthProvider.credential(email: user!.email!, password: pass);
@@ -116,10 +113,13 @@ class authservice{
     required String email, required String password})async{
 ;
     try{
-        await _auth.signInWithEmailAndPassword(
+        var result =await _auth.signInWithEmailAndPassword(
         email: email, 
         password: password
       );
+      FirebaseFirestore.instance.collection("users").doc(result.user!.uid).update({
+        'email':email
+      });
       return "done";
     }on FirebaseAuthException catch (e){
       return e.code;

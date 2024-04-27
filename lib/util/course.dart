@@ -7,7 +7,7 @@ class course extends StatefulWidget {
       required this.index,
       required this.title,
       this.description,
-      required this.image
+      required this.image,      
     });
   int index;
   final String? title;
