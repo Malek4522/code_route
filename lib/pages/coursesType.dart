@@ -3,6 +3,8 @@ import 'package:code_route/pages/courses.dart';
 import 'package:code_route/pages/general%20_knowledges.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';//.....
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class coursesType extends StatelessWidget {
   coursesType({
@@ -20,7 +22,7 @@ class coursesType extends StatelessWidget {
       appBar: AppBar(
         
         title: Text(
-          'cours',
+          AppLocalizations.of(context)?.courseTitle ?? 'Courses',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -63,7 +65,7 @@ class coursesType extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          'plaques',
+                          AppLocalizations.of(context)?.plaques ?? 'Plaques',
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,
@@ -107,7 +109,7 @@ class coursesType extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          'priority',
+                          AppLocalizations.of(context)?.priority ?? 'Priority',
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,
@@ -150,7 +152,7 @@ class coursesType extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          'generality',
+                          AppLocalizations.of(context)?.generality ?? 'Generality',
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,

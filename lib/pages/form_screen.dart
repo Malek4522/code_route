@@ -2,7 +2,8 @@ import 'package:code_route/classes/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';//.....
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen({super.key});
@@ -36,7 +37,7 @@ class _FormScreenState extends State<FormScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.amber,
-        title: const Text("Creer Un Neauveau Compte"),
+        title:  Text(AppLocalizations.of(context)?.createNewAccount ?? "Create New Account"),
                
       ),
       body: Container(
@@ -61,7 +62,7 @@ class _FormScreenState extends State<FormScreen> {
                 ),
                 child: TextFormField(
                   keyboardType: TextInputType.emailAddress,                    
-                  validator: (value) => value!.isEmpty? '   *enter name': null,
+                  validator: (value) => value!.isEmpty? AppLocalizations.of(context)?.enterNameError ?? "*Enter name": null,
                   onChanged: (val){
                     setState(() {
                       nom = val;
@@ -70,7 +71,7 @@ class _FormScreenState extends State<FormScreen> {
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10),
                       border: InputBorder.none,
-                      hintText: 'Nom complet...',
+                      hintText: AppLocalizations.of(context)?.fullNameHint ?? "Full Name...",
                       prefixIcon: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Icon(
@@ -93,13 +94,13 @@ class _FormScreenState extends State<FormScreen> {
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                       if(value!.isEmpty){                   
-                        return '   *enter email';                        
+                        return AppLocalizations.of(context)?.enterEmailError ?? "*Enter email";                        
                       }else{
                         if(EmailValidator.validate(value.trim())){                         
                           return null;
                         }
                         else{
-                          return "   *invalide email";
+                          return AppLocalizations.of(context)?.invalidEmailError ?? "*Invalid email";
                         }
                       }
                     },
@@ -112,7 +113,7 @@ class _FormScreenState extends State<FormScreen> {
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10),
                       border: InputBorder.none,
-                      hintText: 'E-mail...',
+                      hintText: AppLocalizations.of(context)?.emailHint ?? "Email...",
                       prefixIcon: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Icon(
@@ -134,7 +135,7 @@ class _FormScreenState extends State<FormScreen> {
                   
                   inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'[,.]')),], 
                   keyboardType: TextInputType.numberWithOptions(),              
-                  validator: (value) => value!.length !=10 ? '   *invalid num': null,                                                         
+                  validator: (value) => value!.length !=10 ?AppLocalizations.of(context)?.invalidNumberError ?? "*Invalid number": null,                                                         
                   onChanged: (val) {
                     setState(() {
                       num = val ;
@@ -143,7 +144,7 @@ class _FormScreenState extends State<FormScreen> {
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10),
                       border: InputBorder.none,
-                      hintText: 'Numéro de teléphone...',
+                      hintText: AppLocalizations.of(context)?.phoneNumberHint ?? "Phone Number...",
                       prefixIcon: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Icon(
@@ -163,7 +164,7 @@ class _FormScreenState extends State<FormScreen> {
                 ),
                 child: TextFormField(
                     keyboardType: TextInputType.visiblePassword,
-                    validator: (value) => value!.length<6? '   *short pass': null,
+                    validator: (value) => value!.length<6? AppLocalizations.of(context)?.shortPassError ?? "*Password too short": null,
                     onChanged: (val) {
                     setState(() {
                       pass1 = val;
@@ -173,7 +174,7 @@ class _FormScreenState extends State<FormScreen> {
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10),
                       border: InputBorder.none,
-                      hintText: 'Mot de passe...',
+                      hintText: AppLocalizations.of(context)?.passwordHint ?? "Password...",
                       prefixIcon: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Icon(
@@ -203,7 +204,7 @@ class _FormScreenState extends State<FormScreen> {
                 ),
                 child: TextFormField(
                   keyboardType: TextInputType.visiblePassword,              
-                  validator: (value) => value! !=pass1? '   *diff pass': null,   
+                  validator: (value) => value! !=pass1? AppLocalizations.of(context)?.diffPassError ?? "*Passwords do not match": null,   
                   onChanged: (val) {
                     setState(() {
                       pass2 = val;
@@ -212,7 +213,7 @@ class _FormScreenState extends State<FormScreen> {
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 10),
                       border: InputBorder.none,
-                      hintText: 'Confirmer le mot de passe...',
+                      hintText: AppLocalizations.of(context)?.confirmPasswordHint ?? "Confirm Password...",
                       prefixIcon: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Icon(
@@ -232,7 +233,7 @@ class _FormScreenState extends State<FormScreen> {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: DropdownButton(                  
-                  hint: const Text("enter user type  "),
+                  hint:  Text(AppLocalizations.of(context)?.enterUserType ?? "Enter user type"),
                   dropdownColor: Colors.white,
                   icon: const Icon(Icons.arrow_drop_down),
                   iconSize: 36,
@@ -246,14 +247,14 @@ class _FormScreenState extends State<FormScreen> {
                       ValueChoose = newValue! as String;
                     });
                   },
-                  items: const [
+                  items:  [
                     DropdownMenuItem<String>(
                       value: 'Condidat',
-                      child: Text('Je suis un condidat'),
+                      child: Text(AppLocalizations.of(context)?.iAmACandidate ?? "I am a candidate"),
                     ),
                     DropdownMenuItem<String>(
                       value: 'Moniteur',
-                      child: Text('Je suis un moniteur'),
+                      child: Text(AppLocalizations.of(context)?.iAmAnInstructor ?? "I am an instructor"),
                     ),
                   ],
                   padding: const EdgeInsets.only(left: 17.0),
@@ -269,7 +270,7 @@ class _FormScreenState extends State<FormScreen> {
                                     
                     if(_formkey.currentState!.validate()){
                       if(ValueChoose == null){
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("please select type")));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)?.pleaseSelectType ?? "Please select type")));
                       }
                       else  await auth.registerWithEmailPass(
                         email: email, 

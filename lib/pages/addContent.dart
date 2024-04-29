@@ -4,6 +4,7 @@ import 'package:code_route/classes/firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:code_route/util/options.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class addContent extends StatefulWidget {
@@ -41,7 +42,7 @@ class addContentState extends State<addContent> {
       endDrawer: OptionsBar(),
       appBar: AppBar(
         title: Text(
-          'AJOUTER UN QUIZ',         
+          AppLocalizations.of(context)?.addQuizTitle ?? 'ADD A QUIZ',         
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -65,7 +66,7 @@ class addContentState extends State<addContent> {
                   padding:
                       const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
                   child: TextFormField(
-                    validator: (value) => value!.isEmpty? '   *enter title': null,
+                    validator: (value) => value!.isEmpty? AppLocalizations.of(context)?.enterTitleError ?? '*Enter title': null,
                     controller: _titleController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -76,7 +77,7 @@ class addContentState extends State<addContent> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                       ),
-                      hintText: 'titre...',
+                      hintText: AppLocalizations.of(context)?.titleHint ?? 'Title...',
                       fillColor: Color.fromARGB(255, 216, 214, 214),
                       filled: true,
                     ),
@@ -88,7 +89,7 @@ class addContentState extends State<addContent> {
                 MaterialButton(
                   color: const Color.fromARGB(255, 233, 169, 51),
                   child: Text(
-                    "choisir une photo de gallery",
+                    AppLocalizations.of(context)?.choosePhotoGallery ?? 'Choose a photo from gallery',
                     style: TextStyle(
                       color: const Color.fromARGB(255, 0, 0, 0),
                       fontWeight: FontWeight.bold,
@@ -105,7 +106,7 @@ class addContentState extends State<addContent> {
                 ),
                 
             
-                _selectedImage==null? Text("please select image"): Container(
+                _selectedImage==null? Text(AppLocalizations.of(context)?.pleaseSelectImage ?? 'Please select an image'): Container(
                   margin: EdgeInsets.fromLTRB(100, 50, 100, 50),
                   height: 400,
                   decoration: BoxDecoration(
@@ -134,7 +135,7 @@ class addContentState extends State<addContent> {
                     child: DropdownButton(
                       
                       borderRadius: BorderRadius.circular(8),
-                      hint: Text(' choose the type'),
+                      hint: Text(AppLocalizations.of(context)?.pleaseSelectImage ?? 'Please select an image'),
                       dropdownColor: const Color.fromARGB(255, 216, 214, 214),
                       icon: Icon(Icons.arrow_drop_down),
                       isExpanded: true,
@@ -177,7 +178,7 @@ class addContentState extends State<addContent> {
                     child: DropdownButton(
                       
                       borderRadius: BorderRadius.circular(8),
-                      hint: Text(' choose the type'),
+                      hint: Text(AppLocalizations.of(context)?.chooseType ?? 'Choose the type'),
                       dropdownColor: const Color.fromARGB(255, 216, 214, 214),
                       icon: Icon(Icons.arrow_drop_down),
                       isExpanded: true,
@@ -228,7 +229,7 @@ class addContentState extends State<addContent> {
                                 color:
                                     const Color.fromARGB(255, 255, 255, 255)),
                           ),
-                          hintText: 'choix${index + 1}',
+                          hintText: AppLocalizations.of(context)?.choiceHint ?? 'Choice...',
                           fillColor: Color.fromARGB(255, 216, 214, 214),
                           filled: true,
                         ),
@@ -289,7 +290,7 @@ class addContentState extends State<addContent> {
                   padding:
                       const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
                   child: (_selectedType==null||(_selectedType!=types[0]&&_selectedType!=types[1]))? null:TextFormField(
-                    validator: (value) => value!.isEmpty? '   *enter explication': null,
+                    validator: (value) => value!.isEmpty? AppLocalizations.of(context)?.enterExplanation ?? 'Enter explanation': null,
                     controller: _explicationController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -300,7 +301,7 @@ class addContentState extends State<addContent> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                       ),
-                      hintText:(_selectedType==types[0])? 'description...':'explication...',
+                      hintText:(_selectedType==types[0])? AppLocalizations.of(context)?.descriptionHint ?? 'Description...':AppLocalizations.of(context)?.explanationHint ?? 'Explanation...',
                       fillColor: Color.fromARGB(255, 216, 214, 214),
                       filled: true,
                     ),
@@ -323,7 +324,7 @@ class addContentState extends State<addContent> {
                       ),
                       child: DropdownButton(
                         borderRadius: BorderRadius.circular(8),
-                        hint: Text(' choose the corect answer'),
+                        hint: Text(AppLocalizations.of(context)?.chooseCorrectAnswer ?? 'Choose the correct answer'),
                         dropdownColor: const Color.fromARGB(255, 216, 214, 214),
                         icon: Icon(Icons.arrow_drop_down),
                         isExpanded: true,
@@ -369,7 +370,7 @@ class addContentState extends State<addContent> {
                     child: Column(
                       children: [                       
                         Text(
-                          "select difficulty",
+                         AppLocalizations.of(context)?.selectDifficulty ?? 'Select difficulty',
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -398,11 +399,11 @@ class addContentState extends State<addContent> {
                     onTap: () {
                       if(_formkey.currentState!.validate()){
                         if(_selectedImage == null){
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("please select image")));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)?.pleaseSelectImage ?? 'Please select an image')));
                         }else if(_selectedType == null){
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("please select type")));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)?.pleaseSelectType ?? 'Please select type')));
                         }else if(_selectedType == types[2] && _selectedPlaqueType == null){
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("please select plaque type")));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)?.pleaseSelectPlaqueType ?? 'Please select plaque type')));
                         }else{
                           Map<String,dynamic> options = {} ;
                           for(int i = 0;i<n;i++){
@@ -422,7 +423,7 @@ class addContentState extends State<addContent> {
                             explication: _explicationController.text.trim(),
                           );                         
                                                
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("added")));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)?.added ?? 'Added')));
                           setState(() {
                             _selectedImage = null;
                             _titleController.clear();
@@ -445,7 +446,7 @@ class addContentState extends State<addContent> {
                       ),
                       child: Center(
                         child: Text(
-                          'CONFERMER',
+                          AppLocalizations.of(context)?.confirm ?? 'CONFIRM',
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,
@@ -473,3 +474,4 @@ class addContentState extends State<addContent> {
     }
   }
 }
+

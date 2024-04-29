@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';//.....
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';//....
 
 
 void main()async{
@@ -16,74 +18,6 @@ void main()async{
   
   runApp(Myapp());
 }
-/*
-class Myapp extends StatelessWidget {
-  const Myapp({super.key});
-
-  Future fetchData_p()async{
-    final db = firestore();
-    return await db.retrivePost(type: "اشارات");
-  }
-  
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: futureBuilder(
-          fetchData: [fetchData_p()],
-          result_with: (data) => testing(data: data),
-        ),
-      ),
-    );
-  }
-}
-
-class testing extends StatefulWidget {
-  const testing({
-    super.key,
-    required this.data,
-  });
-  final data;
-
-  @override
-  State<testing> createState() => _testingState();
-}
-
-class _testingState extends State<testing> {
-  int index =0;
-  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.data[0][index].id),
-        centerTitle: true,
-      ),
-      body: Image.network(widget.data[0][index]["url"]),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        margin: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(50)
-        ),
-        child: GestureDetector(
-          child: Text(
-            widget.data[0][index]["type"],
-            style: TextStyle(fontSize: 50),
-          ),
-          onTap: () {
-              setState(() {
-                index++;
-              });;
-          },
-          ),
-              
-      ),
-    );
-  }
-}
-*/
 
 class Myapp extends StatelessWidget {
   const Myapp({super.key});
@@ -98,6 +32,19 @@ class Myapp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        locale: Locale('fr'), //LANGUAGE IM CURRENTLY USING
+                              //REPLACEE TEXT('BLA') WITH: Text(AppLocalizations.of(context)?.BLA ?? 'Default Text')
+        supportedLocales: [
+          Locale('en'),
+          Locale('ar'),
+          Locale('fr')
+        ],
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {

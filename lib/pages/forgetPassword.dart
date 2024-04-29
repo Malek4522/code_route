@@ -2,7 +2,8 @@ import 'package:code_route/classes/auth.dart';
 import 'package:code_route/util/timed_button.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';//.....
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ForgotPasword extends StatefulWidget {
   const ForgotPasword({super.key});
@@ -40,7 +41,7 @@ class ForgotPaswordState extends State<ForgotPasword> {
         appBar: AppBar(
           leading: _returning? null:Text(""),
           title: Text(
-            'mot de passe oublie?',
+            AppLocalizations.of(context)?.forgotPasswordTitle ?? 'Forgot Password?',
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -71,7 +72,7 @@ class ForgotPaswordState extends State<ForgotPasword> {
                     padding:
                         const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
                     child: Text(
-                      'ENTRER VOTRE EMAIL',
+                      AppLocalizations.of(context)?.enterYourEmail ?? 'ENTER YOUR EMAIL',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
@@ -89,13 +90,13 @@ class ForgotPaswordState extends State<ForgotPasword> {
                     child: TextFormField(
                       validator: (value) {
                         if(value!.isEmpty){                   
-                          return '   *enter email';                        
+                          return AppLocalizations.of(context)?.enterEmailError ?? '*enter email';                        
                         }else{
                           if(EmailValidator.validate(value.trim())){                         
                             return null;
                           }
                           else{
-                            return "   *invalide email";
+                            return AppLocalizations.of(context)?.invalidEmailError ?? '*invalid email';
                           }
                         }
                       },
@@ -111,7 +112,7 @@ class ForgotPaswordState extends State<ForgotPasword> {
                           
                         contentPadding: EdgeInsets.symmetric(vertical: 10),
                         border: InputBorder.none,
-                        hintText: 'E-MAIL',
+                        hintText: AppLocalizations.of(context)?.emailHint ?? 'E-MAIL',
                         prefixIcon: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Icon(
@@ -145,7 +146,7 @@ class ForgotPaswordState extends State<ForgotPasword> {
                             );
                                   
                             auth.resetpassword(email: _emailController.text.trim());
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("an email sent")));
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)?.emailSentMessage ?? "An email sent")));
                             
                           } 
                         },

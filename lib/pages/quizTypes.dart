@@ -1,5 +1,7 @@
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';//.....
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class quizTypes extends StatelessWidget {
   const quizTypes({
@@ -15,7 +17,7 @@ class quizTypes extends StatelessWidget {
       endDrawer: OptionsBar(),
       appBar: AppBar(
         title: Text(
-          'quiz',
+          AppLocalizations.of(context)?.quizTitle ?? 'Quiz',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -58,7 +60,7 @@ class quizTypes extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          'plaques',
+                          AppLocalizations.of(context)?.plaques?? 'plaques',
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,
@@ -102,7 +104,7 @@ class quizTypes extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          'priority',
+                          AppLocalizations.of(context)?.priority ?? 'priority',
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,

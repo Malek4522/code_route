@@ -5,6 +5,8 @@ import 'package:code_route/pages/form_screen.dart';
 import 'package:async/async.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';//.....
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class login extends StatefulWidget {
   login({super.key});
@@ -30,7 +32,7 @@ class _loginState extends State<login> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("Conection"),
+        title: Text(AppLocalizations.of(context)?.loginTitle ?? "Connection"),
         backgroundColor: const Color.fromARGB(255, 233, 169, 51),
         centerTitle: true,
       ),
@@ -54,13 +56,13 @@ class _loginState extends State<login> {
                   child: TextFormField(
                     validator: (value) {
                       if(value!.isEmpty){
-                        return '   *enter email';
+                        return AppLocalizations.of(context)?.enterEmailError ?? "*Enter email";
                       }else{
                         if(EmailValidator.validate(value.trim())){
                           return null;
                         }
                         else{
-                          return "   *invalide email";
+                          return AppLocalizations.of(context)?.invalidEmailError ?? "*Invalid email";
                         }
                       }
                       
@@ -75,7 +77,7 @@ class _loginState extends State<login> {
                         
                       contentPadding: EdgeInsets.symmetric(vertical: 10),
                       border: InputBorder.none,
-                      hintText: 'E-MAIL',
+                      hintText: AppLocalizations.of(context)?.emailHint ?? "E-MAIL",
                       prefixIcon: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Icon(
@@ -94,7 +96,7 @@ class _loginState extends State<login> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: TextFormField(
-                    validator: (value) => value!.length<6? '   *short pass': null,
+                    validator: (value) => value!.length<6? AppLocalizations.of(context)?.shortPasswordError ?? '*Short password': null,
                     onChanged: (value) {
                       setState(() {
                         password = value;
@@ -103,7 +105,7 @@ class _loginState extends State<login> {
                     decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(vertical: 10),
                         border: InputBorder.none,
-                        hintText: 'Password',
+                        hintText: AppLocalizations.of(context)?.passwordHint ?? 'Password',
                         prefixIcon: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Icon(
@@ -123,7 +125,7 @@ class _loginState extends State<login> {
                     );
                   },
                   child: Text(
-                    "Mot de pass oublier?",
+                    AppLocalizations.of(context)?.forgotPasswordText ?? "Forgot password?",
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       decorationColor: Colors.white,
@@ -159,9 +161,9 @@ class _loginState extends State<login> {
                         color: const Color.fromARGB(255, 233, 169, 51),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Center(
+                      child:  Center(
                         child: Text(
-                          'Log in',
+                          AppLocalizations.of(context)?.loginTitle ?? "Login",
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,
@@ -174,7 +176,7 @@ class _loginState extends State<login> {
                 ),
                 SizedBox(height: 15,),
                 Text(
-                  "dont have account ?",
+                 AppLocalizations.of(context)?.noAccountText ?? "Don't have an account?",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,                 
@@ -202,9 +204,9 @@ class _loginState extends State<login> {
                         color: const Color.fromARGB(255, 233, 169, 51),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Center(
+                      child:  Center(
                         child: Text(
-                          'creat account',
+                          AppLocalizations.of(context)?.createAccountText ?? 'Create account',
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,
@@ -217,7 +219,7 @@ class _loginState extends State<login> {
                 ),
           
                 Text(
-                  "or",
+                  AppLocalizations.of(context)?.orText ?? 'or',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,                 
@@ -239,9 +241,9 @@ class _loginState extends State<login> {
                         color: const Color.fromARGB(255, 233, 169, 51),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Center(
+                      child:  Center(
                         child: Text(
-                          'continue as guess',
+                          AppLocalizations.of(context)?.continueAsGuestText ?? 'continue as a guest',
                           style: TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.bold,
@@ -269,7 +271,7 @@ class _loginState extends State<login> {
         QuickAlert.show(
           context: context, 
           type: QuickAlertType.error,
-          title: 'email and pass dosnt match'
+          title: AppLocalizations.of(context)?.emailAndPasswordNotMatchError ?? 'password or email incorrect'
         );
         break;
 
@@ -278,8 +280,8 @@ class _loginState extends State<login> {
         QuickAlert.show(
           context: context, 
           type: QuickAlertType.error,
-          title: 'too many login attemps try again later',
-          text: 'try to resete your persword if you forget it '
+          title: AppLocalizations.of(context)?.tooManyLoginAttemptsError ?? 'too many login attempts please wait',
+          text: AppLocalizations.of(context)?.tryToResetPasswordText ?? 'reset password'
         );
         break;
       default: 

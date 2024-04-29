@@ -4,6 +4,8 @@ import 'package:code_route/util/options.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';//.....
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CPlaques extends StatelessWidget {
   CPlaques({
@@ -22,8 +24,8 @@ class CPlaques extends StatelessWidget {
       endDrawer: OptionsBar(),
       appBar: AppBar(
         backgroundColor: Colors.orange[700],
-        title: const Text(
-          "Plaques",
+        title: Text(
+         AppLocalizations.of(context)?.plaquesTitle ?? 'Plaques',
           style: TextStyle(
             color: Color.fromARGB(255, 0, 0, 0),
             fontWeight: FontWeight.bold,

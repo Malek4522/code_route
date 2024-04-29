@@ -3,6 +3,8 @@ import 'package:code_route/util/option.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:quickalert/quickalert.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';//.....
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class quiz extends StatefulWidget {
   const quiz({super.key});
@@ -20,7 +22,7 @@ class _quizState extends State<quiz> {
   List<dynamic> mylist =[
     priority(
       title: 'choose the correct answer',
-      explication: 'test test test test test test test test test test test test test test test test test test test test test ',
+      explication: ' ',
       options: {
         '1' : false,
         '2' : true,
@@ -62,7 +64,7 @@ class _quizState extends State<quiz> {
                   borderRadius: BorderRadius.circular(25)
                 ),
                 child: Text(
-                  mylist[i].runtimeType.toString()+"-QUIZ",
+                  "${AppLocalizations.of(context)?.quizTitle ?? "QUIZ"}",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                   color: Colors.black,
@@ -124,7 +126,7 @@ class _quizState extends State<quiz> {
                                 borderRadius:BorderRadius.circular(8)
                               ),
                               //contentPadding: EdgeInsets.all(20),
-                              title: Text("Explication",),
+                              title: Text(AppLocalizations.of(context)?.explication ?? "Explication"),
                               titleTextStyle: TextStyle(fontSize: 24.0),
                               content: Container(                                
                                 child: SingleChildScrollView(
@@ -151,7 +153,7 @@ class _quizState extends State<quiz> {
                                             borderRadius: BorderRadius.circular(5)
                                           ),
                                           child: Text(
-                                            "done",
+                                            AppLocalizations.of(context)?.doneButton ?? "Done",
                                             style: TextStyle(
                                               color: Colors.blue,
                                               fontSize: 40
@@ -176,7 +178,7 @@ class _quizState extends State<quiz> {
                           borderRadius: BorderRadius.circular(10)
                         ),
                         child: Text(
-                          "explication",
+                          AppLocalizations.of(context)?.explaination ?? "Explication",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                           fontSize: 30,                                  
@@ -194,15 +196,25 @@ class _quizState extends State<quiz> {
                               check = false;
                               });
                           }
-                        }else{
-                          if(check){
-                            QuickAlert.show(
-                              context: context, 
-                              type: QuickAlertType.success,
-                              title: "You have finished your test",
-                              text: "your score is: $score",
-                            );
-                          }
+                        }else{if (check) {
+                           // Retrieve the localized message with the score
+                          String finishTestMessage = AppLocalizations.of(context)!.finishTestMessage(score);
+
+                          QuickAlert.show(
+                          context: context,
+                          type: QuickAlertType.success,
+                          title: AppLocalizations.of(context)?.finishTestTitle ?? "Quiz Completed",
+                           text: finishTestMessage,
+                             );
+                           } 
+                          // if(check){
+                          //   QuickAlert.show(
+                          //     context: context, 
+                          //     type: QuickAlertType.success,
+                          //     String finalScoreMessage = AppLocalizations.of(context)!.finishTestMessage(score);
+                          //     text: finalScoreMessage
+                          //   );
+                          // }
                         }
                       },
                       child: Container(
@@ -213,7 +225,7 @@ class _quizState extends State<quiz> {
                           borderRadius: BorderRadius.circular(10)
                         ),
                         child: Text(
-                          "Next",
+                          AppLocalizations.of(context)?.nextButton ?? "Next",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                           fontSize: 30,                                  
