@@ -315,7 +315,7 @@ class _quizState extends State<quiz> {
                         margin: EdgeInsets.fromLTRB(10, 30, 10, 30),
                         padding: EdgeInsets.fromLTRB(60, 10, 60, 10),             
                         decoration: BoxDecoration(
-                          color: Colors.yellow,
+                          color: Color(0xFFFDC80F),
                           borderRadius: BorderRadius.circular(10)
                         ),
                         child: Text(

@@ -22,6 +22,7 @@ class coursesType extends StatelessWidget {
     return Scaffold(
       endDrawer: OptionsBar(),
       appBar: AppBar(
+        toolbarHeight: 120.0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -35,10 +36,10 @@ class coursesType extends StatelessWidget {
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
-            fontSize: 38,
+            fontSize: 50,
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 233, 169, 51),
+        backgroundColor:  Color(0xFFFDC80F),
         elevation: 0,
       ),
       body: Container(

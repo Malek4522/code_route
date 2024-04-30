@@ -36,7 +36,7 @@ class _loginState extends State<login> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)?.loginTitle ?? "Connection"),
-        backgroundColor: const Color.fromARGB(255, 233, 169, 51),
+        backgroundColor: const Color(0xFFFDC80F), 
         centerTitle: true,
       ),
       body: Container(

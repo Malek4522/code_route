@@ -37,7 +37,7 @@ class generalknowledge extends StatelessWidget {
           ),
         ),
                
-        backgroundColor: Color.fromARGB(255, 233, 169, 51),
+        backgroundColor:Color(0xFFFDC80F),
         elevation: 0,
       ),    
       

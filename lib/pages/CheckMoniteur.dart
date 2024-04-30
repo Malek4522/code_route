@@ -39,7 +39,7 @@ class CheckMoniteur extends StatelessWidget {
             Navigator.of(context).pop();
           },
         ),
-        backgroundColor: Color.fromARGB(255, 233, 169, 51),
+        backgroundColor: Color(0xFFFDC80F),
         elevation: 0,
       ),
       body: Container(

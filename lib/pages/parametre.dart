@@ -56,7 +56,7 @@ class _SettingsState extends State<Settings> {
             Navigator.of(context).pop();
           },
         ),  
-        backgroundColor: Color.fromARGB(255, 233, 169, 51),
+        backgroundColor: Color(0xFFFDC80F),
         elevation: 0, 
         title: Text(AppLocalizations.of(context)?.settingsTitle ?? 'settings',
             style: Theme.of(context).textTheme.headline4!.copyWith(
