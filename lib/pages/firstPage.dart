@@ -7,6 +7,7 @@ import 'package:code_route/util/futurBuilder.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class firstPage extends StatelessWidget {
@@ -35,7 +36,7 @@ class firstPage extends StatelessWidget {
       appBar: AppBar(
       
         title: Text(
-          'commencer',
+           AppLocalizations.of(context)?.start ?? 'Start',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -78,9 +79,9 @@ class firstPage extends StatelessWidget {
                     color: Colors.yellow,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: const Center(
+                  child:  Center(
                     child: Text(
-                      'Courses',
+                        AppLocalizations.of(context)?.courses ?? 'Courses',
                       style: TextStyle(
                         color: Color.fromARGB(255, 0, 0, 0),
                         fontWeight: FontWeight.bold,
@@ -113,9 +114,9 @@ class firstPage extends StatelessWidget {
                     color: Colors.yellow,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: const Center(
+                  child:  Center(
                     child: Text(
-                      'quiz',
+                      AppLocalizations.of(context)?.quiz ?? 'Quiz',
                       style: TextStyle(
                         color: Color.fromARGB(255, 0, 0, 0),
                         fontWeight: FontWeight.bold,
@@ -146,9 +147,9 @@ class firstPage extends StatelessWidget {
                     );
                     
                   },
-                  child: const Center(
+                  child:  Center(
                     child: Text(
-                      'add content',
+                       AppLocalizations.of(context)?.addContent ?? 'Add Content',
                       style: TextStyle(
                         color: Color.fromARGB(255, 0, 0, 0),
                         fontWeight: FontWeight.bold,

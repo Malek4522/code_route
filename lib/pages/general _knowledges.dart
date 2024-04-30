@@ -6,6 +6,7 @@ import 'package:code_route/util/information.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class generalknowledge extends StatelessWidget {
   generalknowledge({
@@ -28,7 +29,7 @@ class generalknowledge extends StatelessWidget {
           },
         ),
         title: Text(
-          'course',
+          AppLocalizations.of(context)?.courseTitle ?? "course",
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,

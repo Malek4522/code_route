@@ -7,6 +7,7 @@ import 'package:code_route/util/timed_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class emailVirification extends StatefulWidget {
   const emailVirification({super.key});
@@ -71,7 +72,7 @@ class _emailVirificationState extends State<emailVirification> {
       onWillPop: () async=>_returning ,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("email virificating"),
+          title: Text(AppLocalizations.of(context)?.emailVerifyingTitle ?? "Email Verifying"),
           centerTitle: true,
           leading:!_returning? null : BackButton(
             onPressed: (){
@@ -99,7 +100,7 @@ class _emailVirificationState extends State<emailVirification> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "  check your inbox for virification email   ",
+                      AppLocalizations.of(context)?.checkInboxMessage ?? "Check your inbox for verification email",
                       style: TextStyle(fontSize: 25,),
                     ),
                   ),
@@ -112,7 +113,7 @@ class _emailVirificationState extends State<emailVirification> {
                   ontap:()async{
                     
                     await auth.sendVirificationEmail();
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("an email sent")));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)?.emailSentMessage ?? "An email sent")));
                   },
                 )
               ],

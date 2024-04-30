@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:flutter/material.dart';
 import 'package:code_route/util/options.dart';
 
@@ -44,11 +46,19 @@ class reSendState extends State<reSend> {
             child: Center(
                 child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: [ 
             ElevatedButton(
+               
               style: ElevatedButton.styleFrom(),
-              child: Text('renvoyer' + time.toString()),
-              onPressed: time > 0 ? null : _countDown,
+               child: Text(time > 0 
+    ? AppLocalizations.of(context)?.resendButtonText(time) ?? "Resend in $time seconds" 
+    : AppLocalizations.of(context)?.resendButtonReady ?? "Resend Now"),
+  onPressed: time > 0 ? null : () {
+    setState(() {
+      time = 30; // Reset the timer
+      _countDown(); // Restart the countdown
+    });
+  },
             )
           ],
         ))));

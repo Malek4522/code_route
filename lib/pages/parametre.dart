@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class Settings extends StatefulWidget {
@@ -57,7 +58,7 @@ class _SettingsState extends State<Settings> {
         ),  
         backgroundColor: Color.fromARGB(255, 233, 169, 51),
         elevation: 0, 
-        title: Text('Paramètres',
+        title: Text(AppLocalizations.of(context)?.settingsTitle ?? 'settings',
             style: Theme.of(context).textTheme.headline4!.copyWith(
               color: Colors.black,fontWeight: FontWeight.bold // Set the text color to black
             )),
@@ -88,7 +89,7 @@ class _SettingsState extends State<Settings> {
                           Navigator.pop(context);
                           Provider.of<routeProvider>(context, listen: false).removeroute();
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: 
-                            Text("name has been updated")
+                            Text(AppLocalizations.of(context)?.nameUpdated ?? 'Name has been updated')
                           ));
                         }
                       }, 
@@ -100,7 +101,7 @@ class _SettingsState extends State<Settings> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: TextFormField(
-                        validator: (value) => nom.length !=0? null:'   *enter name',
+                        validator: (value) => nom.length !=0? null:AppLocalizations.of(context)?.enterName ?? '*Enter name',
                         keyboardType: TextInputType.emailAddress,                                            onChanged: (val){
                           setState(() {
                             nom = val;
@@ -109,7 +110,7 @@ class _SettingsState extends State<Settings> {
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(vertical: 10),
                             border: InputBorder.none,
-                            hintText: 'change user name',
+                            hintText: AppLocalizations.of(context)?.changeUserName ?? 'Change user name',
                             prefixIcon: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Icon(
@@ -146,16 +147,16 @@ class _SettingsState extends State<Settings> {
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                             if(value!.isEmpty){                   
-                              return "   *enter email";                        
+                              return AppLocalizations.of(context)?.enterYourEmail ?? '*enter your email';                        
                             }else{
                               if(value == user!.email){
-                                return '   *same email';
+                                return AppLocalizations.of(context)?.sameEmail ?? '*Same email';
                               }
                               if(EmailValidator.validate(value.trim())){                         
                                 return null;
                               }
                               else{
-                                return "   *invalide email";
+                                return AppLocalizations.of(context)?.invalidEmail ?? '*Invalid email';
                               }
                             }
                           },
@@ -168,7 +169,7 @@ class _SettingsState extends State<Settings> {
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(vertical: 10),
                             border: InputBorder.none,
-                            hintText: 'change email',
+                            hintText:AppLocalizations.of(context)?.changeEmail ?? 'Change email',
                             prefixIcon: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Icon(
@@ -196,7 +197,7 @@ class _SettingsState extends State<Settings> {
                                   Navigator.pop(context);
                                   Provider.of<routeProvider>(context, listen: false).removeroute();
                                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: 
-                                    Text("check your email box for virification link")
+                                    Text(AppLocalizations.of(context)?.checkEmailBox ?? 'Check your email box for verification link')
                                   ));
 
                                   auth.signOut();
@@ -205,15 +206,15 @@ class _SettingsState extends State<Settings> {
                                   QuickAlert.show(
                                     context: context, 
                                     type: QuickAlertType.error,
-                                    title: 'wronge pass'
+                                    title: AppLocalizations.of(context)?.wrongPassword ?? 'Wrong password'
                                   );
                                   break;
                                 case 'too-many-requests':
                                   QuickAlert.show(
                                     context: context, 
                                     type: QuickAlertType.error,
-                                    title: 'too many attemps',
-                                    text: 'account has been disable temperary, please try to reset the password'
+                                    title: AppLocalizations.of(context)?.tooManyAttempts ?? 'Too many attempts',
+                                    text: AppLocalizations.of(context)?.accountDisabled ?? 'Account has been disabled temporarily, please try to reset the password'
                                   );
                                   break;
                                 default:
@@ -232,7 +233,7 @@ class _SettingsState extends State<Settings> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: TextFormField(
-                        validator: (value) => value!.length<6? '   *invalid pass': null,
+                        validator: (value) => value!.length<6? AppLocalizations.of(context)?.invalidPassword ?? '*Invalid password': null,
                         onChanged: (value) {
                           setState(() {
                             password = value;
@@ -242,7 +243,7 @@ class _SettingsState extends State<Settings> {
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(vertical: 10),
                             border: InputBorder.none,
-                            hintText: 'Password required',
+                            hintText: AppLocalizations.of(context)?.passwordHint ?? 'Enter your password',
                             prefixIcon: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Icon(
@@ -285,7 +286,7 @@ class _SettingsState extends State<Settings> {
                               Navigator.pop(context);
                               Provider.of<routeProvider>(context, listen: false).removeroute();
                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: 
-                              Text("phone num has been updated")
+                              Text(AppLocalizations.of(context)?.phoneUpdated ?? 'Phone number has been updated')
                           ));
                             }
                           }, 
@@ -305,7 +306,7 @@ class _SettingsState extends State<Settings> {
                             return null;
                           }else{
                             if(value.length!=10){
-                              return '   *invalid num';
+                              return AppLocalizations.of(context)?.invalidPhoneNumber ?? '*Invalid number';
                             }
                             else{
                               return null;
@@ -320,7 +321,7 @@ class _SettingsState extends State<Settings> {
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(vertical: 10),
                             border: InputBorder.none,
-                            hintText: 'change phone number',
+                            hintText: AppLocalizations.of(context)?.changePhoneNumber ?? 'Change phone number',
                             prefixIcon: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Icon(

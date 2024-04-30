@@ -7,20 +7,34 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CPlaques extends StatelessWidget {
   CPlaques({
     super.key,
     required this.data
   });
-  static const String routeName = 'pages/chiraz_plaques.dart';
-  final  List<QueryDocumentSnapshot> data;
 
-  final List<String> assets = ["assets/danger.jpg","assets/indication.jpg","assets/ordre.jpg","assets/obligation.jpg"];
-  final List plaqueType = ["التحذير","الارشاد","الممنوع","الاجباري"];
+  static const String routeName = 'pages/chiraz_plaques.dart';
+  final List<QueryDocumentSnapshot> data;
+
+  final List<String> assets = [
+    "assets/danger.jpg",
+    "assets/indication.jpg",
+    "assets/ordre.jpg",
+    "assets/obligation.jpg"
+  ];
+  
+  List<String> plaqueType = []; // To be initialized later
+
   @override
   Widget build(BuildContext context) {
-    
+    plaqueType = [
+      AppLocalizations.of(context)!.warning,
+      AppLocalizations.of(context)!.guidance,
+      AppLocalizations.of(context)!.prohibition,
+      AppLocalizations.of(context)!.mandatory
+    ];
 
     return Scaffold(
       endDrawer: OptionsBar(),
@@ -34,7 +48,7 @@ class CPlaques extends StatelessWidget {
         ),
         
         title: Text(
-          'courses',
+           AppLocalizations.of(context)?.courseTitle ?? 'courses',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,

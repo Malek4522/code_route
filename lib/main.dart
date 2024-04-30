@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';//.....
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';//....
 
 void main()async{
   
@@ -40,6 +42,19 @@ class Myapp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+         localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        locale: Locale('fr'), //LANGUAGE IM CURRENTLY USING
+                              //REPLACEE TEXT('BLA') WITH: Text(AppLocalizations.of(context)?.BLA ?? 'Default Text')
+        supportedLocales: [
+          Locale('en'),
+          Locale('ar'),
+          Locale('fr')
+        ],
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {

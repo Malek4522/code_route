@@ -4,6 +4,7 @@ import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ScoreHistory extends StatelessWidget {
   ScoreHistory({
@@ -29,7 +30,7 @@ class ScoreHistory extends StatelessWidget {
             Navigator.of(context).pop();
           },
         ),
-        title: Text("Score History"),
+        title: Text(AppLocalizations.of(context)?.scoreHistoryTitle ?? 'score history',),
         backgroundColor: Color.fromARGB(255, 233, 169, 51),
         elevation: 0,
       ),
@@ -48,7 +49,7 @@ class ScoreHistory extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(10)
             ),
-            child: Text("you havnt pass any quiz yet"),
+            child: Text(AppLocalizations.of(context)?.noQuizHistory ?? 'you havent passed any quiz yet',),
           ),
         ):
         ListView.builder(

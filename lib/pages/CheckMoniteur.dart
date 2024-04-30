@@ -6,6 +6,7 @@ import 'package:code_route/util/information.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CheckMoniteur extends StatelessWidget {
   const CheckMoniteur({
@@ -24,7 +25,7 @@ class CheckMoniteur extends StatelessWidget {
       endDrawer: OptionsBar(),
       appBar: AppBar(
         title: Text(
-          'added Content',
+           AppLocalizations.of(context)?.appBarTitle ?? 'added content',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -54,7 +55,7 @@ class CheckMoniteur extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Text("you havnt add any content yet"),
+            child: Text( AppLocalizations.of(context)?.noContentAlert ?? 'you havent added anything yet'),
           ),
         ) 
         
@@ -98,7 +99,7 @@ class CheckMoniteur extends StatelessWidget {
                 
                 
                   },
-                  child: Text('preview'),
+                  child: Text( AppLocalizations.of(context)?.previewButton ?? 'preview'),
                 ),
               ),
             )

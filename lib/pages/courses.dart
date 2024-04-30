@@ -6,6 +6,7 @@ import 'package:code_route/util/course.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class courses extends StatelessWidget {
@@ -35,7 +36,7 @@ class courses extends StatelessWidget {
         ),
 
         title: Text(
-          'courses',
+           AppLocalizations.of(context)?.courseTitle ?? 'courses',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -59,7 +60,7 @@ class courses extends StatelessWidget {
             Center(
               child: Container(
                 margin: EdgeInsets.all(30),
-                child: Text("  course-type  ",style: TextStyle(fontSize: 50),),
+                child: Text(AppLocalizations.of(context)?.courseType ?? 'Course Type',style: TextStyle(fontSize: 50),),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(50)                

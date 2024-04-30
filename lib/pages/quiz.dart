@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 late Timer _timer;
 
@@ -119,7 +120,7 @@ class _quizState extends State<quiz> {
           },
         ),
         title: Text(
-          (widget.singledata ==null)?"QUIZ ${i+1} / 20":"QUIZ",
+          (widget.singledata ==null)?AppLocalizations.of(context)?.quizTitle ?? "QUIZ ${i+1} / 20":AppLocalizations.of(context)?.quizTitle ?? "QUIZ",
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.black,
@@ -201,7 +202,7 @@ class _quizState extends State<quiz> {
                                 borderRadius:BorderRadius.circular(8)
                               ),
                               //contentPadding: EdgeInsets.all(20),
-                              title: Text("Explication",),
+                              title: Text(AppLocalizations.of(context)?.explication ?? "Explication",),
                               titleTextStyle: TextStyle(fontSize: 24.0),
                               content: Container(                                
                                 child: SingleChildScrollView(
@@ -228,7 +229,7 @@ class _quizState extends State<quiz> {
                                             borderRadius: BorderRadius.circular(5)
                                           ),
                                           child: Text(
-                                            "done",
+                                            AppLocalizations.of(context)?.doneButton ?? "Done",
                                             style: TextStyle(
                                               color: Colors.blue,
                                               fontSize: 40
@@ -253,7 +254,7 @@ class _quizState extends State<quiz> {
                           borderRadius: BorderRadius.circular(10)
                         ),
                         child: Text(
-                          "explication",
+                           AppLocalizations.of(context)?.explaination ?? "Explication",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                           fontSize: 30,                                  
@@ -292,11 +293,12 @@ class _quizState extends State<quiz> {
                                 'date': DateTime.now(),
                               });
                             }  
+                             String finishTestMessage = AppLocalizations.of(context)!.finishTestMessage(score);
                             QuickAlert.show(
                               context: context, 
                               type: QuickAlertType.success,
-                              title: "You have finished your test",
-                              text: "your score is: $score",
+                              title: AppLocalizations.of(context)?.finishTestTitle ?? "Quiz Completed",
+                               text: finishTestMessage,
                               onConfirmBtnTap: (){
                                 Navigator.pop(context);
                                 
@@ -317,7 +319,7 @@ class _quizState extends State<quiz> {
                           borderRadius: BorderRadius.circular(10)
                         ),
                         child: Text(
-                          "Next",
+                           AppLocalizations.of(context)?.nextButton ?? "Next",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                           fontSize: 30,                                  
@@ -424,7 +426,7 @@ class _LinearTimerState extends State<LinearTimer> {
                 Expanded(
                   child: Text(
                     _milisecondsRemaining <= 0
-                        ? "finished"
+                        ?  AppLocalizations.of(context)?.finished ?? "finished"
                         : ("${(_milisecondsRemaining / 1000).toStringAsFixed(0)}s left"),
                     style: TextStyle(
                       color: _milisecondsRemaining <= 0
