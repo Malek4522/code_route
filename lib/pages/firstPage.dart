@@ -8,6 +8,7 @@ import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class firstPage extends StatelessWidget {
@@ -34,16 +35,18 @@ class firstPage extends StatelessWidget {
     return Scaffold(
       endDrawer: OptionsBar(),
       appBar: AppBar(
-      
-        title: Text(
+          toolbarHeight: 120.0,
+       
+        title:  Text(
            AppLocalizations.of(context)?.start ?? 'Start',
           style: TextStyle(
             color: Colors.black,
+            
+            fontSize: 60,
             fontWeight: FontWeight.bold,
-            fontSize: 38,
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 233, 169, 51),
+        backgroundColor: Color(0xFFFDC80F),
         elevation: 0,
       ),
       body: Container(
@@ -76,7 +79,7 @@ class firstPage extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   
                   decoration: BoxDecoration(
-                    color: Colors.yellow,
+                    color: const Color(0xFFF46833),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child:  Center(
@@ -111,7 +114,7 @@ class firstPage extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   
                   decoration: BoxDecoration(
-                    color: Colors.yellow,
+                    color: Color(0xFFFBAB18),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child:  Center(
@@ -133,7 +136,7 @@ class firstPage extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
                 
                 decoration: BoxDecoration(
-                  color: Colors.yellow,
+                  color: Color(0xFFFBAB18),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: GestureDetector(
@@ -153,7 +156,7 @@ class firstPage extends StatelessWidget {
                       style: TextStyle(
                         color: Color.fromARGB(255, 0, 0, 0),
                         fontWeight: FontWeight.bold,
-                        fontSize: 40,
+                        fontSize: 30,
                       ),
                     ),
                   ),
