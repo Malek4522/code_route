@@ -38,7 +38,7 @@ class information extends StatelessWidget {
           },
         ),
         title: Text(
-          'course',
+          AppLocalizations.of(context)?.courses ?? "courses",
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,

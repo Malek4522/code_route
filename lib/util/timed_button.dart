@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class timedbutton extends StatefulWidget {
   timedbutton({
@@ -82,12 +83,12 @@ class _timedbuttonState extends State<timedbutton> {
           onTap: enable? widget.validate? counterdown:null : null,
           child: ListTile(
             title: Text(
-              widget.started?"send again":"send",
+              widget.started? AppLocalizations.of(context)?.resendButtonReady ?? "Resend Now":AppLocalizations.of(context)?.send ?? "send",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
             ),
             subtitle: (timeleft <0)? null:Text(
-              "wait (${timeleft}) to send again",
+              AppLocalizations.of(context)?.resendButtonText(timeleft) ?? "Resend in $timeleft seconds" ,
               style: TextStyle(color: Colors.grey)
             ),
             
