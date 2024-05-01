@@ -127,6 +127,7 @@ class firestore{
   }
 
   Future<List<Map<String,dynamic>>> translateContent(List<DocumentSnapshot> content, String to)async{
+    if(to=="ar")return Future.value(content.map((e) => e.data() as Map<String,dynamic>).toList());
     final translator = GoogleTranslator();
     List<Map<String,dynamic>> translatedData = [];
 
