@@ -21,8 +21,7 @@ class firestore{
       if(type =="معلومات عامة"){
         await db.collection("معلومات عامة").add({
           "monitorRef" : monitorRef,
-          "approved" : true,
-          //"approved" : false,
+          "approved" : false,
           "title" : title,
           "explication" : explication,
         }).then((DocumentReference doc)async{
@@ -41,8 +40,7 @@ class firestore{
       else if(type == "اولويات"){
         await db.collection("اولويات").add({
           "monitorRef" : monitorRef,
-          "approved" : true,
-          //"approved" : false,
+          "approved" : false,
           "title" : title,
           "options" : options,
           "explication" : explication,
@@ -61,9 +59,8 @@ class firestore{
       }else{
         await db.collection("اشارات").add({
           "monitorRef" : monitorRef,
-          "approved" : true,
+          "approved" : false,
           "type" : plaqueType,
-          //"approved" : false,
           "title" : title,
           "options" : options,
           "difficulty" : difficulty,
@@ -149,13 +146,12 @@ class firestore{
 
       if(doc.data().toString().contains("options")){
         Map<String,dynamic>options= doc.get("options");
-        /*
-        Future.forEach(options.keys, (key)async{
-          String result = await translator.translate(key,to: to).then((value) => value.toString());
-          translatedoptions.addAll({result:options[key]});
-          print(result);
-        });
-        */
+               
+        var futureKeys =options.keys.map((e) => translator.translate(e,to: to)).toList();
+        var translatedkeys= await Future.wait(futureKeys);
+        for(int i=0;i<translatedkeys.length;i++){
+          translatedoptions[translatedkeys[i].toString()]= options.values.elementAt(i);
+        }
         
         
         
@@ -180,7 +176,6 @@ class firestore{
       if(doc.data().toString().contains("explication")){
         mymap.addAll({'explication':translatedexplication});
       }
-      print(mymap);
       translatedData.add(mymap);
     }
     return translatedData;

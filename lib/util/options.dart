@@ -171,7 +171,7 @@ class OptionsBarState extends State<OptionsBar> {
           SizedBox(
             height: 10,
           ),
-          ListTile(
+          (FirebaseAuth.instance.currentUser!.isAnonymous)? Container(): ListTile(
             leading: Icon(Icons.settings),
             title: Text(AppLocalizations.of(context)?.security ?? "security"),
             onTap: () {
@@ -192,7 +192,7 @@ class OptionsBarState extends State<OptionsBar> {
 
             },
           ),
-          ListTile(
+          (FirebaseAuth.instance.currentUser!.isAnonymous)?Container(): ListTile(
             leading: Icon(Icons.history),
             title: Text(AppLocalizations.of(context)?.scoreHistoryTitle ?? "score history"),
             onTap: () {
@@ -221,7 +221,7 @@ class OptionsBarState extends State<OptionsBar> {
             height: 10,
           ),
           
-          ListTile(
+          (user.userType == "Condidat")? Container(): ListTile(
             leading: Icon(Icons.add_circle_sharp),
             title: Text(AppLocalizations.of(context)?.appBarTitle ?? "added conetent"),
             onTap: () {
@@ -251,7 +251,59 @@ class OptionsBarState extends State<OptionsBar> {
           ListTile(
             leading: Icon(Icons.lightbulb),
             title: Text(AppLocalizations.of(context)?.about ?? "about"),
-            onTap: () {},
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius:BorderRadius.circular(8)
+                  ),
+                  title: Text(AppLocalizations.of(context)?.about ?? "about"),
+                  titleTextStyle: TextStyle(fontSize: 24.0),
+                  content: Container(                                
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(8.0),                             
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(5)
+                          ),
+                          child:Text(
+                            AppLocalizations.of(context)?.aboutmsg ?? 'this app was made by lys team a group of computer science',
+                            style: TextStyle(fontSize: 30),
+                          )
+                        ),
+
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);                                                                                  
+                          },
+                          child: Container(
+                            margin: EdgeInsets.all(10),
+                            padding: EdgeInsets.fromLTRB(150, 10, 0,0 ),
+                            decoration: BoxDecoration(                                      
+                              borderRadius: BorderRadius.circular(5)
+                            ),
+                            child: Text(
+                            AppLocalizations.of(context)?.doneButton ?? "Done",
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 40
+                            ),                                         
+                          )
+                        ),
+                      )
+                    ],
+                    ),
+                  )
+                )  
+              )
+            );
+
+            },
           ),
           SizedBox(
             height: 40,

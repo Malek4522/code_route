@@ -1,5 +1,7 @@
 import 'package:code_route/classes/firestore.dart';
+import 'package:code_route/classes/myuser.dart';
 import 'package:code_route/classes/routeProvider.dart';
+import 'package:code_route/classes/user_provider.dart';
 import 'package:code_route/pages/addContent.dart';
 import 'package:code_route/pages/coursesType.dart';
 import 'package:code_route/pages/quizTypes.dart';
@@ -32,6 +34,7 @@ class firstPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    myUser? user = Provider.of<user_provider>(context,listen: true).getuser;
     return Scaffold(
       endDrawer: OptionsBar(),
       appBar: AppBar(
@@ -130,8 +133,8 @@ class firstPage extends StatelessWidget {
                 ),
               ),
 
-              //(user!.userType == 'Condidat')? SizedBox(height: 1,):Container(
-              Container(  
+              (user!.userType == 'Condidat')? SizedBox(height: 1,):Container(
+                
                 margin: EdgeInsets.fromLTRB(60, 40, 60, 50),
                 padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
                 

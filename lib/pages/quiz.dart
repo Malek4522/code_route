@@ -68,7 +68,7 @@ class _quizState extends State<quiz> {
 
   void counterdown(){
     setState(() {
-      timeleft = widget.data![i]["difficulty"]+7.0;
+      timeleft = widget.data![i]["difficulty"]+12.0;
     });
       Timer.periodic(Duration(seconds: 1), (timer) {
       if(check){
@@ -177,7 +177,7 @@ class _quizState extends State<quiz> {
 
               (widget.singledata !=null)?Container():
               check? Container():
-              LinearTimer(durationMiliseconds: (widget.data![i]["difficulty"]*1000+7000).round(), onTimerFinish: (){
+              LinearTimer(durationMiliseconds: (widget.data![i]["difficulty"]*1000+12000).round(), onTimerFinish: (){
                 if(!check){
                   setState(() {
                     check = true;
@@ -288,7 +288,7 @@ class _quizState extends State<quiz> {
                           }
                         }else{
                           if(check){
-                            score = (score/10).floor() as double ; 
+                            score = score/10  ; 
                             if(!FirebaseAuth.instance.currentUser!.isAnonymous){
                               FirebaseFirestore.instance.collection('users')
                               .doc(FirebaseAuth.instance.currentUser!.uid).collection('scoreHistory').add({                    

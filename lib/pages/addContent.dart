@@ -28,9 +28,8 @@ class addContentState extends State<addContent> {
   List<int> options = [1, 2, 3];
   int? _selectedOption;
   
-  // Localized types list
-  List<String> types = [];
-  List<String> plaqueType = [];
+  Map<String,String>types = {"معلومات عامة":"","اولويات":"","اشارات":"",};
+  Map<String,String> plaqueType = {"التحذير":"","الارشاد":"","الممنوع":"","الاجباري":""};
 
   String? _selectedType;
   String? _selectedPlaqueType;
@@ -45,17 +44,15 @@ class addContentState extends State<addContent> {
     super.didChangeDependencies();
     // Initialize localized strings
     final loc = AppLocalizations.of(context)!;
-    types = [
-      loc.generality,
-      loc.priority,
-      loc.plaques
-    ];
-    plaqueType = [
-      loc.warning,
-      loc.guidance,
-      loc.prohibition,
-      loc.mandatory
-    ];
+    types.update("معلومات عامة", (value) => loc.generality);
+    types.update("اولويات", (value) => loc.priority);
+    types.update("اشارات", (value) => loc.plaques);
+    
+    plaqueType.update("التحذير", (value) => loc.warning);
+    plaqueType.update("الارشاد", (value) => loc.guidance);
+    plaqueType.update("الممنوع", (value) => loc.prohibition);
+    plaqueType.update("الاجباري", (value) => loc.mandatory);
+    
   }
   @override
   Widget build(BuildContext context) {
@@ -172,10 +169,10 @@ class addContentState extends State<addContent> {
                           _selectedType = newValue as String;
                         });
                       },
-                      items: types.map((value) {
+                      items: types.keys.map((value) {
                         return DropdownMenuItem(
                           value: value,
-                          child: Text("   "+value),
+                          child: Text("   "+types[value]!),
                         );
 
                       },).toList()
@@ -190,7 +187,7 @@ class addContentState extends State<addContent> {
                 Padding(
                   padding:
                       const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
-                  child:(_selectedType ==null||_selectedType !=types[2])?null: Container(
+                  child:(_selectedType ==null||_selectedType !=types.keys.toList()[2])?null: Container(
                     
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -215,10 +212,10 @@ class addContentState extends State<addContent> {
                           _selectedPlaqueType = newValue as String;
                         });
                       },
-                      items: plaqueType.map((value) {
+                      items: plaqueType.keys.map((value) {
                         return DropdownMenuItem(
                           value: value,
-                          child: Text("   "+value),
+                          child: Text("   "+plaqueType[value]!),
                         );
 
                       },).toList()
@@ -234,7 +231,7 @@ class addContentState extends State<addContent> {
                 ListView.builder(
                   shrinkWrap: true,
                   itemCount: n,
-                  itemBuilder: (context, index) =>(_selectedType==null||_selectedType==types[0])? null : Padding(
+                  itemBuilder: (context, index) =>(_selectedType==null||_selectedType==types.keys.toList()[0])? null : Padding(
                       padding: const EdgeInsetsDirectional.symmetric(
                           horizontal: 25.0),
                       child: TextFormField(
@@ -261,7 +258,7 @@ class addContentState extends State<addContent> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: (_selectedType==null||_selectedType==types[0])?[]:[
+                  children: (_selectedType==null||_selectedType==types.keys.toList()[0])?[]:[
                     FloatingActionButton(
                       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                       foregroundColor: Colors.black,
@@ -311,7 +308,7 @@ class addContentState extends State<addContent> {
                 Padding(
                   padding:
                       const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
-                  child: (_selectedType==null||(_selectedType!=types[0]&&_selectedType!=types[1]))? null:TextFormField(
+                  child: (_selectedType==null||(_selectedType!=types.keys.toList()[0]&&_selectedType!=types.keys.toList()[1]))? null:TextFormField(
                     validator: (value) => value!.isEmpty? AppLocalizations.of(context)?.enterExplanation ?? 'Enter explanation': null,
                     controller: _explicationController,
                     decoration: InputDecoration(
@@ -339,7 +336,7 @@ class addContentState extends State<addContent> {
                 Padding(
                     padding:
                         const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
-                    child: (_selectedType==null || _selectedType==types[0])? null:Container(                     
+                    child: (_selectedType==null || _selectedType==types.keys.toList()[0])? null:Container(                     
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(color: Colors.black12, width: 1),
@@ -382,7 +379,7 @@ class addContentState extends State<addContent> {
                   height: 10,
                 ),
 
-                (_selectedType == null)?SizedBox(height: 1,)  : (_selectedType==types[0])?
+                (_selectedType == null)?SizedBox(height: 1,)  : (_selectedType==types.keys.toList()[0])?
                   SizedBox(height: 1,) :Container(
                     margin: EdgeInsets.all(30),
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -436,7 +433,6 @@ class addContentState extends State<addContent> {
                           }
                           db.uploadcontent(
                             monitorRef: FirebaseFirestore.instance.collection("users").doc("dev"),
-                            //monitorId: ,
                             difficulty: difficulty,
                             type: _selectedType!,
                             plaqueType: _selectedPlaqueType,

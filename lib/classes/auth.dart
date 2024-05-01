@@ -13,7 +13,7 @@ class authservice{
     User currentuser = _auth.currentUser!;
     
     DocumentSnapshot snap = FirebaseAuth.instance.currentUser!.isAnonymous?
-    await _firestore.collection('users').doc("dev").get():
+    await _firestore.collection('users').doc("guess").get():
     await _firestore.collection('users').doc(currentuser.uid).get();
     return  myUser.fromsnap(snap);
   }
