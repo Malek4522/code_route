@@ -108,5 +108,8 @@
   "scoreHistoryTitle": " سجل النتائج ",
   "noQuizHistory": "لم تجتز أي اختبار بعد",
   "score": "النتيجة ",
-  "type": "النوع"
+  "type": "النوع",
+  "security": "الأمان",
+  "about": "حول",
+  "logout": "تسجيل الخروج"
 }

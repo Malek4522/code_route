@@ -108,5 +108,8 @@
   "scoreHistoryTitle": "Historique des scores",
   "noQuizHistory": "Vous n'avez passé aucun quiz pour le moment",
   "score": "Score",
-  "type": "Type"
+  "type": "Type",
+  "security": "Sécurité",
+  "about": "À propos",
+  "logout": "Se déconnecter"
 }

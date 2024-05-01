@@ -64,7 +64,7 @@
   "noAccountText": "Don t have an account?",
   "createAccountText": "Create account",
   "orText": "or",
-  "continueAsGuestText": "Continue as guest",
+  "continueAsGuestText": "Continue as a guest",
   "emailAndPasswordNotMatchError": "Email and password don t match",
   "tooManyLoginAttemptsError": "Too many login attempts, try again later",
   "tryToResetPasswordText": "Try to reset your password if you forget it",
@@ -108,5 +108,11 @@
   "scoreHistoryTitle": "Score History",
   "noQuizHistory": "You haven't passed any quiz yet",
   "score": "Score",
-  "type": "Type"
+  "type": "Type",
+  "security": "Security", 
+  "about": "About",
+  "logout": "Log out"
+  
+
+
 }

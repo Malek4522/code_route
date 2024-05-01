@@ -121,7 +121,7 @@ class OptionsBarState extends State<OptionsBar> {
           ),
           ListTile(
             leading: Icon(Icons.book),
-            title: Text('COURS'),
+            title: Text(AppLocalizations.of(context)?.courses ?? "courses"),
             onTap: () {
               Navigator.pop(context);
               if(Provider.of<routeProvider>(context, listen: false).current!=coursesType.routeName){
@@ -147,7 +147,7 @@ class OptionsBarState extends State<OptionsBar> {
           ),
           ListTile(
             leading: Icon(Icons.question_mark),
-            title: Text('QUIZ'),
+            title: Text(AppLocalizations.of(context)?.quiz ?? "quiz "),
             onTap: () {
               Navigator.pop(context);
               if(Provider.of<routeProvider>(context, listen: false).current!=quizTypes.routeName){
@@ -173,7 +173,7 @@ class OptionsBarState extends State<OptionsBar> {
           ),
           ListTile(
             leading: Icon(Icons.settings),
-            title: Text('PARAMETRE'),
+            title: Text(AppLocalizations.of(context)?.security ?? "security"),
             onTap: () {
               Navigator.pop(context);
               if(Provider.of<routeProvider>(context, listen: false).current!=Settings.routeName){
@@ -194,7 +194,7 @@ class OptionsBarState extends State<OptionsBar> {
           ),
           ListTile(
             leading: Icon(Icons.history),
-            title: Text('Score history'),
+            title: Text(AppLocalizations.of(context)?.scoreHistoryTitle ?? "score history"),
             onTap: () {
               
               Navigator.pop(context);
@@ -223,7 +223,7 @@ class OptionsBarState extends State<OptionsBar> {
           
           ListTile(
             leading: Icon(Icons.add_circle_sharp),
-            title: Text('added content'),
+            title: Text(AppLocalizations.of(context)?.appBarTitle ?? "added conetent"),
             onTap: () {
               Navigator.pop(context);
               if(Provider.of<routeProvider>(context, listen: false).current!=CheckMoniteur.routeName){
@@ -250,7 +250,7 @@ class OptionsBarState extends State<OptionsBar> {
           ),
           ListTile(
             leading: Icon(Icons.lightbulb),
-            title: Text('ABOUT'),
+            title: Text(AppLocalizations.of(context)?.about ?? "about"),
             onTap: () {},
           ),
           SizedBox(
@@ -258,7 +258,7 @@ class OptionsBarState extends State<OptionsBar> {
           ),
           ListTile(
             leading: Icon(Icons.exit_to_app),
-            title: Text('DECONNECCTER'),
+            title: Text(AppLocalizations.of(context)?.logout ?? "logout"),
             onTap: () async{
               await _auth.signOut();
               Navigator.pop(context);
