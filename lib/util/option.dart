@@ -1,4 +1,7 @@
+import 'package:code_route/util/futureBuilder_translate.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 
 class option extends StatefulWidget {
@@ -31,9 +34,8 @@ class _optionState extends State<option> {
         child: Container(    
           padding: EdgeInsets.all(15),
           margin: EdgeInsets.fromLTRB(40, 5, 40, 0),
-          child: Text(
+          child:Text(
             widget.title,
-            textAlign: TextAlign.start,
             style: TextStyle(fontSize: 25),
           ),
           decoration: BoxDecoration(
@@ -45,7 +47,7 @@ class _optionState extends State<option> {
           ),
           
         ),
-        onTap: () {
+        onTap: widget.check? null:() {
           if(widget.valid){
             widget.score();
           }

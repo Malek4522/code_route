@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_route/classes/storage.dart';
+import 'package:translator/translator.dart';
 
 class firestore{
   final db = FirebaseFirestore.instance;
@@ -123,10 +124,67 @@ class firestore{
 
     var contentFutures = documentReferences.map((ref) => ref.get()).toList();
     var contentSnapshots = await Future.wait(contentFutures);
-
+    
     return contentSnapshots;
     
-    
+  }
+
+  Future<List<Map<String,dynamic>>> translateContent(List<DocumentSnapshot> content, String to)async{
+    final translator = GoogleTranslator();
+    List<Map<String,dynamic>> translatedData = [];
+
+    for(var doc in content){
+      String? translatedtitle;
+      String? translatedexplication;
+      Map<String,dynamic> translatedoptions={};
+
+
+      translatedtitle = await translator.translate(
+        doc.get("title"),to: to).then((value) => value.toString());
+
+      if(doc.data().toString().contains("explication")){
+         translatedexplication = await translator.translate(
+        doc.get("explication"),to: to).then((value) => value.toString());
+      }
+
+      if(doc.data().toString().contains("options")){
+        Map<String,dynamic>options= doc.get("options");
+        /*
+        Future.forEach(options.keys, (key)async{
+          String result = await translator.translate(key,to: to).then((value) => value.toString());
+          translatedoptions.addAll({result:options[key]});
+          print(result);
+        });
+        */
+        
+        
+        
+      }
+     
+      
+      Map<String,dynamic>mymap = {};
+      
+
+      mymap.addAll({
+        'title':translatedtitle,
+        'approved':doc.get("approved"),
+        'monitorRef': doc.get("monitorRef"),
+        'url': doc.get("url"),
+      });
+      if(doc.data().toString().contains("difficulty")){
+        mymap.addAll({'difficulty':doc.get('difficulty')});
+      }
+      if(doc.data().toString().contains("options")){
+        mymap.addAll({'options':translatedoptions});
+      }
+      if(doc.data().toString().contains("explication")){
+        mymap.addAll({'explication':translatedexplication});
+      }
+      print(mymap);
+      translatedData.add(mymap);
+    }
+    return translatedData;
+
   }
 
 }

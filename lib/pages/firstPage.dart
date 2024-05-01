@@ -75,7 +75,7 @@ class firstPage extends StatelessWidget {
                 },
                 
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(120, 150, 120, 40),
+                  margin: EdgeInsets.fromLTRB(110, 150, 110, 40),
                   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   
                   decoration: BoxDecoration(
@@ -132,7 +132,7 @@ class firstPage extends StatelessWidget {
 
               //(user!.userType == 'Condidat')? SizedBox(height: 1,):Container(
               Container(  
-                margin: EdgeInsets.fromLTRB(70, 40, 70, 50),
+                margin: EdgeInsets.fromLTRB(60, 40, 60, 50),
                 padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
                 
                 decoration: BoxDecoration(
@@ -152,6 +152,7 @@ class firstPage extends StatelessWidget {
                   },
                   child:  Center(
                     child: Text(
+                      
                        AppLocalizations.of(context)?.addContent ?? 'Add Content',
                       style: TextStyle(
                         color: Color.fromARGB(255, 0, 0, 0),

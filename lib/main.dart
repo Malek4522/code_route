@@ -10,8 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';//.....
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';//....
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main()async{
   
@@ -19,15 +20,41 @@ void main()async{
   await Firebase.initializeApp(
     options:  DefaultFirebaseOptions.currentPlatform ,
   );
+  await SharedPreferences.getInstance().then((value){
+    runApp(Myapp(pref: value,));
+  });
   
-  runApp(Myapp());
   
 }  
 
 
 
-class Myapp extends StatelessWidget {
-  const Myapp({super.key});
+class Myapp extends StatefulWidget {
+  Myapp({
+    super.key,
+    required this.pref
+  });
+  final SharedPreferences pref;
+
+  @override
+  State<Myapp> createState() => _MyappState();
+  static _MyappState of(BuildContext context) => context.findAncestorStateOfType<_MyappState>()!;
+}
+
+class _MyappState extends State<Myapp> {
+
+  Locale? locale ;
+  setlocal(String _languageCode){
+    setState(() {
+      widget.pref.setString("language", _languageCode);
+      locale = Locale(_languageCode);
+    });
+  }
+  @override
+  void initState() {
+    locale = Locale(widget.pref.getString('language')?? 'en');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +75,9 @@ class Myapp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        locale: Locale('fr'), //LANGUAGE IM CURRENTLY USING
-                              //REPLACEE TEXT('BLA') WITH: Text(AppLocalizations.of(context)?.BLA ?? 'Default Text')
+
+        locale: locale, 
+
         supportedLocales: [
           Locale('en'),
           Locale('ar'),

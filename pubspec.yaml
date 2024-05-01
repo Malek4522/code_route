@@ -51,6 +51,8 @@ dependencies:
   image_picker: ^1.0.7
   intl: any
   google_fonts: ^6.2.1
+  shared_preferences: ^2.2.3
+  translator: ^1.0.0
 
 dev_dependencies:
   flutter_test:

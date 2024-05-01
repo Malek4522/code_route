@@ -1,7 +1,6 @@
 import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/pages/chiraz_plaques.dart';
 import 'package:code_route/pages/courses.dart';
-import 'package:code_route/pages/firstPage.dart';
 import 'package:code_route/pages/general%20_knowledges.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +65,7 @@ class coursesType extends StatelessWidget {
                 },
                 
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(45, 130, 130, 0),
+                  margin: EdgeInsets.fromLTRB(85, 130, 85, 0),
                   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   
                   decoration: BoxDecoration(  
@@ -110,7 +109,7 @@ class coursesType extends StatelessWidget {
                   
                 },
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(45, 50, 130, 0),
+                  margin: EdgeInsets.fromLTRB(85, 50, 85, 0),
                   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   
                   decoration: BoxDecoration(
@@ -154,7 +153,7 @@ class coursesType extends StatelessWidget {
                     );                        
                 },
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(45, 50, 130, 0),
+                  margin: EdgeInsets.fromLTRB(85, 50, 85, 0),
                   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   
                   decoration: BoxDecoration( 

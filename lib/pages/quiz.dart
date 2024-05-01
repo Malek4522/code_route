@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_route/classes/routeProvider.dart';
+import 'package:code_route/util/futureBuilder_translate.dart';
 import 'package:code_route/util/option.dart';
 import 'package:code_route/util/options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,23 +21,18 @@ class quiz extends StatefulWidget {
 
   
   static const String routeName = 'pages/quiz.dart';
-  List<DocumentSnapshot>?  data;
-  DocumentSnapshot? singledata;
+  List<Map<String,dynamic>>?  data= [];
+  Map<String,dynamic>? singledata;
 
 
   @override
   State<quiz> createState() => _quizState();
 }
 
-List<T> listPickRandItem<T>(List<T> list, int count){
-  final mylist = List<T>.from(list);
-  mylist.shuffle();
-  return mylist.take(count).toList();
-}
+
 
 class _quizState extends State<quiz> {
   
-  List<DocumentSnapshot> mylist= [];
   int i = 0;
   double score = 500;
   bool check = false;
@@ -60,11 +56,11 @@ class _quizState extends State<quiz> {
     });
     
     if(streak_score>8){
-      score= score +  10*mylist[i]["difficulty"]*5*timeleft;
+      score= score +  10*widget.data![i]["difficulty"]*5*timeleft;
     }else if(streak_score>3){
-      score= score +  10*mylist[i]["difficulty"]*(streak_score-2)*timeleft;
+      score= score +  10*widget.data![i]["difficulty"]*(streak_score-2)*timeleft;
     }else{
-      score= score +  10*mylist[i]["difficulty"]*timeleft;
+      score= score +  10*widget.data![i]["difficulty"]*timeleft;
     }
   }
   double timeleft = 0;
@@ -72,7 +68,7 @@ class _quizState extends State<quiz> {
 
   void counterdown(){
     setState(() {
-      timeleft = mylist[i]["difficulty"]+7.0;
+      timeleft = widget.data![i]["difficulty"]+7.0;
     });
       Timer.periodic(Duration(seconds: 1), (timer) {
       if(check){
@@ -86,9 +82,9 @@ class _quizState extends State<quiz> {
           timer.cancel();
           print(timeleft);
         }
-        setState(() {
-          timeleft=timeleft-1;
-        }); 
+        
+        timeleft=timeleft-1;
+         
       }                     
     });
   }
@@ -98,10 +94,10 @@ class _quizState extends State<quiz> {
   void initState() {
     super.initState();
     if(widget.singledata ==null){
-      mylist = listPickRandItem(widget.data!, 2) ;
       counterdown();
     }else{
-      mylist.add(widget.singledata!);
+      widget.data=[];
+      widget.data!.add(widget.singledata!);
       check = true;
     }
     
@@ -109,6 +105,7 @@ class _quizState extends State<quiz> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       endDrawer: OptionsBar(),
       appBar: AppBar(
@@ -144,16 +141,16 @@ class _quizState extends State<quiz> {
               
 
               Container(
+                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                 margin: EdgeInsets.all(25),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(25)
                 ),
-                child: Text(
-                  mylist[i]["title"],
-                  textAlign: TextAlign.center,
+                child:Text(
+                  widget.data![i]["title"],
                   style: TextStyle(fontSize: 30),
-                ),
+                )
               ),
 
               Container(                              
@@ -164,15 +161,15 @@ class _quizState extends State<quiz> {
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(15),
-                  child: Image.network(mylist[i]["url"],)
+                  child: Image.network(widget.data![i]["url"],)
                 ),
               ),
 
                           
-              for(String key in mylist[i]['options'].keys)
+              for(String key in widget.data![i]['options'].keys)
                 option(
                   title: key,
-                  valid: mylist[i]["options"][key] ,
+                  valid: widget.data![i]["options"][key] ,
                   check: check,
                   checking: check_fct,
                   score: score_fct,
@@ -180,9 +177,13 @@ class _quizState extends State<quiz> {
 
               (widget.singledata !=null)?Container():
               check? Container():
-              LinearTimer(durationMiliseconds: (mylist[i]["difficulty"]*1000+7000).round(), onTimerFinish: (){setState(() {
-                check=true;
-              });},stop: check,), 
+              LinearTimer(durationMiliseconds: (widget.data![i]["difficulty"]*1000+7000).round(), onTimerFinish: (){
+                if(!check){
+                  setState(() {
+                    check = true;
+                  });
+                }
+              },stop: check,), 
               
               GestureDetector(
 
@@ -191,8 +192,8 @@ class _quizState extends State<quiz> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
-                    //(widget.singledata !=null)? Container():
-                    (!mylist[i].data().toString().contains("explication")||!check)? Container():GestureDetector(
+                    
+                    (!widget.data![i].toString().contains("explication")||!check)? Container():GestureDetector(
                       onTap: () {
                         if(check){
                           showDialog(
@@ -201,7 +202,6 @@ class _quizState extends State<quiz> {
                               shape: RoundedRectangleBorder(
                                 borderRadius:BorderRadius.circular(8)
                               ),
-                              //contentPadding: EdgeInsets.all(20),
                               title: Text(AppLocalizations.of(context)?.explication ?? "Explication",),
                               titleTextStyle: TextStyle(fontSize: 24.0),
                               content: Container(                                
@@ -215,7 +215,10 @@ class _quizState extends State<quiz> {
                                           color: Colors.grey,
                                           borderRadius: BorderRadius.circular(5)
                                         ),
-                                        child: Text(mylist[i]["explication"],style: TextStyle(fontSize: 30),)
+                                        child:Text(
+                                          widget.data![i]["explication"],
+                                          style: TextStyle(fontSize: 30),
+                                        )
                                       ),
 
                                       GestureDetector(
@@ -266,7 +269,7 @@ class _quizState extends State<quiz> {
 
                     (widget.singledata !=null)? Container(): GestureDetector(
                       onTap: () {
-                        if(i < mylist.length -1){
+                        if(i < widget.data!.length -1){
                           if(check){
                             if(!streak){
                               setState(() {
@@ -285,11 +288,12 @@ class _quizState extends State<quiz> {
                           }
                         }else{
                           if(check){
+                            score = (score/10).floor() as double ; 
                             if(!FirebaseAuth.instance.currentUser!.isAnonymous){
                               FirebaseFirestore.instance.collection('users')
                               .doc(FirebaseAuth.instance.currentUser!.uid).collection('scoreHistory').add({                    
                                 'score': score,
-                                'type': mylist[0].data().toString().contains("explication")? "اولويات":"اشارات",
+                                'type': widget.data![i].toString().contains("explication")? "اولويات":"اشارات",
                                 'date': DateTime.now(),
                               });
                             }  

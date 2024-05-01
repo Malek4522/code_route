@@ -1,5 +1,7 @@
+import 'package:code_route/classes/firestore.dart';
 import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/pages/quiz.dart';
+import 'package:code_route/util/futurBuilder.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -52,11 +54,24 @@ class quizTypes extends StatelessWidget {
 
               GestureDetector(
                 onTap: () {
+                  final db =firestore();
                   Provider.of<routeProvider>(context, listen: false).addRoute(quiz.routeName);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context)=>quiz(data: data[0],)
+                      builder: (context)=>FutureBuilder(
+                        future: db.translateContent(listPickRandItem(data[0], 20), AppLocalizations.of(context)!.localeName), 
+                        builder: (context, snapshot){
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return Center(child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+
+                            return quiz(data: snapshot.data,); 
+                          }
+                        }
+                      )
                     )
                   );
                 },
@@ -95,13 +110,27 @@ class quizTypes extends StatelessWidget {
 
               GestureDetector(
                 onTap: () {
+                  final db = firestore();
                   Provider.of<routeProvider>(context, listen: false).addRoute(quiz.routeName);
                   Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context)=>quiz(data: data[1],)
-                        )
-                    );
+                    context,
+                    MaterialPageRoute(
+                      builder: (context)=>FutureBuilder(
+                        future: db.translateContent(listPickRandItem(data[1], 20), AppLocalizations.of(context)!.localeName), 
+                        builder: (context, snapshot){
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return Center(child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+
+                            return quiz(data: snapshot.data,); 
+                          }
+                        }
+                      )
+                    )
+                        
+                  );
                   
                 },
                 child: Container(
@@ -143,4 +172,10 @@ class quizTypes extends StatelessWidget {
       )  
     );
   }
+}
+
+List<T> listPickRandItem<T>(List<T> list, int count){
+  final mylist = List<T>.from(list);
+  mylist.shuffle();
+  return mylist.take(count).toList();
 }

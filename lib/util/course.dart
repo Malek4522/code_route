@@ -1,5 +1,10 @@
+import 'package:code_route/classes/routeProvider.dart';
+import 'package:code_route/util/futureBuilder_translate.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class course extends StatefulWidget {
     course({
@@ -27,6 +32,13 @@ class _courseState extends State<course> {
       
       endDrawer: OptionsBar(),
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Provider.of<routeProvider>(context, listen: false).removeroute();
+            Navigator.of(context).pop();
+          },
+        ),
         title: Text(
           'course',
           style: TextStyle(
@@ -34,8 +46,7 @@ class _courseState extends State<course> {
             fontWeight: FontWeight.bold,
             fontSize: 38,
           ),
-        ),
-               
+        ),              
         backgroundColor: Color.fromARGB(255, 233, 169, 51),
         elevation: 0,
       ),       
@@ -58,10 +69,17 @@ class _courseState extends State<course> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(50)
                 ),
-                child: Text(
+                child:AppLocalizations.of(context)!.localeName=="ar"? Text(
                   widget.title!,
                   style: TextStyle(fontSize: 50),
-                ),
+                ):
+                FutureBuilder_translate(
+                  text: widget.title!,
+                  style: TextStyle(fontSize: 50),
+                  to: AppLocalizations.of(context)!.localeName,
+
+                )
+                
               ),
               SizedBox(height: 20,),
               Hero(
@@ -87,10 +105,16 @@ class _courseState extends State<course> {
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(10),
-                  child: Text(
-                   widget.description!,                               
+                  child:AppLocalizations.of(context)!.localeName=="ar"? Text(
+                    widget.description!,
                     style: TextStyle(fontSize: 20),
-                  ),
+                  ):
+                  FutureBuilder_translate(
+                    text: widget.description!,
+                    style: TextStyle(fontSize: 20),
+                    to: AppLocalizations.of(context)!.localeName,
+
+                  )
                 ),
                 
               ),
@@ -110,7 +134,8 @@ class _courseState extends State<course> {
                     ),
                   ),
                   onTap: () {
-                      Navigator.pop(context);
+                    Provider.of<routeProvider>(context, listen: false).removeroute();
+                    Navigator.pop(context);
                   },
                   ),
               

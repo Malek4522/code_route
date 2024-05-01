@@ -3,6 +3,7 @@ import 'package:code_route/classes/firestore.dart';
 import 'package:code_route/classes/myuser.dart';
 import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/classes/user_provider.dart';
+import 'package:code_route/main.dart';
 import 'package:code_route/pages/CheckMoniteur.dart';
 import 'package:code_route/pages/coursesType.dart';
 import 'package:code_route/pages/firstPage.dart';
@@ -14,6 +15,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class OptionsBar extends StatefulWidget {
   const OptionsBar({super.key,});
@@ -40,8 +43,8 @@ class OptionsBarState extends State<OptionsBar> {
     final db = firestore();
     return await db.db.collection("users").doc(uid).collection('scoreHistory').get().then((value) => value.docs);
   }
-  
-  
+
+
   @override
   Widget build(BuildContext context) {
     Provider.of<user_provider>(context,listen: false).refreshUser();
@@ -74,6 +77,47 @@ class OptionsBarState extends State<OptionsBar> {
           ),
           SizedBox(
             height: 60,
+          ),
+          
+          ListTile(
+            leading: Icon(Icons.language),
+            title: DropdownButton(
+              underline: SizedBox(),
+              items: [
+                DropdownMenuItem( 
+                  value: 'ar',
+                  child: Row(
+                    children: [
+                      Text('العربية'),
+                    ],
+                  ),
+                ),
+                DropdownMenuItem( 
+                  value: 'fr',
+                  child: Row(
+                    children: [
+                      Text('Français'),
+                    ],
+                  ),
+                ),
+                DropdownMenuItem( 
+                  value: 'en',
+                  child: Row(
+                    children: [
+                      Text('English'),
+                    ],
+                  ),
+                ), 
+              ],
+              onChanged: (v) => setState(() { 
+                Myapp.of(context).setlocal(v!);
+              }),
+              value: AppLocalizations.of(context)!.localeName,
+            )   
+          ),
+          
+          SizedBox(
+            height: 10,
           ),
           ListTile(
             leading: Icon(Icons.book),

@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:code_route/classes/routeProvider.dart';
-import 'package:code_route/pages/general%20_knowledges.dart';
+import 'package:code_route/util/futureBuilder_translate.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class information extends StatelessWidget {
   information({
@@ -63,11 +65,16 @@ class information extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(50)
               ),
-              child: Text(
-                title,
-                textDirection: TextDirection.rtl,
-                style: TextStyle(fontSize: 50),
-              ),
+              child:AppLocalizations.of(context)!.localeName=="ar"? Text(
+                  title,
+                  style: TextStyle(fontSize: 50),
+              ):
+              FutureBuilder_translate(
+                  text: title,
+                  style: TextStyle(fontSize: 50),
+                  to: AppLocalizations.of(context)!.localeName,
+
+              )
             ),
             SizedBox(height: 20,),
             Hero(
@@ -93,11 +100,18 @@ class information extends StatelessWidget {
               ),
               child: Padding(
                 padding: EdgeInsets.all(10),
-                child: Text(
+                
+                child:AppLocalizations.of(context)!.localeName=="ar"? Text(
                   description,
-                  textDirection: TextDirection.rtl,                               
                   style: TextStyle(fontSize: 20),
-                ),
+                ):
+                FutureBuilder_translate(
+                  text: description,
+                  style: TextStyle(fontSize: 20),
+                  to: AppLocalizations.of(context)!.localeName,
+
+                )
+                
               ),
               
             ),

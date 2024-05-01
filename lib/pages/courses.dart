@@ -57,7 +57,8 @@ class courses extends StatelessWidget {
         ),
         child: Column(
           
-          children: [       
+          children: [  
+            /*     
             Center(
               child: Container(
                 margin: EdgeInsets.all(30),
@@ -68,7 +69,7 @@ class courses extends StatelessWidget {
                 ),
               ),
             ),
-        
+            */
         
             Expanded(
               child: GridView.builder(

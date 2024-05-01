@@ -2,6 +2,7 @@
 
 import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/pages/coursesType.dart';
+import 'package:code_route/util/futureBuilder_translate.dart';
 import 'package:code_route/util/information.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +53,7 @@ class generalknowledge extends StatelessWidget {
           itemCount: data.length,
           itemBuilder: (context,index) => ListTile(
             leading: Text(
+              
               (index+1).toString(),
               style: TextStyle(
                 color: Colors.white,
@@ -59,14 +61,25 @@ class generalknowledge extends StatelessWidget {
               ),
             ),
             title:Container(
+              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(10),
                 color: Colors.white
               ),
-              child: Padding(
-                padding: EdgeInsets.all(25),
-                child: Text(data[index]["title"],textDirection: TextDirection.rtl),
-              ),
+              child:AppLocalizations.of(context)!.localeName=="ar"? Text(
+                  data[index]["title"],
+                  style: TextStyle(
+                    fontSize: 20
+                  ),
+                ):
+                FutureBuilder_translate(
+                  text: data[index]["title"],
+                  to: AppLocalizations.of(context)!.localeName,
+                  style: TextStyle(
+                    fontSize: 20
+                  ),
+
+                )
             ),
             
             trailing:Hero(

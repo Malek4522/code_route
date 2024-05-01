@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:code_route/classes/firestore.dart';
 import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/pages/quiz.dart';
 import 'package:code_route/util/course.dart';
+import 'package:code_route/util/futureBuilder_translate.dart';
 import 'package:code_route/util/information.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
@@ -67,34 +69,58 @@ class CheckMoniteur extends StatelessWidget {
               (dataa[index].get("approved") ==true)?
               Icon(Icons.check,color: Colors.green,):Icon(Icons.pending_actions_outlined),
               
-              title: Text(dataa[index].get("title")),
+              //title: Text(dataa[index].get("title")),
+              title: AppLocalizations.of(context)!.localeName=="ar"? Text(
+                  dataa[index].get("title"),
+                  //style: TextStyle(fontSize: 50),
+              ):
+              FutureBuilder_translate(
+                  text: dataa[index].get("title"),
+                  //style: TextStyle(fontSize: 50),
+                  to: AppLocalizations.of(context)!.localeName,
+
+              ),
               trailing: Hero(
                 tag: "tag${index+1}",
                 child: ElevatedButton(
                   onPressed: (){
-                    if(dataa[index].data().toString().contains("options")){                  
+                    final db = firestore();
+                    if(dataa[index].data().toString().contains("options")){ 
+                                        
                       Provider.of<routeProvider>(context, listen: false).addRoute(quiz.routeName);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context)=>quiz(singledata: dataa[index],)
+                          builder: (context)=>FutureBuilder(
+                            future: db.translateContent([dataa[index]], AppLocalizations.of(context)!.localeName), 
+                            builder: (context, snapshot){
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return Center(child: CircularProgressIndicator());
+                              } else if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              } else {
+                                return quiz(singledata: snapshot.data![0],); 
+                              }
+                            }
+                          )
                         )
-                        
+                            
                       );
-                      
+                  
                     }else{
                       Provider.of<routeProvider>(context, listen: false).addRoute(information.routeName);
-                      Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: ((context) => information(
-                          title: dataa[index]["title"],
-                          index: index, 
-                          description: dataa[index]["explication"], 
-                          image: dataa[index]["url"],
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context)=>information(
+                            title: dataa[index].get("title"), 
+                            index: index, 
+                            description: dataa[index].get("explication"), 
+                            image: dataa[index].get("url")
+                          )
                         )
-                      )
-                     )
-                    );
+                            
+                      );
                     }
                 
                 

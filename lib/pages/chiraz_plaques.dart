@@ -26,6 +26,7 @@ class CPlaques extends StatelessWidget {
   ];
   
   List<String> plaqueType = []; // To be initialized later
+  List<String> plaqueT = ["التحذير","الارشاد","الممنوع","الاجباري"];
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +83,7 @@ class CPlaques extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context)=>courses(data: data.where((element) => element["type"]==plaqueType[index]).toList())
+                      builder: (context)=>courses(data: data.where((element) => element["type"]==plaqueT[index]).toList())
                     )
                   );
                                    
