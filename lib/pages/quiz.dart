@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_route/classes/routeProvider.dart';
-import 'package:code_route/util/futureBuilder_translate.dart';
 import 'package:code_route/util/option.dart';
 import 'package:code_route/util/options.dart';
 import 'package:firebase_auth/firebase_auth.dart';

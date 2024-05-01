@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_route/classes/firestore.dart';
 import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/pages/quiz.dart';
-import 'package:code_route/util/course.dart';
 import 'package:code_route/util/futureBuilder_translate.dart';
 import 'package:code_route/util/information.dart';
 import 'package:code_route/util/options.dart';

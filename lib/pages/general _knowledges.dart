@@ -1,7 +1,5 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:code_route/classes/routeProvider.dart';
-import 'package:code_route/pages/coursesType.dart';
 import 'package:code_route/util/futureBuilder_translate.dart';
 import 'package:code_route/util/information.dart';
 import 'package:code_route/util/options.dart';

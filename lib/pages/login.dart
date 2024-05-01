@@ -1,10 +1,8 @@
-import 'package:code_route/classes/user_provider.dart';
 import 'package:code_route/pages/forgetPassword.dart';
 import 'package:flutter/material.dart';
 import 'package:code_route/classes/auth.dart';
 import 'package:code_route/pages/form_screen.dart';
 import 'package:async/async.dart';
-import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -36,7 +34,10 @@ class _loginState extends State<login> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         
-        title: Text(AppLocalizations.of(context)?.loginTitle ?? "Connection"),
+        title: Text(
+          AppLocalizations.of(context)?.loginTitle ?? "Connection",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: const Color(0xFFFDC80F), 
        
         centerTitle: true,
@@ -255,7 +256,7 @@ class _loginState extends State<login> {
                                         
                     child: Container(
                       padding:
-                          const EdgeInsets.symmetric(horizontal: 80, vertical: 5),
+                          const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 233, 169, 51),
                         borderRadius: BorderRadius.circular(12),

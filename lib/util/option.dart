@@ -1,6 +1,4 @@
-import 'package:code_route/util/futureBuilder_translate.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 

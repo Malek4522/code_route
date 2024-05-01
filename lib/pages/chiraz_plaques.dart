@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/pages/courses.dart';
-import 'package:code_route/pages/coursesType.dart';
 import 'package:code_route/util/options.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

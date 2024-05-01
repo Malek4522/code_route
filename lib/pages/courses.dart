@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_route/classes/auth.dart';
 import 'package:code_route/classes/routeProvider.dart';
-import 'package:code_route/pages/coursesType.dart';
 import 'package:code_route/util/course.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';

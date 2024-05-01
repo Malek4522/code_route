@@ -1,3 +1,0 @@
-for the text part of the page "about"
-
-dir AppLocalizations.of(context)?.aboutmsg ?? 'this app was made by lys team a group of computer science'

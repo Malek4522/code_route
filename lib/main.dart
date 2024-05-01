@@ -1,10 +1,7 @@
 import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/classes/user_provider.dart';
-import 'package:code_route/pages/coursesType.dart';
 import 'package:code_route/pages/emailVirification.dart';
-import 'package:code_route/pages/firstPage.dart';
 import 'package:code_route/pages/login.dart';
-import 'package:code_route/util/options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
