@@ -128,8 +128,8 @@ class _courseState extends State<course> {
                 ),
                 child: GestureDetector(
                   child: Center(
-                    child: Text(
-                      "Done",
+                    child: Text(AppLocalizations.of(context)?.doneButton ?? "done"
+                      ,
                       style: TextStyle(fontSize: 50),
                     ),
                   ),

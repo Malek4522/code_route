@@ -111,5 +111,6 @@
   "type": "Type",
   "security": "Sécurité",
   "about": "À propos",
-  "logout": "Se déconnecter"
+  "logout": "Se déconnecter",
+  "aboutmsg": "Cette application a été réalisée par l'équipe Lys, un groupe d'étudiants en informatique."
 }

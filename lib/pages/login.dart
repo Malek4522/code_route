@@ -38,6 +38,7 @@ class _loginState extends State<login> {
          toolbarHeight: 120.0,
         title: Text(AppLocalizations.of(context)?.loginTitle ?? "Connection"),
         backgroundColor: const Color(0xFFFDC80F), 
+       
         centerTitle: true,
       ),
       body: Container(
