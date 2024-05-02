@@ -64,7 +64,7 @@
   "noAccountText": "Pas de compte?",
   "createAccountText": "Créer un compte",
   "orText": "ou",
-  "continueAsGuestText": "Continuer en tant qu invité",
+  "continueAsGuestText": "Continuer en tant que invité",
   "emailAndPasswordNotMatchError": "L email et le mot de passe ne correspondent pas",
   "tooManyLoginAttemptsError": "Trop de tentatives de connexion, réessayez plus tard",
   "tryToResetPasswordText": "Essayez de réinitialiser votre mot de passe si vous l avez oublié",

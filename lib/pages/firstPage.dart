@@ -77,8 +77,8 @@ class firstPage extends StatelessWidget {
                 },
                 
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(110, 150, 110, 40),
-                  padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                  margin: EdgeInsets.fromLTRB(105, 150, 105, 40),
+                  padding: EdgeInsets.fromLTRB(8, 20, 8, 20),
                   
                   decoration: BoxDecoration(
                     color: const Color(0xFFF46833),

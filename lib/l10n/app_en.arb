@@ -61,7 +61,7 @@
   "shortPasswordError": "*Short pass",
   "forgotPasswordText": "Forgot password?",
   "loginButtonText": "Log in",
-  "noAccountText": "Don t have an account?",
+  "noAccountText": "Don't have an account?",
   "createAccountText": "Create account",
   "orText": "or",
   "continueAsGuestText": "Continue as a guest",
