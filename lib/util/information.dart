@@ -126,7 +126,7 @@ class information extends StatelessWidget {
               child: GestureDetector(
                 child: Center(
                   child: Text(
-                    "Done",
+                    AppLocalizations.of(context)?. doneButton ?? 'done',
                     style: TextStyle(fontSize: 50),
                   ),
                 ),

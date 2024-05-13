@@ -9,23 +9,31 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class CheckMoniteur extends StatelessWidget {
-  const CheckMoniteur({
+class CheckMoniteur extends StatefulWidget {
+  CheckMoniteur({
     super.key,
     required this.data
   });
 
-  final data;
+  final List data;
 
   static const String routeName = 'pages/CheckMoniteur.dart';
 
   @override
-  Widget build(BuildContext context) {
-    
-    final List<DocumentSnapshot> dataa = data[0];
-    return Scaffold(
+  State<CheckMoniteur> createState() => _CheckMoniteurState();
+}
+
+class _CheckMoniteurState extends State<CheckMoniteur> {
+  int i =0;
+
+  @override
+  Widget build(BuildContext context) { 
+    final List<DocumentSnapshot> dataa = widget.data[0];
+    return Scaffold(   
       endDrawer: OptionsBar(),
       appBar: AppBar(
+        toolbarHeight: 120.0,
+
         title: Text(
            AppLocalizations.of(context)?.appBarTitle ?? 'added content',
           style: TextStyle(
@@ -61,77 +69,115 @@ class CheckMoniteur extends StatelessWidget {
           ),
         ) 
         
-        : Row(
+        : Column(
           children: [
-            
-            ListView.builder(
-              padding: EdgeInsets.fromLTRB(5, 20, 5, 20),
-              itemCount: dataa.length,
-              itemBuilder: (context,index) => Card(
-                child: ListTile(
-                  leading: 
-                  (dataa[index].get("approved") ==true)?
-                  Icon(Icons.check,color: Colors.green,):Icon(Icons.pending_actions_outlined),
-                  
-                  title: AppLocalizations.of(context)!.localeName=="ar"? Text(
-                      dataa[index].get("title"),
-                  ):
-                  FutureBuilder_translate(
-                      text: dataa[index].get("title"),
-                      to: AppLocalizations.of(context)!.localeName,
-            
-                  ),
-                  trailing: Hero(
-                    tag: "tag${index+1}",
-                    child: ElevatedButton(
-                      onPressed: (){
-                        final db = firestore();
-                        if(dataa[index].data().toString().contains("options")){ 
-                                            
-                          Provider.of<routeProvider>(context, listen: false).addRoute(quiz.routeName);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context)=>FutureBuilder(
-                                future: db.translateContent([dataa[index]], AppLocalizations.of(context)!.localeName), 
-                                builder: (context, snapshot){
-                                  if (snapshot.connectionState == ConnectionState.waiting) {
-                                    return Center(child: CircularProgressIndicator());
-                                  } else if (snapshot.hasError) {
-                                    return Text('Error: ${snapshot.error}');
-                                  } else {
-                                    return quiz(singledata: snapshot.data![0],); 
-                                  }
-                                }
-                              )
-                            )
-                                
-                          );
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  (i<=0)?Container(): IconButton(onPressed: (){
+                    
+                    setState(() {
+                      i=i-10;
+                    });
                       
-                        }else{
-                          Provider.of<routeProvider>(context, listen: false).addRoute(information.routeName);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context)=>information(
-                                title: dataa[index].get("title"), 
-                                index: index, 
-                                description: dataa[index].get("explication"), 
-                                image: dataa[index].get("url")
-                              )
-                            )
-                                
-                          );
-                        }
-                    
-                    
-                      },
-                      child: Text( AppLocalizations.of(context)?.previewButton ?? 'preview'),
-                    ),
+                    }, 
+                    icon: AppLocalizations.of(context)!.localeName =='ar'?
+                    Icon(Icons.keyboard_double_arrow_right,size: 50,color: Colors.white,):
+                    Icon(Icons.keyboard_double_arrow_left,size: 50,color: Colors.white,),
                   ),
-                )
-              ),
+                  
+
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text("${i+1} - ${i+10<dataa.length+1?i+10:dataa.length}",style: TextStyle(fontSize: 50),)
+                  ),
+                  (i+10>=dataa.length)?Container():IconButton(onPressed: (){
+                    setState(() {
+                      i=i+10;
+                    });
+                  }, 
+                    icon: AppLocalizations.of(context)!.localeName =='ar'?
+                    Icon(Icons.keyboard_double_arrow_left,size: 50,color: Colors.white,):
+                    Icon(Icons.keyboard_double_arrow_right,size: 50,color: Colors.white,),
+                  ),
+                  
+
+                ],
+          ),
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.fromLTRB(5, 20, 5, 20),
+                itemCount: (i+10<dataa.length)?10:dataa.length-i,
+                itemBuilder: (context,index) => Card(
+                  child: ListTile(
+                    leading: 
+                    (dataa[index+i].get("approved") ==true)?
+                    Icon(Icons.check,color: Colors.green,):Icon(Icons.pending_actions_outlined),
+                    
+                    title: AppLocalizations.of(context)!.localeName=="ar"? Text(
+                        dataa[index+i].get("title"),
+                    ):
+                    FutureBuilder_translate(
+                        text: dataa[index+i].get("title"),
+                        to: AppLocalizations.of(context)!.localeName,
               
+                    ),
+                    trailing: Hero(
+                      tag: "tag${index+i}",
+                      child: ElevatedButton(
+                        onPressed: (){
+                          final db = firestore();
+                          if(dataa[index+i].data().toString().contains("options")){ 
+                                              
+                            Provider.of<routeProvider>(context, listen: false).addRoute(quiz.routeName);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context)=>FutureBuilder(
+                                  future: db.translateContent([dataa[index+i]], AppLocalizations.of(context)!.localeName), 
+                                  builder: (context, snapshot){
+                                    if (snapshot.connectionState == ConnectionState.waiting) {
+                                      return Center(child: CircularProgressIndicator());
+                                    } else if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    } else {
+                                      return quiz(singledata: snapshot.data![0],); 
+                                    }
+                                  }
+                                )
+                              )
+                                  
+                            );
+                        
+                          }else{
+                            Provider.of<routeProvider>(context, listen: false).addRoute(information.routeName);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context)=>information(
+                                  title: dataa[index+i].get("title"), 
+                                  index: index+1+i, 
+                                  description: dataa[index+i].get("explication"), 
+                                  image: dataa[index+i].get("url")
+                                )
+                              )
+                                  
+                            );
+                          }
+                      
+                      
+                        },
+                        child: Text( AppLocalizations.of(context)?.previewButton ?? 'preview'),
+                      ),
+                    ),
+                  )
+                ),
+                
+              ),
             ),
           ],
         ),

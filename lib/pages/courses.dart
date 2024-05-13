@@ -91,8 +91,7 @@ class courses extends StatelessWidget {
                     ),
                     child: GestureDetector(
                       onTap: () {
-                        print("object");
-                        print(data[index].id);
+
                         Provider.of<routeProvider>(context, listen: false).addRoute(course.routeName);                      
                         Map<String,dynamic> options =data[index].data().toString().contains("options")?
                         data[index].get("options"): null;

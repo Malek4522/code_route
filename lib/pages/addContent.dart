@@ -40,7 +40,6 @@ class addContentState extends State<addContent> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Initialize localized strings
     final loc = AppLocalizations.of(context)!;
     types.update("معلومات عامة", (value) => loc.generality);
     types.update("اولويات", (value) => loc.priority);
@@ -78,6 +77,7 @@ class addContentState extends State<addContent> {
           key: _formkey,
           child: ListView(
               children: [
+                SizedBox(height: 10,),
                 //TEXT
                 Padding(
                   padding:
