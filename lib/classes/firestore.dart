@@ -29,10 +29,7 @@ class firestore{
             await doc.update({
               'url' : url
             });
-            await monitorRef.collection("addedContent").add({
-              'id' : doc,
-              'date' : DateTime.now(),
-            });
+            
             
           });          
         });
@@ -77,9 +74,7 @@ class firestore{
           });          
         });
       }
-
-      
-              
+            
       state = "done";
       
     }catch(e){
@@ -94,36 +89,28 @@ class firestore{
     String? subType,
   })async{
       if(type =='معلومات عامة'){
-        return await db.collection(type).get().then((value) => value.docs);
+        return await db.collection(type).where("approved",isEqualTo: true).get().then((value) => value.docs);
       }else if(subType == null){
-        return await db.collection(type).orderBy("difficulty").get().then((value) => value.docs);
+        return await db.collection(type).where("approved",isEqualTo: true).orderBy("difficulty").get().then((value) => value.docs);
         
       }else{
-        return await db.collection(type).where("type",isEqualTo: subType).orderBy("difficulty").get().then((value) => value.docs);
+        return await db.collection(type).where("approved",isEqualTo: true).where("type",isEqualTo: subType).orderBy("difficulty").get().then((value) => value.docs);
       }   
 
   }
 
   Future<List> retriveAddedContent({required uid})async{   
     
-    var addedContentQuery = db
-      .collection("users")
-      .doc(uid)
-      .collection("addedContent")
-      .orderBy("date");
-
-    var addedContentSnapshot = await addedContentQuery.get();
-
-    var contentRefs = addedContentSnapshot.docs.map((doc) => doc.get("contentRef")).toList();
-
-    // Ensure that contentRefs is of type List<DocumentReference>
-    List<DocumentReference> documentReferences = contentRefs.cast<DocumentReference>();
-
-    var contentFutures = documentReferences.map((ref) => ref.get()).toList();
+    var contentFutures =[
+      db.collection("اشارات").where("monitorRef",isEqualTo: db.collection('users').doc(uid)).get(),
+      db.collection('اولويات').where("monitorRef",isEqualTo: db.collection('users').doc(uid)).get(),
+      db.collection('معلومات عامة').where("monitorRef",isEqualTo: db.collection('users').doc(uid)).get()
+    ];
     var contentSnapshots = await Future.wait(contentFutures);
     
-    return contentSnapshots;
     
+    return contentSnapshots[0].docs+contentSnapshots[1].docs+contentSnapshots[2].docs;
+
   }
 
   Future<List<Map<String,dynamic>>> translateContent(List<DocumentSnapshot> content, String to)async{
