@@ -51,16 +51,19 @@ class reSendState extends State<reSend> {
                
               style: ElevatedButton.styleFrom(),
                child: Text(time > 0 
-    ? AppLocalizations.of(context)?.resendButtonText(time) ?? "Resend in $time seconds" 
-    : AppLocalizations.of(context)?.resendButtonReady ?? "Resend Now"),
-  onPressed: time > 0 ? null : () {
-    setState(() {
-      time = 30; // Reset the timer
-      _countDown(); // Restart the countdown
-    });
-  },
+                ? AppLocalizations.of(context)?.resendButtonText(time) ?? "Resend in $time seconds" 
+                : AppLocalizations.of(context)?.resendButtonReady ?? "Resend Now"),
+              onPressed: time > 0 ? null : () {
+                setState(() {
+                  time = 30; // Reset the timer
+                  _countDown(); // Restart the countdown
+                });
+              },
             )
           ],
-        ))));
+        )
+      )
+      )
+    );
   }
 }
