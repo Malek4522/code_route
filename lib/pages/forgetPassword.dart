@@ -39,14 +39,15 @@ class ForgotPaswordState extends State<ForgotPasword> {
       onWillPop: () async=>_returning ,
       child: Scaffold(
         appBar: AppBar(
+          toolbarHeight: 120.0,
           leading: _returning? null:Text(""),
           title: Text(
             AppLocalizations.of(context)?.forgotPasswordTitle ?? 'Forgot Password?',
             style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 38,
-            ),
+            color: Colors.black,
+            fontSize: 60,
+            fontWeight: FontWeight.bold,
+          ),
             
           ),
           backgroundColor: Color(0xFFFDC80F),

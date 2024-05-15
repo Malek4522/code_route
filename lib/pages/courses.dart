@@ -37,10 +37,10 @@ class courses extends StatelessWidget {
 
         title: Text(
            AppLocalizations.of(context)?.courseTitle ?? 'courses',
-          style: TextStyle(
+          style:TextStyle(
             color: Colors.black,
+            fontSize: 60,
             fontWeight: FontWeight.bold,
-            fontSize:50,
           ),
         ),
         backgroundColor:  Color(0xFFFDC80F),

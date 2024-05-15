@@ -43,7 +43,6 @@ class firstPage extends StatelessWidget {
            AppLocalizations.of(context)?.start ?? 'Start',
           style: TextStyle(
             color: Colors.black,
-            
             fontSize: 60,
             fontWeight: FontWeight.bold,
           ),

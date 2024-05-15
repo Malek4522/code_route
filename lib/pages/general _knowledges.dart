@@ -20,6 +20,7 @@ class generalknowledge extends StatelessWidget {
       extendBodyBehindAppBar: true,
       endDrawer: OptionsBar(),
       appBar: AppBar(
+        toolbarHeight: 120.0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -31,8 +32,8 @@ class generalknowledge extends StatelessWidget {
           AppLocalizations.of(context)?.courseTitle ?? "course",
           style: TextStyle(
             color: Colors.black,
+            fontSize: 60,
             fontWeight: FontWeight.bold,
-            fontSize: 38,
           ),
         ),
                

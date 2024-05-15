@@ -46,7 +46,7 @@ class _MyappState extends State<Myapp> {
       widget.pref.setString("language", _languageCode);
       locale = Locale(_languageCode);
     });
-  }
+  } 
   @override
   void initState() {
     locale = Locale(widget.pref.getString('language')?? 'en');

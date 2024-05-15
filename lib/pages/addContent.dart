@@ -57,12 +57,13 @@ class addContentState extends State<addContent> {
       resizeToAvoidBottomInset: true,
       endDrawer: OptionsBar(),
       appBar: AppBar(
+        toolbarHeight: 120.0,
         title: Text(
            AppLocalizations.of(context)?.addQuizTitle ?? 'ADD A QUIZ',        
           style: TextStyle(
             color: Colors.black,
+            fontSize: 60,
             fontWeight: FontWeight.bold,
-            fontSize: 38,
           ),
         ),
         backgroundColor: Color(0xFFFDC80F),

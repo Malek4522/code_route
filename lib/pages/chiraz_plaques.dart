@@ -37,6 +37,7 @@ class CPlaques extends StatelessWidget {
     return Scaffold(
       endDrawer: OptionsBar(),
       appBar: AppBar(
+        toolbarHeight: 120.0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -49,8 +50,8 @@ class CPlaques extends StatelessWidget {
            AppLocalizations.of(context)?.courseTitle ?? 'courses',
           style: TextStyle(
             color: Colors.black,
+            fontSize: 60,
             fontWeight: FontWeight.bold,
-            fontSize: 38,
           ),
         ),
         backgroundColor: Color(0xFFFDC80F),
