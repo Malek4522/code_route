@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_route/classes/routeProvider.dart';
+import 'package:code_route/util/futureBuilder_translate.dart';
 import 'package:code_route/util/options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -49,19 +50,36 @@ class ScoreHistory extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(10)
             ),
-            child: Text(AppLocalizations.of(context)?.noQuizHistory ?? 'you havent passed any quiz yet',),
+            child: Text(
+              AppLocalizations.of(context)?.noQuizHistory ?? 'you havent passed any quiz yet',
+              style: TextStyle(fontSize: 50),
+            ),
           ),
         ):
         ListView.builder(
           itemCount: dataa.length,
           itemBuilder: (context,index)=>Card(
-            child: ListTile(
-              title: Text(dataa[index].get("score").toString()),
-              subtitle: Text(
-                (dataa[index].get("date")as Timestamp).toDate().toString()
+            
+            child: Column(
+              children: [
+                Text("score: ${dataa[index].get("score")}"),
+                Text("max Strike ${dataa[index].get("strike")}"),
+                Text("time spent: ${dataa[index].get("timeSpent")}/ ${dataa[index].get("testTime")}"),
+
+
+                AppLocalizations.of(context)!.localeName=="ar"?
+                Text("نوع: ${dataa[index].get("type")}"):
+
+                FutureBuilder_translate(
+                  text: "type: ${dataa[index].get("type")}",
+                  to: AppLocalizations.of(context)!.localeName,
+              
+                ),
+
+
+                Text("date: ${(dataa[index].get("date")as Timestamp).toDate()}"),
                 
-              ),
-              trailing: Text(dataa[index].get("type")),
+              ],
             ),
           )
         ),

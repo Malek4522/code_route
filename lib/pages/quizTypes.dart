@@ -58,7 +58,7 @@ class quizTypes extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context)=>FutureBuilder(
-                        future: db.translateContent(listPickRandItem(data[0], 20), AppLocalizations.of(context)!.localeName), 
+                        future: db.translateContent(listPickRandItem(data[0], 5), AppLocalizations.of(context)!.localeName), 
                         builder: (context, snapshot){
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             return Center(child: CircularProgressIndicator());

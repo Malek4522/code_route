@@ -33,10 +33,12 @@ class quiz extends StatefulWidget {
 class _quizState extends State<quiz> {
   
   int i = 0;
-  double score = 500;
   bool check = false;
   bool streak = false;
   int streak_score = 0;
+  int max_Strike = 0;
+  double total_time =0;
+  int score=0;
 
   
    
@@ -50,17 +52,12 @@ class _quizState extends State<quiz> {
 
   score_fct(){
     setState(() {
+      score++;
       streak = true;
       streak_score++;
     });
     
-    if(streak_score>8){
-      score= score +  10*widget.data![i]["difficulty"]*5*timeleft;
-    }else if(streak_score>3){
-      score= score +  10*widget.data![i]["difficulty"]*(streak_score-2)*timeleft;
-    }else{
-      score= score +  10*widget.data![i]["difficulty"]*timeleft;
-    }
+    
   }
   double timeleft = 0;
   
@@ -73,13 +70,11 @@ class _quizState extends State<quiz> {
       if(check){
         setState(() {
           timer.cancel();
-          print(timeleft);
         });
       }
       else{
         if(timeleft ==0){
           timer.cancel();
-          print(timeleft);
         }
         
         timeleft=timeleft-1;
@@ -269,7 +264,14 @@ class _quizState extends State<quiz> {
 
                     (widget.singledata !=null)? Container(): GestureDetector(
                       onTap: () {
+                        if(max_Strike<streak_score)max_Strike=streak_score;
+                        total_time+=   widget.data![i]["difficulty"]+12.0-timeleft;
+
+                       
+
+
                         if(i < widget.data!.length -1){
+
                           if(check){
                             if(!streak){
                               setState(() {
@@ -288,16 +290,25 @@ class _quizState extends State<quiz> {
                           }
                         }else{
                           if(check){
-                            score = score/10  ; 
+                            double totaltime=0;
+                            for(var data in widget.data!){
+                              totaltime +=data["difficulty"]+12;
+                            }
+                                                      
                             if(!FirebaseAuth.instance.currentUser!.isAnonymous){
                               FirebaseFirestore.instance.collection('users')
                               .doc(FirebaseAuth.instance.currentUser!.uid).collection('scoreHistory').add({                    
-                                'score': score,
                                 'type': widget.data![i].toString().contains("explication")? "اولويات":"اشارات",
                                 'date': DateTime.now(),
+                                'score': score,
+                                'testTime':totaltime,
+                                'timeSpent':total_time,
+                                'strike': max_Strike,
+
                               });
                             }  
-                             String finishTestMessage = AppLocalizations.of(context)!.finishTestMessage(score);
+                             String finishTestMessage = AppLocalizations.of(context)!.
+                             finishTestMessage("$score/20");
                             QuickAlert.show(
                               context: context, 
                               type: QuickAlertType.success,
@@ -428,15 +439,17 @@ class _LinearTimerState extends State<LinearTimer> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Expanded(
-                  child: Text(
-                    _milisecondsRemaining <= 0
-                        ?  AppLocalizations.of(context)?.finished ?? "finished"
-                        : ("${(_milisecondsRemaining / 1000).toStringAsFixed(0)}s left"),
-                    style: TextStyle(
-                      color: _milisecondsRemaining <= 0
-                          ? Colors.white
-                          : Colors.black,
-                      fontSize: 14,
+                  child: Container(
+                    child: Text(
+                      _milisecondsRemaining <= 0
+                          ?  AppLocalizations.of(context)?.finished ?? "finished"
+                          : ("${(_milisecondsRemaining / 1000).toStringAsFixed(0)}s left"),
+                      style: TextStyle(
+                        color: _milisecondsRemaining <= 0
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
                 ),
