@@ -114,8 +114,8 @@
   "logout": "Se déconnecter",
   "aboutmsg": "Cette application a été réalisée par l'équipe Lys, un groupe d'étudiants en informatique.",
   "send": "envoyez",
-  "sscore": "score:",
-  "maxStrike": "coup maximal:",
-  "timeSpent": "temps passé:",
-  "date": "date"
+  "sscore": "score: ",
+  "maxStrike": "coup maximal: ",
+  "timeSpent": "temps passé: ",
+  "date": "date: "
 }
