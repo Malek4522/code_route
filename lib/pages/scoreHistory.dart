@@ -62,9 +62,9 @@ class ScoreHistory extends StatelessWidget {
             
             child: Column(
               children: [
-                Text("score: ${dataa[index].get("score")}"),
-                Text("max Strike ${dataa[index].get("strike")}"),
-                Text("time spent: ${dataa[index].get("timeSpent")}/ ${dataa[index].get("testTime")}"),
+                Text(AppLocalizations.of(context)?.sscore ?? "score:"+dataa[index].get("score").toString()) ,
+                Text(AppLocalizations.of(context)?.maxStrike ?? "max strike:" +dataa[index].get("strike").toString()),
+                Text(AppLocalizations.of(context)?.timeSpent ?? "time spent:" +dataa[index].get("timeSpent")/ dataa[index].get("testTime")) ,
 
 
                 AppLocalizations.of(context)!.localeName=="ar"?
@@ -77,7 +77,7 @@ class ScoreHistory extends StatelessWidget {
                 ),
 
 
-                Text("date: ${(dataa[index].get("date")as Timestamp).toDate()}"),
+                Text(AppLocalizations.of(context)?.date ?? "date"+(dataa[index].get("date")as Timestamp).toString()) ,
                 
               ],
             ),

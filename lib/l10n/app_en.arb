@@ -113,7 +113,11 @@
   "about": "About",
   "logout": "Log out",
   "aboutmsg": "this app was made by lys team a group of computer science",
-  "send": "send"
+  "send": "send",
+  "sscore": "score",
+  "maxStrike": "max Strike",
+  "timeSpent": "time spent",
+  "date": "date"
   
   
 
