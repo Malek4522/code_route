@@ -32,6 +32,7 @@ class _courseState extends State<course> {
       
       endDrawer: OptionsBar(),
       appBar: AppBar(
+        toolbarHeight: 120.0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -40,16 +41,16 @@ class _courseState extends State<course> {
           },
         ),
         title: Text(
-          'course',
-          style: TextStyle(
+           AppLocalizations.of(context)?.courseTitle ?? 'courses', 
+          style:  TextStyle(
             color: Colors.black,
+            fontSize: 60,
             fontWeight: FontWeight.bold,
-            fontSize: 38,
           ),
-        ),              
-        backgroundColor: Color.fromARGB(255, 233, 169, 51),
+        ),
+        backgroundColor: Color(0xFFFDC80F),
         elevation: 0,
-      ),       
+      ),     
       body: Container(
         decoration: BoxDecoration(
           
