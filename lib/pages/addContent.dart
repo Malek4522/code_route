@@ -62,7 +62,7 @@ class addContentState extends State<addContent> {
            AppLocalizations.of(context)?.addQuizTitle ?? 'ADD A QUIZ',        
           style: TextStyle(
             color: Colors.black,
-            fontSize: 60,
+            fontSize: 30,
             fontWeight: FontWeight.bold,
           ),
         ),

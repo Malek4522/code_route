@@ -76,7 +76,7 @@ class firstPage extends StatelessWidget {
                 },
                 
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(105, 150, 105, 40),
+                  margin: EdgeInsets.fromLTRB(100, 150, 100, 40),
                   padding: EdgeInsets.fromLTRB(8, 20, 8, 20),
                   
                   decoration: BoxDecoration(
@@ -111,7 +111,7 @@ class firstPage extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(130, 0, 130, 50),
+                  margin: EdgeInsets.fromLTRB(125, 0, 125, 50),
                   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                   
                   decoration: BoxDecoration(
