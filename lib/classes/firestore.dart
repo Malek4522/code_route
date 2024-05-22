@@ -115,59 +115,72 @@ class firestore{
 
   Future<List<Map<String,dynamic>>> translateContent(List<DocumentSnapshot> content, String to)async{
     if(to=="ar")return Future.value(content.map((e) => e.data() as Map<String,dynamic>).toList());
+
+    var future_translated_content = content.map((e) => translate_one_Content(e, to)).toList();
+    return await Future.wait(future_translated_content);
+    
+  }
+
+  Future<Map<String,dynamic>> translate_one_Content(DocumentSnapshot doc,String to)async{
     final translator = GoogleTranslator();
-    List<Map<String,dynamic>> translatedData = [];
+    List<Future<String>> futures_list=[];
+      
 
-    for(var doc in content){
-      String? translatedtitle;
-      String? translatedexplication;
-      Map<String,dynamic> translatedoptions={};
-
-
-      translatedtitle = await translator.translate(
-        doc.get("title"),to: to).then((value) => value.toString());
-
+      futures_list.add(translator.translate(
+        doc.get("title"),to: to).then((value) => value.toString()));
+      
       if(doc.data().toString().contains("explication")){
-         translatedexplication = await translator.translate(
-        doc.get("explication"),to: to).then((value) => value.toString());
+        futures_list.add(translator.translate(
+        doc.get("explication"),to: to).then((value) => value.toString()));
       }
+
 
       if(doc.data().toString().contains("options")){
-        Map<String,dynamic>options= doc.get("options");
-               
-        var futureKeys =options.keys.map((e) => translator.translate(e,to: to)).toList();
-        var translatedkeys= await Future.wait(futureKeys);
-        for(int i=0;i<translatedkeys.length;i++){
-          translatedoptions[translatedkeys[i].toString()]= options.values.elementAt(i);
-        }
-        
-        
-        
+        Map<String,dynamic>options= doc.get("options");              
+        var future_options_keys =options.keys.map((e) => translator
+        .translate(e,to: to).then((value) => value.toString())).toList();
+        futures_list+= future_options_keys;
       }
-     
-      
-      Map<String,dynamic>mymap = {};
-      
 
+
+      var translatedData=await Future.wait(futures_list);
+
+      //creating new translated map
+
+       Map<String,dynamic>mymap = {};
+    
       mymap.addAll({
-        'title':translatedtitle,
+        'title':translatedData[0],
         'approved':doc.get("approved"),
         'monitorRef': doc.get("monitorRef"),
         'url': doc.get("url"),
       });
+      int i=1;
       if(doc.data().toString().contains("difficulty")){
         mymap.addAll({'difficulty':doc.get('difficulty')});
       }
-      if(doc.data().toString().contains("options")){
-        mymap.addAll({'options':translatedoptions});
-      }
       if(doc.data().toString().contains("explication")){
-        mymap.addAll({'explication':translatedexplication});
+        mymap.addAll({'explication':translatedData[1]});
+        i++;
       }
-      translatedData.add(mymap);
-    }
-    return translatedData;
+
+      if(doc.data().toString().contains("options")){
+        Map<String,dynamic> translated_options ={};
+        Map<String,dynamic>options= doc.get("options");
+        int j=0;
+        for(i; i<translatedData.length; i++){
+          translated_options[translatedData[i]]= options.values.elementAt(j++);
+        }
+        mymap.addAll({'options':translated_options});
+      }
+    
+    return mymap;
 
   }
+
+
+
+
+
 
 }

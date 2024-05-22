@@ -8,6 +8,7 @@ import 'package:code_route/pages/CheckMoniteur.dart';
 import 'package:code_route/pages/coursesType.dart';
 import 'package:code_route/pages/firstPage.dart';
 import 'package:code_route/pages/parametre.dart';
+import 'package:code_route/pages/quiz.dart';
 import 'package:code_route/pages/quizTypes.dart';
 import 'package:code_route/pages/scoreHistory.dart';
 import 'package:code_route/util/futurBuilder.dart';
@@ -79,7 +80,7 @@ class OptionsBarState extends State<OptionsBar> {
             height: 60,
           ),
           
-          ListTile(
+          (Provider.of<routeProvider>(context, listen: false).current == quiz.routeName)?Container():ListTile(
             leading: Icon(Icons.language),
             title: DropdownButton(
               underline: SizedBox(),

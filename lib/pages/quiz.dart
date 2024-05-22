@@ -92,6 +92,7 @@ class _quizState extends State<quiz> {
     }else{
       widget.data=[];
       widget.data!.add(widget.singledata!);
+      widget.data!.sort(((a, b) => a["difficulty"]-b["difficulty"]));
       check = true;
     }
     
@@ -245,10 +246,12 @@ class _quizState extends State<quiz> {
                         }
                       },
                       child: Container(
-                        margin: EdgeInsets.fromLTRB(10, 30, 10, 30),
-                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        margin: EdgeInsets.fromLTRB(0, 30, 0, 30),
+                        
+                        height: 50,
+                        width: MediaQuery.of(context).size.width*0.45,
                           decoration: BoxDecoration(
-                          color: Colors.yellow,
+                          color: Color(0xFFFDC80F),
                           borderRadius: BorderRadius.circular(10)
                         ),
                         child: Text(
@@ -260,6 +263,9 @@ class _quizState extends State<quiz> {
                         ),
                       ),
                     ),
+
+
+                    SizedBox(width:MediaQuery.of(context).size.width*0.02,),
 
 
                     (widget.singledata !=null)? Container(): GestureDetector(
@@ -327,18 +333,22 @@ class _quizState extends State<quiz> {
                         }
                       },
                       child:!check?Container():  Container(
-                        margin: EdgeInsets.fromLTRB(10, 30, 10, 30),
-                        padding: EdgeInsets.fromLTRB(60, 10, 60, 10),             
+                        margin: EdgeInsets.fromLTRB(0, 30, 0, 30),                       
+                        
+                        height: 50,
+                        width: MediaQuery.of(context).size.width*0.45,             
                         decoration: BoxDecoration(
                           color: Color(0xFFFDC80F),
                           borderRadius: BorderRadius.circular(10)
                         ),
-                        child: Text(
-                           AppLocalizations.of(context)?.nextButton ?? "Next",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                          fontSize: 30,                                  
-                          )
+                        child: Center(
+                          child: Text(
+                             AppLocalizations.of(context)?.nextButton ?? "Next",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                            fontSize: 30,                                  
+                            )
+                          ),
                         ),
                       ),
                     ),
