@@ -204,6 +204,8 @@ class quizTypes extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                //caching
                 Expanded(
                   child: ListView.builder(
                     itemCount: data[0].length,
