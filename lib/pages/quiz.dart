@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/util/option.dart';
@@ -61,12 +62,12 @@ class _quizState extends State<quiz> {
   }
   double timeleft = 0;
   
-
+  Timer? timer ;
   void counterdown(){
     setState(() {
-      timeleft = widget.data![i]["difficulty"]+12.0;
+      timeleft = data[i]["difficulty"]+12.0;
     });
-      Timer.periodic(Duration(seconds: 1), (timer) {
+      timer= Timer.periodic(Duration(seconds: 1), (timer) {
       if(check){
         setState(() {
           timer.cancel();
@@ -82,17 +83,23 @@ class _quizState extends State<quiz> {
       }                     
     });
   }
-  
 
+  @override
+  void dispose() {
+    super.dispose();
+    if(timer!=null) timer!.cancel();
+  }
+  
+  List<Map<String, dynamic>> data=[];
   @override
   void initState() {
     super.initState();
     if(widget.singledata ==null){
+      data.addAll(widget.data!);
+      data.sort((a, b) => (a["difficulty"]as double).compareTo(b["difficulty"]));
       counterdown();
     }else{
-      widget.data=[];
-      widget.data!.add(widget.singledata!);
-      widget.data!.sort(((a, b) => a["difficulty"]-b["difficulty"]));
+      data.add(widget.singledata!);
       check = true;
     }
     
@@ -101,249 +108,163 @@ class _quizState extends State<quiz> {
   @override
   Widget build(BuildContext context) {
     
-    return Scaffold(
-      endDrawer: OptionsBar(),
-      appBar: AppBar(
-         toolbarHeight: 120.0, 
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Provider.of<routeProvider>(context, listen: false).removeroute();
-            Navigator.of(context).pop();
-          },
-        ),
-        title: Text(
-          (widget.singledata ==null)?AppLocalizations.of(context)?.quizTitle ?? "QUIZ ${i+1} / 20":AppLocalizations.of(context)?.quizTitle ?? "QUIZ",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 60,
-            fontWeight: FontWeight.bold,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        if(didPop) return;
+        Provider.of<routeProvider>(context, listen: false).removeroute();
+        Navigator.of(context).pop();
+      },
+      child: Scaffold(
+        endDrawer: OptionsBar(),
+        appBar: AppBar(
+           toolbarHeight: 120.0, 
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Provider.of<routeProvider>(context, listen: false).removeroute();
+              Navigator.of(context).pop();
+            },
           ),
-        ),
-        backgroundColor: Color(0xFFFDC80F),
-        elevation: 0,
-      ),    
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/background.jpg"),          
-            fit: BoxFit.fill,
+          title: Text(
+            (widget.singledata ==null)?AppLocalizations.of(context)?.quizTitle ?? "QUIZ ${i+1} / 20":AppLocalizations.of(context)?.quizTitle ?? "QUIZ",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 60,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        child: Center(
-          child: ListView(
-            children: [
-              
-
-              Container(
-                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                margin: EdgeInsets.all(25),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(25)
+          backgroundColor: Color(0xFFFDC80F),
+          elevation: 0,
+        ),    
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/background.jpg"),          
+              fit: BoxFit.fill,
+            ),
+          ),
+          child: Center(
+            child: ListView(
+              children: [
+                
+      
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                  margin: EdgeInsets.all(25),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(25)
+                  ),
+                  child:Text(
+                    data[i]["title"],
+                    style: TextStyle(fontSize: 30),
+                  )
                 ),
-                child:Text(
-                  widget.data![i]["title"],
-                  style: TextStyle(fontSize: 30),
-                )
-              ),
-
-              Container(                              
-                margin: EdgeInsets.fromLTRB(50,0,50,0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8)
+      
+                Container(                              
+                  margin: EdgeInsets.fromLTRB(50,0,50,0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8)
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(15),                
+                    child: CachedNetworkImage(imageUrl: data[i]["url"]),
+                  ),
                 ),
-                child: Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Image.network(widget.data![i]["url"],)
-                ),
-              ),
-
-                          
-              for(String key in widget.data![i]['options'].keys)
-                option(
-                  title: key,
-                  valid: widget.data![i]["options"][key] ,
-                  check: check,
-                  checking: check_fct,
-                  score: score_fct,
-                ),
-
-              (widget.singledata !=null)?Container():
-              check? Container():
-              LinearTimer(durationMiliseconds: (widget.data![i]["difficulty"]*1000+12000).round(), onTimerFinish: (){
-                if(!check){
-                  setState(() {
-                    check = true;
-                  });
-                }
-              },stop: check,), 
-              
-              GestureDetector(
-
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-                    
-                    (!widget.data![i].toString().contains("explication")||!check)? Container():GestureDetector(
-                      onTap: () {
-                        if(check){
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius:BorderRadius.circular(8)
-                              ),
-                              title: Text(AppLocalizations.of(context)?.explication ?? "Explication",),
-                              titleTextStyle: TextStyle(fontSize: 24.0),
-                              content: Container(                                
-                                child: SingleChildScrollView(
-                                  padding: const EdgeInsets.all(8.0),                             
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey,
-                                          borderRadius: BorderRadius.circular(5)
-                                        ),
-                                        child:Text(
-                                          widget.data![i]["explication"],
-                                          style: TextStyle(fontSize: 30),
-                                        )
-                                      ),
-
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pop(context);                                                                                  
-                                        },
-                                        child: Container(
-                                          margin: EdgeInsets.all(10),
-                                          padding: EdgeInsets.fromLTRB(150, 10, 0,0 ),
-                                          decoration: BoxDecoration(                                      
+      
+                            
+                for(String key in data[i]['options'].keys)
+                  option(
+                    title: key,
+                    valid: data[i]["options"][key] ,
+                    check: check,
+                    checking: check_fct,
+                    score: score_fct,
+                  ),
+                
+                GestureDetector(
+      
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+      
+                      
+                      (!data[i].toString().contains("explication")||!check)? Container():GestureDetector(
+                        onTap: () {
+                          if(check){
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:BorderRadius.circular(8)
+                                ),
+                                title: Text(AppLocalizations.of(context)?.explication ?? "Explication",),
+                                titleTextStyle: TextStyle(fontSize: 24.0),
+                                content: Container(                                
+                                  child: SingleChildScrollView(
+                                    padding: const EdgeInsets.all(8.0),                             
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey,
                                             borderRadius: BorderRadius.circular(5)
                                           ),
-                                          child: Text(
-                                            AppLocalizations.of(context)?.doneButton ?? "Done",
-                                            style: TextStyle(
-                                              color: Colors.blue,
-                                              fontSize: 40
-                                            ),
-                                              
+                                          child:Text(
+                                            data[i]["explication"],
+                                            style: TextStyle(fontSize: 30),
                                           )
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              )  
-                            ),
-                          );
-                        }
-                      },
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(0, 30, 0, 30),
-                        
-                        height: 50,
-                        width: MediaQuery.of(context).size.width*0.45,
-                          decoration: BoxDecoration(
-                          color: Color(0xFFFDC80F),
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Text(
-                           AppLocalizations.of(context)?.explaination ?? "Explication",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                          fontSize: 30,                                  
-                          )
-                        ),
-                      ),
-                    ),
-
-
-                    SizedBox(width:MediaQuery.of(context).size.width*0.02,),
-
-
-                    (widget.singledata !=null)? Container(): GestureDetector(
-                      onTap: () {
-                        if(max_Strike<streak_score)max_Strike=streak_score;
-                        total_time+=   widget.data![i]["difficulty"]+12.0-timeleft;
-
-                       
-
-
-                        if(i < widget.data!.length -1){
-
-                          if(check){
-                            if(!streak){
-                              setState(() {
-                                streak_score = 0;
-                              });
-                            }else{
-                              setState(() {
-                                streak = false;
-                              });
-                            }
-                            setState(() {
-                              i++;
-                              check = false;
-                            });
-                            counterdown();
-                          }
-                        }else{
-                          if(check){
-                            double totaltime=0;
-                            for(var data in widget.data!){
-                              totaltime +=data["difficulty"]+12;
-                            }
-                                                      
-                            if(!FirebaseAuth.instance.currentUser!.isAnonymous){
-                              FirebaseFirestore.instance.collection('users')
-                              .doc(FirebaseAuth.instance.currentUser!.uid).collection('scoreHistory').add({                    
-                                'type': widget.data![i].toString().contains("explication")? "اولويات":"اشارات",
-                                'date': DateTime.now(),
-                                'score': score,
-                                'testTime':totaltime,
-                                'timeSpent':total_time,
-                                'strike': max_Strike,
-
-                              });
-                            }  
-                             String finishTestMessage = AppLocalizations.of(context)!.
-                             finishTestMessage("$score/20");
-                            QuickAlert.show(
-                              context: context, 
-                              type: QuickAlertType.success,
-                              title: AppLocalizations.of(context)?.finishTestTitle ?? "Quiz Completed",
-                               text: finishTestMessage,
-                              onConfirmBtnTap: (){
-                                Navigator.pop(context);
-                                
-                                Navigator.pop(context);
-                                Provider.of<routeProvider>(context, listen: false).removeroute();
-                                
-                                
-                              }
+      
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.pop(context);                                                                                  
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.all(10),
+                                            padding: EdgeInsets.fromLTRB(150, 10, 0,0 ),
+                                            decoration: BoxDecoration(                                      
+                                              borderRadius: BorderRadius.circular(5)
+                                            ),
+                                            child: FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: FittedBox(
+                                                child: Text(
+                                                  AppLocalizations.of(context)?.doneButton ?? "Done",
+                                                  style: TextStyle(
+                                                    color: Colors.blue,
+                                                    fontSize: 40
+                                                  ),
+                                                    
+                                                ),
+                                              ),
+                                            )
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                )  
+                              ),
                             );
                           }
-                        }
-                      },
-                      child:!check?Container():  Container(
-                        margin: EdgeInsets.fromLTRB(0, 30, 0, 30),                       
-                        
-                        height: 50,
-                        width: MediaQuery.of(context).size.width*0.45,             
-                        decoration: BoxDecoration(
-                          color: Color(0xFFFDC80F),
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Center(
+                        },
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(0, 30, 0, 30),
+                          
+                          height: 50,
+                          width: MediaQuery.of(context).size.width*0.45,
+                            decoration: BoxDecoration(
+                            color: Color(0xFFFDC80F),
+                            borderRadius: BorderRadius.circular(10)
+                          ),
                           child: Text(
-                             AppLocalizations.of(context)?.nextButton ?? "Next",
+                             AppLocalizations.of(context)?.explaination ?? "Explication",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                             fontSize: 30,                                  
@@ -351,16 +272,119 @@ class _quizState extends State<quiz> {
                           ),
                         ),
                       ),
-                    ),
-                 
-                  ],
+      
+      
+                      SizedBox(width:MediaQuery.of(context).size.width*0.02,),
+      
+      
+                      (widget.singledata !=null)? Container(): GestureDetector(
+                        onTap: () {
+                          if(max_Strike<streak_score)max_Strike=streak_score;
+                          total_time+=   data[i]["difficulty"]+12.0-timeleft;
+      
+                         
+      
+      
+                          if(i < data.length -1){
+      
+                            if(check){
+                              if(!streak){
+                                setState(() {
+                                  streak_score = 0;
+                                });
+                              }else{
+                                setState(() {
+                                  streak = false;
+                                });
+                              }
+                              setState(() {
+                                i++;
+                                check = false;
+                              });
+                              counterdown();
+                            }
+                          }else{
+                            if(check){
+                              double totaltime=0;
+                              for(var data in widget.data!){
+                                totaltime +=data["difficulty"]+12;
+                              }
+                                                        
+                              if(!FirebaseAuth.instance.currentUser!.isAnonymous){
+                                FirebaseFirestore.instance.collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid).collection('scoreHistory').add({                    
+                                  'type': widget.data![i].toString().contains("explication")? "اولويات":"اشارات",
+                                  'date': DateTime.now(),
+                                  'score': score,
+                                  'testTime':totaltime,
+                                  'timeSpent':total_time,
+                                  'strike': max_Strike,
+      
+                                });
+                              }  
+                               String finishTestMessage = AppLocalizations.of(context)!.
+                               finishTestMessage("$score/20");
+                              QuickAlert.show(
+                                context: context, 
+                                type: QuickAlertType.success,
+                                title: AppLocalizations.of(context)?.finishTestTitle ?? "Quiz Completed",
+                                 text: finishTestMessage,
+                                onConfirmBtnTap: (){
+                                  Navigator.pop(context);
+                                  
+                                  Navigator.pop(context);
+                                  Provider.of<routeProvider>(context, listen: false).removeroute();
+                                  
+                                  
+                                }
+                              );
+                            }
+                          }
+                        },
+                        child:!check?Container():  Container(
+                          margin: EdgeInsets.fromLTRB(0, 30, 0, 30),                       
+                          
+                          height: 50,
+                          width: MediaQuery.of(context).size.width*0.45,             
+                          decoration: BoxDecoration(
+                            color: Color(0xFFFDC80F),
+                            borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                 AppLocalizations.of(context)?.nextButton ?? "Next",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                fontSize: 30,                                  
+                                )
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 35,),
+                    ],
+                  ),
+                  
                 ),
-                
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      )
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: (widget.singledata !=null)?Container():
+        check? Container():
+        LinearTimer(durationMiliseconds: (data[i]["difficulty"]*1000+12000).round(), onTimerFinish: (){
+          if(!check){
+            setState(() {
+              check = true;
+            });
+          }
+         },
+         stop: check,),
+      ),
     );
   }
 }

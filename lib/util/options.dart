@@ -288,13 +288,16 @@ class OptionsBarState extends State<OptionsBar> {
                             decoration: BoxDecoration(                                      
                               borderRadius: BorderRadius.circular(5)
                             ),
-                            child: Text(
-                            AppLocalizations.of(context)?.doneButton ?? "Done",
-                            style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 40
-                            ),                                         
-                          )
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                              AppLocalizations.of(context)?.doneButton ?? "Done",
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 40
+                              ),                                         
+                                                        ),
+                            )
                         ),
                       )
                     ],

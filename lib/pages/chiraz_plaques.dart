@@ -34,85 +34,96 @@ class CPlaques extends StatelessWidget {
       AppLocalizations.of(context)!.mandatory
     ];
 
-    return Scaffold(
-      endDrawer: OptionsBar(),
-      appBar: AppBar(
-        toolbarHeight: 120.0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Provider.of<routeProvider>(context, listen: false).removeroute();
-            Navigator.of(context).pop();
-          },
-        ),
-        
-        title: Text(
-           AppLocalizations.of(context)?.courseTitle ?? 'courses',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 60,
-            fontWeight: FontWeight.bold,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        if(didPop) return;
+        Provider.of<routeProvider>(context, listen: false).removeroute();
+        Navigator.of(context).pop();
+      },
+      child: Scaffold(
+        endDrawer: OptionsBar(),
+        appBar: AppBar(
+          toolbarHeight: 120.0,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Provider.of<routeProvider>(context, listen: false).removeroute();
+              Navigator.of(context).pop();
+            },
           ),
-        ),
-        backgroundColor: Color(0xFFFDC80F),
-        elevation: 0,
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/backround.jpg"), 
-            fit: BoxFit.fill
-          ),
-        ),       
-        
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(15, 150, 15, 0),
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 30,
-                crossAxisSpacing: 20
-              ),   
-              itemCount: 4,
-              itemBuilder: (context, index) => GestureDetector(
-                onTap: () {
-                  Provider.of<routeProvider>(context, listen: false).addRoute(courses.routeName);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context)=>courses(data: data.where((element) => element["type"]==plaqueT[index]).toList())
-                    )
-                  );
-                                   
-                  
-                },
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(30, 5, 30, 5),
-                  decoration: BoxDecoration(             
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20)
-                  ),
-                  child:Column(
-                    children: [
-                      Expanded(child: Image.asset(assets[index],fit: BoxFit.contain,)),
-                      
-                      Text(
-                        plaqueType[index],
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),                                        
-                ),
-              )
+          
+          title: Text(
+             AppLocalizations.of(context)?.courseTitle ?? 'courses',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 60,
+              fontWeight: FontWeight.bold,
             ),
           ),
+          backgroundColor: Color(0xFFFDC80F),
+          elevation: 0,
+        ),
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/backround.jpg"), 
+              fit: BoxFit.fill
+            ),
+          ),       
+          
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(15, 150, 15, 0),
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 30,
+                  crossAxisSpacing: 20
+                ),   
+                itemCount: 4,
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () {
+                    Provider.of<routeProvider>(context, listen: false).addRoute(courses.routeName);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context)=>courses(data: data.where((element) => element["type"]==plaqueT[index]).toList())
+                      )
+                    );
+                                     
+                    
+                  },
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(30, 5, 30, 5),
+                    decoration: BoxDecoration(             
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20)
+                    ),
+                    child:Column(
+                      children: [
+                        Expanded(child: Image.asset(assets[index],fit: BoxFit.contain,)),
+                        
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            plaqueType[index],
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),                                        
+                  ),
+                )
+              ),
+            ),
+          )
         )
-      )
+      ),
     );
     
   }

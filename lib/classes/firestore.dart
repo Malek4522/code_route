@@ -116,9 +116,14 @@ class firestore{
   Future<List<Map<String,dynamic>>> translateContent(List<DocumentSnapshot> content, String to)async{
     if(to=="ar")return Future.value(content.map((e) => e.data() as Map<String,dynamic>).toList());
 
-    var future_translated_content = content.map((e) => translate_one_Content(e, to)).toList();
-    return await Future.wait(future_translated_content);
-    
+    try{
+      var future_translated_content = content.map((e) => translate_one_Content(e, to)).toList();
+      return await Future.wait(future_translated_content);
+    }catch(e){
+      print(e);
+      return Future.value(content.map((e) => e.data() as Map<String,dynamic>).toList());
+    }
+  
   }
 
   Future<Map<String,dynamic>> translate_one_Content(DocumentSnapshot doc,String to)async{

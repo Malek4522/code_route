@@ -39,12 +39,15 @@ class firstPage extends StatelessWidget {
       appBar: AppBar(
           toolbarHeight: 120.0,
        
-        title:  Text(
-           AppLocalizations.of(context)?.start ?? 'Start',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 60,
-            fontWeight: FontWeight.bold,
+        title:  FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+             AppLocalizations.of(context)?.start ?? 'Start',        
+            style: TextStyle(    
+              color: Colors.black,
+              fontSize: 70,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         backgroundColor: Color(0xFFFDC80F),
@@ -59,7 +62,7 @@ class firstPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              
+                                       
               GestureDetector(
                 onTap: () {
                   Provider.of<routeProvider>(context, listen: false).addRoute(coursesType.routeName);
@@ -84,12 +87,15 @@ class firstPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child:  Center(
-                    child: Text(
-                        AppLocalizations.of(context)?.courses ?? 'Courses',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 40,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                          AppLocalizations.of(context)?.courses ?? 'Courses',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 50,
+                        ),
                       ),
                     ),
                   ),
@@ -111,20 +117,25 @@ class firstPage extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(125, 0, 125, 50),
-                  padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                  //margin: EdgeInsets.fromLTRB(125, 0, 125, 50),
+                  //padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                  margin: EdgeInsets.fromLTRB(100, 0, 100, 50),
+                  padding: EdgeInsets.fromLTRB(8, 20, 8, 20),
                   
                   decoration: BoxDecoration(
                     color: Color(0xFFFBAB18),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child:  Center(
-                    child: Text(
-                      AppLocalizations.of(context)?.quiz ?? 'Quiz',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 40,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        AppLocalizations.of(context)?.quiz ?? 'Quiz',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 50,
+                        ),
                       ),
                     ),
                   ),
@@ -133,7 +144,7 @@ class firstPage extends StatelessWidget {
 
               (user!.userType == 'Condidat')? SizedBox(height: 1,):Container(
                 
-                margin: EdgeInsets.fromLTRB(60, 40, 60, 50),
+                margin: EdgeInsets.fromLTRB(50, 40, 50, 50),
                 padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
                 
                 decoration: BoxDecoration(
@@ -152,13 +163,16 @@ class firstPage extends StatelessWidget {
                     
                   },
                   child:  Center(
-                    child: Text(
-                      
-                       AppLocalizations.of(context)?.addContent ?? 'Add Content',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 0, 0, 0),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        
+                         AppLocalizations.of(context)?.addContent ?? 'Add Content',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 45,
+                        ),
                       ),
                     ),
                   ),

@@ -17,9 +17,16 @@ class futureBuilder extends StatelessWidget {
       future: Future.wait(fetchData),
       builder: (context,snapshot){
         if(snapshot.connectionState == ConnectionState.waiting){
-          return Center(
-            child: CircularProgressIndicator(color: Colors.white),
-          );
+          return Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/backround.jpg"), fit: BoxFit.fill),
+              ),
+            child: Center(
+              child: CircularProgressIndicator(color: Color(0xFFFDC80F)),
+            ),
+                                
+        );
         }else if(snapshot.hasError){
           return Center(
             child: Text("future builder error: ${snapshot.error}"),
