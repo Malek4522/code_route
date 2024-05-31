@@ -4,6 +4,7 @@ import 'package:code_route/classes/routeProvider.dart';
 import 'package:code_route/classes/user_provider.dart';
 import 'package:code_route/pages/addContent.dart';
 import 'package:code_route/pages/coursesType.dart';
+import 'package:code_route/pages/dev.dart';
 import 'package:code_route/pages/quizTypes.dart';
 import 'package:code_route/util/futurBuilder.dart';
 import 'package:code_route/util/options.dart';
@@ -178,6 +179,20 @@ class firstPage extends StatelessWidget {
                   ),
                 ),
               ),
+              TextButton(
+                onPressed:(){ 
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context)=>futureBuilder(
+                        fetchData: [fetchData_1(),fetchData_2(),fetchData_3()],
+                        result_with: (data) => devtool(data: data,),
+                      )
+                    )
+                  );
+                }, 
+                child: Text("dev tool",style: TextStyle(color: Colors.white),),
+              )
 
             ],
           ),
@@ -185,4 +200,21 @@ class firstPage extends StatelessWidget {
       )
     );
   }
+  Future fetchData_1()async{
+    final db = firestore();
+    return await db.db.collection('معلومات عامة').where('approved' ,isEqualTo: false).get().
+    then((value) => value.docs);
+    
+  }
+  Future fetchData_2()async{
+    final db = firestore();
+    return await db.db.collection("اشارات").where("approved" ,isEqualTo: false).get().
+    then((value) => value.docs);
+  }
+  Future fetchData_3()async{
+    final db = firestore();
+    return await db.db.collection('اولويات').where("approved" ,isEqualTo: false).get().
+    then((value) => value.docs);
+  }
+
 }

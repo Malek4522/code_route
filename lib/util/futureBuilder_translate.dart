@@ -24,7 +24,7 @@ class FutureBuilder_translate extends StatelessWidget {
       future: translate(text, to), 
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return Center(child: CircularProgressIndicator(color: Color(0xFFFDC80F)));
         } else if (snapshot.hasError) {
           return to=='en'? Text('connection available to translate\n'+text):
           Text('connexion disponible pour traduire\n'+text);

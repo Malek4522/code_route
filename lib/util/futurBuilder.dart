@@ -29,7 +29,7 @@ class futureBuilder extends StatelessWidget {
         );
         }else if(snapshot.hasError){
           return Center(
-            child: Text("future builder error: ${snapshot.error}"),
+            child: Text("future builder error: ${snapshot.error}",style: TextStyle(color: Colors.white),),
           );
         }else{
           final collection =snapshot.data!;        
