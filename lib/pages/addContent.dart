@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_route/classes/firestore.dart';
 import 'package:code_route/classes/routeProvider.dart';
+import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:code_route/util/options.dart';
@@ -141,7 +142,12 @@ class addContentState extends State<addContent> {
                   ),
                   
               
-                  _selectedImage==null? Text(AppLocalizations.of(context)?.pleaseSelectImage ?? 'Please select an image'): Container(
+                  _selectedImage==null? 
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Icon(Icons.image,color: Colors.white,size: 250,)
+                  )
+                  : Container(
                     margin: EdgeInsets.fromLTRB(100, 50, 100, 50),
                     height: 400,
                     decoration: BoxDecoration(
