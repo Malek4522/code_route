@@ -145,7 +145,7 @@ class firstPage extends StatelessWidget {
 
               (user!.userType == 'Condidat')? SizedBox(height: 1,):Container(
                 
-                margin: EdgeInsets.fromLTRB(50, 40, 50, 50),
+                margin: EdgeInsets.fromLTRB(50, 40, 50, 0),
                 padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
                 
                 decoration: BoxDecoration(
