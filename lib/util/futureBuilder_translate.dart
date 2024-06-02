@@ -3,7 +3,7 @@ import 'package:translator/translator.dart';
 
 Future<String> translate(String text,String to)async{
   final translator = GoogleTranslator();
-  return translator.translate(text,to: to).then((value) => value.toString());
+  return translator.translate(text,from: 'ar',to: to).then((value) => value.toString());
 }
 
 
@@ -26,8 +26,8 @@ class FutureBuilder_translate extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator(color: Color(0xFFFDC80F)));
         } else if (snapshot.hasError) {
-          return to=='en'? Text('connection available to translate\n'+text):
-          Text('connexion disponible pour traduire\n'+text);
+          return to=='en'? Text('connection unavailable to translate\n'+text):
+          Text('connexion indisponible pour traduire\n'+text);
         } else {
           return Text(snapshot.data!,style: style,); 
         }

@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_route/classes/firestore.dart';
 import 'package:code_route/util/futurBuilder.dart';
+import 'package:code_route/util/futureBuilder_translate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class devtool extends StatefulWidget {
   devtool({
@@ -32,6 +35,7 @@ class _devtoolState extends State<devtool> {
 
   @override
   Widget build(BuildContext context) {
+    content_data+="id: ${(data[i]).reference.path}\n";
     my_map.forEach((key, value) {
       if(key!="url" && key!="monitorRef" && key!="approved"){
         if(key == "options"){
@@ -70,10 +74,21 @@ class _devtoolState extends State<devtool> {
                 color: Colors.white,
               ),
               child: Center(
+                child:AppLocalizations.of(context)!.localeName=="ar"? Text(
+                  content_data,
+                  style: TextStyle(fontSize: 20),
+                )
+                :FutureBuilder_translate(
+                  text: content_data,
+                  style: TextStyle(fontSize: 20),
+                  to: AppLocalizations.of(context)!.localeName,
+                )
+                /*
                 child: Text(
                   content_data,
                   style: TextStyle(fontSize: 20),
                 )
+                */
               ),
               
             ),

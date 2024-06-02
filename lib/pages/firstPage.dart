@@ -202,18 +202,25 @@ class firstPage extends StatelessWidget {
   }
   Future fetchData_1()async{
     final db = firestore();
+    /*
     return await db.db.collection('معلومات عامة').where('approved' ,isEqualTo: false).get().
     then((value) => value.docs);
-    
+    */
+     return await db.db.collection('معلومات عامة').get().
+    then((value) => value.docs);
   }
   Future fetchData_2()async{
-    final db = firestore();
+    final db = firestore();/*
     return await db.db.collection("اشارات").where("approved" ,isEqualTo: false).get().
+    then((value) => value.docs);*/
+    return await db.db.collection("اشارات").get().
     then((value) => value.docs);
   }
   Future fetchData_3()async{
-    final db = firestore();
+    final db = firestore();/*
     return await db.db.collection('اولويات').where("approved" ,isEqualTo: false).get().
+    then((value) => value.docs);*/
+     return await db.db.collection('اولويات').get().
     then((value) => value.docs);
   }
 
